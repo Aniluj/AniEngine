@@ -14,9 +14,14 @@ bool GameBase::Start()
 {
 	cout << "GameBase::Start()" << endl;
 
+	window = new Window();
 	renderer = new Renderer();
 
 	if (!renderer->Start())
+	{
+		return false;
+	}
+	if (!window->Start(960,640,"gameWindow"))
 	{
 		return false;
 	}
@@ -39,7 +44,13 @@ bool GameBase::Stop()
 
 	}
 
+	if (!window->Stop())
+	{
+
+	}
+
 	delete renderer;
+	delete window;
 	return true;
 }
 
@@ -49,8 +60,9 @@ void GameBase::Loop()
 
 	bool res = true;
 
-	while (res) 
+	while (res && !window->ShouldClose()) 
 	{
 		res = OnUpdate();
+		window->PollEvents();
 	}
 }

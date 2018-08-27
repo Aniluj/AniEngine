@@ -3,6 +3,8 @@
 #include <iostream>
 #include "Exports.h"
 #include "Renderer.h"
+#include "TypeDef.h"
+#include "Window.h"
 
 using namespace std;
 
@@ -15,6 +17,7 @@ public:
 	bool Stop();
 	void Loop();
 	Renderer* renderer;
+	Window* window;
 protected:
 	bool virtual OnStart()=0;
 	bool virtual OnStop()=0;
