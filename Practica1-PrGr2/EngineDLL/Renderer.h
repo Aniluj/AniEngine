@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Exports.h"
+#include "Window.h"
 #include <iostream>
 
 
@@ -11,6 +12,9 @@ class ENGINEDLL_API Renderer
 public:
 	Renderer();
 	~Renderer();
-	bool Start();
+	bool Start(Window* window);
 	bool Stop();
+	void ClearColor(float r, float g, float b);
+	void ClearScreen();
+	void SwapBuffer();
 };
