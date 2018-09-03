@@ -1,13 +1,15 @@
 #include <GLFW\glfw3.h>
 #include "Window.h"
 
+
 Window::Window()
 {
-}
 
+}
 
 Window::~Window()
 {
+
 }
 
 bool Window::Start(const int width,const int height,const char* windowName)
@@ -47,6 +49,11 @@ bool Window::ShouldClose()
 	}
 
 	return true;
+}
+
+void* Window::GetWindowPtr()
+{
+	return window;
 }
 
 void Window::PollEvents()

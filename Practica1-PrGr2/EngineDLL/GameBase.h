@@ -18,10 +18,10 @@ public:
 	void Loop();
 	Renderer* renderer;
 	Window* window;
-	Window* GetWindow();
+	//Window* GetWindow();
 protected:
-	bool virtual OnStart()=0;
-	bool virtual OnStop()=0;
+	bool virtual OnStart()= 0;
+	bool virtual OnStop()= 0;
 	bool virtual OnUpdate() = 0;
 };
 

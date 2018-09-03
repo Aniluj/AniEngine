@@ -16,6 +16,6 @@ public:
 	bool Stop();
 	void PollEvents();
 	bool ShouldClose();
-	Window GetWindowPtr();
+	void* GetWindowPtr();
 };
 

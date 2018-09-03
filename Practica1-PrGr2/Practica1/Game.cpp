@@ -29,12 +29,7 @@ bool Game::OnUpdate()
 {
 	i++;
 
-	cout <<"Game::OnUpdate(): " <<i << endl;
-
-	//if (i > 5)
-	//{
-	//	return false;
-	//}
+	cout <<"Game::OnUpdate(): " << i << endl;
 
 	return true;
 }

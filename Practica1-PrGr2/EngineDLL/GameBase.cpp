@@ -17,14 +17,16 @@ bool GameBase::Start()
 	window = new Window();
 	renderer = new Renderer();
 
-	if (!renderer->Start())
-	{
-		return false;
-	}
 	if (!window->Start(960,640,"gameWindow"))
 	{
 		return false;
 	}
+	if (!renderer->Start(window))
+	{
+		return false;
+	}
+
+	renderer->ClearColor(1, 0, 0, 0);
 
 	return OnStart();
 }
@@ -63,6 +65,8 @@ void GameBase::Loop()
 	while (res && !window->ShouldClose()) 
 	{
 		res = OnUpdate();
+		renderer->ClearScreen();
+		renderer->SwapBuffer();
 		window->PollEvents();
 	}
 }
