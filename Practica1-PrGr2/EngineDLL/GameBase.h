@@ -18,7 +18,6 @@ public:
 	void Loop();
 	Renderer* renderer;
 	Window* window;
-	//Window* GetWindow();
 protected:
 	bool virtual OnStart()= 0;
 	bool virtual OnStop()= 0;
