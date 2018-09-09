@@ -8,6 +8,6 @@ class ENGINEDLL_API Entity
 public:
 	Entity();
 	~Entity();
-	void virtual Draw();
+	void virtual Draw()=0;
 };
 

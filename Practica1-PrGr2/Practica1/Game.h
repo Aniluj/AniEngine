@@ -10,10 +10,10 @@ class Game : public GameBase
 {
 private:
 	int i;
-	Triangle triangle;
 public:
 	Game();
 	~Game();
+	Triangle* triangle;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;
