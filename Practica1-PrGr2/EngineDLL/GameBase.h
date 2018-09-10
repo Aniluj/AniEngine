@@ -22,5 +22,6 @@ protected:
 	bool virtual OnStart()= 0;
 	bool virtual OnStop()= 0;
 	bool virtual OnUpdate() = 0;
+	void virtual OnDraw() = 0;
 };
 

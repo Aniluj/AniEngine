@@ -5,8 +5,10 @@
 
 class ENGINEDLL_API Entity
 {
+protected:
+	Renderer * renderer;
 public:
-	Entity();
+	Entity(Renderer* rendererPtr);
 	~Entity();
 	void virtual Draw()=0;
 };

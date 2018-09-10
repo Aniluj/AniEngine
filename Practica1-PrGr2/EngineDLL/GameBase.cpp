@@ -66,6 +66,7 @@ void GameBase::Loop()
 	{
 		res = OnUpdate();
 		renderer->ClearScreen();
+		OnDraw();
 		renderer->SwapBuffer();
 		window->PollEvents();
 	}

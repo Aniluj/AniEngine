@@ -13,11 +13,8 @@ Game::~Game()
 bool Game::OnStart()
 {
 	cout << "Game::OnStart() " << endl;
-
-	triangle = new Triangle;
+	triangle = new Triangle(renderer);
 	i = 0;
-	triangle->SetVertexArrayObject();
-	triangle->SetBuffer();
 
 	return true;
 }
@@ -34,8 +31,12 @@ bool Game::OnStop()
 bool Game::OnUpdate() 
 {
 	i++;
-	triangle->Draw();
 	cout <<"Game::OnUpdate(): " << i << endl;
 
 	return true;
+}
+
+void Game::OnDraw()
+{
+	triangle->Draw();
 }

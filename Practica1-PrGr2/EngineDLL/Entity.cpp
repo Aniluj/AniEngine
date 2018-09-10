@@ -2,8 +2,9 @@
 
 
 
-Entity::Entity()
+Entity::Entity(Renderer* rendererPtr)
 {
+	renderer = rendererPtr;
 }
 
 
