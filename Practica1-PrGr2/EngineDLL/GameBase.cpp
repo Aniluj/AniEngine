@@ -26,7 +26,7 @@ bool GameBase::Start()
 		return false;
 	}
 
-	renderer->ClearColor(1, 0, 0, 0);
+	renderer->ClearColor(0, 1, 0, 0);
 
 	return OnStart();
 }

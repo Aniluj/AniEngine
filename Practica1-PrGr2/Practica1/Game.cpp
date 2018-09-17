@@ -14,6 +14,7 @@ bool Game::OnStart()
 {
 	cout << "Game::OnStart() " << endl;
 	triangle = new Triangle(renderer);
+	triangle->material = Material::CreateMaterial("C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/VertexShader.txt", "C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/FragmentShader.txt");
 	i = 0;
 
 	return true;

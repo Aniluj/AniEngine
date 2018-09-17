@@ -26,5 +26,10 @@ Triangle::~Triangle()
 
 void Triangle::Draw()
 {
+	if (material != nullptr)
+	{
+		material->Bind();
+	}
+
 	renderer->DrawBuffer(vertexBuffer, vertexCount);
 }

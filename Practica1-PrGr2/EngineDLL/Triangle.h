@@ -9,7 +9,6 @@ private:
 	unsigned int vertexBuffer;
 	float * g_vertex_buffer_data;
 	int vertexCount;
-	Material material;
 public:
 	Triangle(Renderer * renderer);
 	~Triangle();
