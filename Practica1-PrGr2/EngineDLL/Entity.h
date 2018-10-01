@@ -19,7 +19,6 @@ protected:
 	glm::mat4 rotationY;
 	glm::mat4 rotationZ;
 public:
-	Material * material;
 
 	Entity(Renderer* rendererPtr);
 	~Entity();

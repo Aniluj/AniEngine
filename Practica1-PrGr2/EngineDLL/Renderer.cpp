@@ -112,6 +112,32 @@ void Renderer::BindBuffer(unsigned int vertexBuffer, unsigned int attributebID)
 	);
 }
 
+void Renderer::BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+	glVertexAttribPointer(
+		attributebID,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		0,
+		(void*)0
+	);
+}
+
+unsigned int Renderer::GenColorBuffer(unsigned int size, float * g_color_buffer_data)
+{
+	GLuint colorbuffer;
+
+	glGenBuffers(1, &colorbuffer);
+
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+
+	glBufferData(GL_ARRAY_BUFFER, size, g_color_buffer_data, GL_STATIC_DRAW);
+
+	return colorbuffer;
+}
+
 void Renderer::DisableAttributes(unsigned int attributeID)
 {
 	glDisableVertexAttribArray(attributeID);

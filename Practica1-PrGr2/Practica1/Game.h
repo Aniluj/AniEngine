@@ -2,6 +2,7 @@
 
 #include "GameBase.h"
 #include "Triangle.h"
+#include "Rectangle.h"
 #include <iostream>
 
 using namespace std;
@@ -14,6 +15,7 @@ public:
 	Game();
 	~Game();
 	Triangle* triangle;
+	Rectangle* rectangle;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;

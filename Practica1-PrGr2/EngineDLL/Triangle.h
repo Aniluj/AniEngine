@@ -1,16 +1,17 @@
 #pragma once
 
 #include "Entity.h"
+#include "Shape.h"
 #include "Material.h"
 
-class ENGINEDLL_API Triangle : public Entity
+class ENGINEDLL_API Triangle : public Shape
 {
-private:
+/*private:
 	unsigned int vertexBuffer;
 	float * g_vertex_buffer_data;
-	int vertexCount;
+	int vertexCount;*/
 public:
-	Triangle(Renderer * renderer);
+	Triangle(Renderer * rendererPtr);
 	~Triangle();
 	void Draw() override;
 };

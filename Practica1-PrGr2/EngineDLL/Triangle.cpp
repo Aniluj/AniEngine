@@ -3,7 +3,7 @@
 
 
 
-Triangle::Triangle(Renderer * renderer) : Entity(renderer)
+Triangle::Triangle(Renderer * rendererPtr) : Shape(rendererPtr)
 {
 	vertexCount = 3;
 
