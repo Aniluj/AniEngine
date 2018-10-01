@@ -22,37 +22,20 @@ Entity::Entity(Renderer* rendererPtr)
 	UpdateModel();
 }
 
-
 Entity::~Entity()
 {
 }
 
 void Entity::UpdateModel()
 {
-	model = translationMatrix * rotationX * rotationY * rotationZ * scallingMatrix;
-}
-
-void Entity::Translate(glm::vec3 vector3)
-{
-	// Changes the actual position multiplying Matrix4x4 * position
-	translationMatrix = glm::translate(glm::mat4(1.0f), vector3);
-
-	UpdateModel();
+	model = translationMatrix * (rotationX * rotationY * rotationZ) * scallingMatrix;
 }
 
 void Entity::Translate(float x, float y, float z)
 {
-	// Changes the actual position multiplying Matrix4x4 * position
 	glm::vec3 vector3(x, y, z);
 
 	translationMatrix = glm::translate(glm::mat4(1.0f), vector3);
-
-	UpdateModel();
-}
-
-void Entity::Scale(glm::vec3 vector3)
-{
-	scallingMatrix = glm::scale(vector3);
 
 	UpdateModel();
 }

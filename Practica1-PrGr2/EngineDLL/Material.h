@@ -14,6 +14,6 @@ public:
 	static unsigned int LoadShader(const char * vertex_file_path, const char * fragment_file_path);
 	void Bind();
 	static Material * CreateMaterial(const char * vertex_file_path, const char * fragment_file_path);
-	void SetMatrixProperty(const char* name, glm::mat4& mat);
+	void SetMatrixProperty(glm::mat4& mat);
 };
 

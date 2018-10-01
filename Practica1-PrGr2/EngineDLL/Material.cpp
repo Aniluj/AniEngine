@@ -18,11 +18,10 @@ Material::~Material()
 
 unsigned int Material::LoadShader(const char * vertex_file_path, const char * fragment_file_path)
 {
-	// Crear los shaders
+
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
-	// Leer el Vertex Shader desde archivo
 	std::string VertexShaderCode;
 	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
 
@@ -38,7 +37,7 @@ unsigned int Material::LoadShader(const char * vertex_file_path, const char * fr
 		return 0;
 	}
 
-	// Leer el Fragment Shader desde archivo
+
 	std::string FragmentShaderCode;
 	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
 	if (FragmentShaderStream.is_open()) {
@@ -52,13 +51,13 @@ unsigned int Material::LoadShader(const char * vertex_file_path, const char * fr
 	int InfoLogLength;
 
 
-	// Compilar Vertex Shader
+
 	printf("Compiling shader : %s\n", vertex_file_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
 	glCompileShader(VertexShaderID);
 
-	// Revisar Vertex Shader
+
 	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
@@ -69,13 +68,13 @@ unsigned int Material::LoadShader(const char * vertex_file_path, const char * fr
 
 
 
-	// Compilar Fragment Shader
+
 	printf("Compiling shader : %s\n", fragment_file_path);
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
 	glCompileShader(FragmentShaderID);
 
-	// Revisar Fragment Shader
+
 	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
@@ -86,14 +85,14 @@ unsigned int Material::LoadShader(const char * vertex_file_path, const char * fr
 
 
 
-	// Vincular el programa por medio del ID
+
 	printf("Linking program\n");
 	GLuint ProgramID = glCreateProgram();
 	glAttachShader(ProgramID, VertexShaderID);
 	glAttachShader(ProgramID, FragmentShaderID);
 	glLinkProgram(ProgramID);
 
-	// Revisar el programa
+
 	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
 	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
@@ -115,6 +114,7 @@ unsigned int Material::LoadShader(const char * vertex_file_path, const char * fr
 void Material::Bind()
 {
 	glUseProgram(programID);
+	matrixID = glGetUniformLocation(programID, "MVP");
 }
 
 Material * Material::CreateMaterial(const char * vertex_file_path, const char * fragment_file_path)
@@ -126,8 +126,7 @@ Material * Material::CreateMaterial(const char * vertex_file_path, const char * 
 	return material;
 }
 
-void Material::SetMatrixProperty(const char* name, glm::mat4& mat)
+void Material::SetMatrixProperty(glm::mat4& mat)
 {
-	matrixID = glGetUniformLocation(programID, name);
 	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
 }

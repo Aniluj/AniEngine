@@ -3,7 +3,6 @@
 #include "Exports.h"
 #include "Renderer.h"
 #include "Material.h"
-#include <glm\glm.hpp>
 
 class ENGINEDLL_API Entity
 {
@@ -24,9 +23,7 @@ public:
 
 	Entity(Renderer* rendererPtr);
 	~Entity();
-	void Scale(glm::vec3 vector3);
 	void Scale(float x, float y, float z);
-	void Translate(glm::vec3 vector3);
 	void Translate(float x, float y, float z);
 	void RotateX(float angle);
 	void RotateY(float angle);

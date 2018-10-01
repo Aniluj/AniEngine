@@ -26,10 +26,13 @@ Triangle::~Triangle()
 
 void Triangle::Draw()
 {
+	renderer->LoadIdentityMatrix();
+	renderer->SetModelMatrix(model);
+
 	if (material != nullptr)
 	{
 		material->Bind();
-		material->SetMatrixProperty("MVP", renderer->GetMVP());
+		material->SetMatrixProperty(renderer->GetMVP());
 	}
 	renderer->EnableAttributes(0);
 	renderer->BindBuffer(vertexBuffer, 0);
