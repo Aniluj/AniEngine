@@ -35,9 +35,9 @@ bool Renderer::Start(Window* windowPtr)
 		//projectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
 		viewMatrix = glm::lookAt(
-			glm::vec3(0, 0, 3), // Camera is at (0, 0, 3), is World Space
-			glm::vec3(0, 0, 0), // Looks at the origin
-			glm::vec3(0, 1, 0)  // Head is up to (0, 1, 0)
+			glm::vec3(0, 0, 3), 
+			glm::vec3(0, 0, 0), 
+			glm::vec3(0, 1, 0)  
 		);
 
 		cout << "Renderer::Start()" << endl;
@@ -62,7 +62,7 @@ void Renderer::ClearColor(float r, float g, float b, float a)
 
 void Renderer::ClearScreen()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::SwapBuffer()

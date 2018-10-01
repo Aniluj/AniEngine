@@ -45,11 +45,13 @@ void Rectangle::Draw()
 	}
 
 	renderer->EnableAttributes(0);
-	renderer->BindBuffer(vertexBuffer, 0);
-	renderer->DrawBuffer(vertexCount);
 	renderer->EnableAttributes(1);
+	renderer->BindBuffer(vertexBuffer, 0);
 	renderer->BindColorBuffer(colorBuffer, 1);
 	renderer->DrawBuffer(vertexCount);
-	renderer->DisableAttributes(1);
+	
+	
+	
 	renderer->DisableAttributes(0);
+	renderer->DisableAttributes(1);
 }
