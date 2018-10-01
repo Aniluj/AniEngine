@@ -125,3 +125,9 @@ Material * Material::CreateMaterial(const char * vertex_file_path, const char * 
 
 	return material;
 }
+
+void Material::SetMatrixProperty(const char* name, glm::mat4& mat)
+{
+	matrixID = glGetUniformLocation(programID, name);
+	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
+}

@@ -29,7 +29,10 @@ void Triangle::Draw()
 	if (material != nullptr)
 	{
 		material->Bind();
+		material->SetMatrixProperty("MVP", renderer->GetMVP());
 	}
-
-	renderer->DrawBuffer(vertexBuffer, vertexCount);
+	renderer->EnableAttributes(0);
+	renderer->BindBuffer(vertexBuffer, 0);
+	renderer->DrawBuffer(vertexCount);
+	renderer->DisableAttributes(0);
 }
