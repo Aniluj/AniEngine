@@ -20,6 +20,7 @@ Triangle::Triangle(Renderer * renderer) : Entity(renderer)
 
 Triangle::~Triangle()
 {
+	renderer->DestroyBuffer(vertexBuffer);
 	delete[] g_vertex_buffer_data;
 }
 
