@@ -3,6 +3,7 @@
 #include "GameBase.h"
 #include "Triangle.h"
 #include "Rectangle.h"
+#include "Texture.h"
 #include <iostream>
 
 using namespace std;
@@ -16,6 +17,7 @@ public:
 	~Game();
 	Triangle* triangle;
 	Rectangle* rectangle;
+	Texture* texture;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;

@@ -36,12 +36,14 @@ public:
 	void DestroyBuffer(unsigned int vertexBuffer);
 	unsigned int GenBuffer(unsigned int size, float * g_vertex_buffer_data);
 	unsigned int GenColorBuffer(unsigned int size, float * g_color_buffer_data);
+	unsigned int GenUVBuffer(unsigned int size, float * g_uv_buffer_data);
 	void EnableAttributes(unsigned int attributeId);
 	void BindBuffer(unsigned int vertexBuffer, unsigned int attributeId);
 	void DisableAttributes(unsigned int attributeId);
 	void LoadIdentityMatrix();
 	void SetModelMatrix(glm::mat4 model);
 	void BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID);
+	void BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID);
 	void SetMVP();
 
 	glm::mat4& GetMVP();

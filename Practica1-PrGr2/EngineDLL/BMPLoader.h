@@ -13,6 +13,7 @@ private:
 	static unsigned int width;
 	static unsigned int height;
 	static unsigned int imageSize;
+	static unsigned int textureID;
 	static FILE * file;
 public:
 	BMPLoader();

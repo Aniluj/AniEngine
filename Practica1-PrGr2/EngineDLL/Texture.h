@@ -1,15 +1,18 @@
 #pragma once
 
+#include "Shape.h"
 #include "Exports.h"
 #include <iostream>
 #include "glm\glm.hpp"
 
-class ENGINEDLL_API Texture
+class ENGINEDLL_API Texture : public Shape
 {
 private:
 	unsigned int textureID;
 public:
-	Texture(int width, int height, void * data);
+	Texture(Renderer * renderer, const char * imagepath);
+	void BindTexture();
+	void Draw() override;
 	~Texture();
 };
 

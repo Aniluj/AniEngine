@@ -125,6 +125,19 @@ void Renderer::BindColorBuffer(unsigned int colorBuffer, unsigned int attributeb
 	);
 }
 
+void Renderer::BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+	glVertexAttribPointer(
+		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+		2,                                // size : U+V => 2
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+}
+
 unsigned int Renderer::GenColorBuffer(unsigned int size, float * g_color_buffer_data)
 {
 	GLuint colorbuffer;
@@ -136,6 +149,19 @@ unsigned int Renderer::GenColorBuffer(unsigned int size, float * g_color_buffer_
 	glBufferData(GL_ARRAY_BUFFER, size, g_color_buffer_data, GL_STATIC_DRAW);
 
 	return colorbuffer;
+}
+
+unsigned int Renderer::GenUVBuffer(unsigned int size, float * g_uv_buffer_data)
+{
+	GLuint uvbuffer;
+
+	glGenBuffers(1, &uvbuffer);
+
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+
+	glBufferData(GL_ARRAY_BUFFER, size, g_uv_buffer_data, GL_STATIC_DRAW);
+
+	return uvbuffer;
 }
 
 void Renderer::DisableAttributes(unsigned int attributeID)

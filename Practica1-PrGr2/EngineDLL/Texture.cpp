@@ -1,26 +1,60 @@
 #include "Texture.h"
+#include "BMPLoader.h"
 #include <glew.h>
 #include "GLFW\glfw3.h"
 
-
-Texture::Texture(int width, int height, void * data)
+Texture::Texture(Renderer * rendererPtr, const char * imagepath) : Shape(rendererPtr)
 {
-	// Se Crea una textura OpenGL
-	GLuint textureID;
-	glGenTextures(1, &textureID);
+	textureID = BMPLoader::LoadBMP(imagepath);
+	vertexCount = 4;
 
-	// Se "Ata" la nueva textura : Todas las futuras funciones de texturas van a modificar esta textura
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	g_vertex_buffer_data = new float[vertexCount * 3]
+	{
+		1.0f,1.5f, 0.0f,
+		-1.0f,1.5f, 0.0f,
+		1.0f, -1.5f, 0.0f,
+		-1.0f, -1.5f,0.0f,
+	};
 
-	// Se le pasa la imagen a OpenGL
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+	g_uv_buffer_data = new float[vertexCount*2]
+	{
+		0.000059f, 1.0f - 0.000004f,
+		0.000103f, 1.0f - 0.336048f,
+		1.000023f, 1.0f - 0.000013f,
+		0.667979f, 1.0f - 0.335851f,
+	};
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
+	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount * 3, g_uv_buffer_data);
 }
 
 
 Texture::~Texture()
 {
 
+}
+
+void Texture::Draw()
+{
+	renderer->LoadIdentityMatrix();
+	renderer->SetModelMatrix(model);
+
+	if (material != nullptr)
+	{
+		material->Bind();
+		material->SetMatrixProperty(renderer->GetMVP());
+	}
+
+	BindTexture();
+	renderer->EnableAttributes(0);
+	renderer->EnableAttributes(1);
+	renderer->BindBuffer(vertexBuffer, 0);
+	renderer->BindColorBuffer(uvBuffer, 1);
+	renderer->DrawBuffer(vertexCount);
+}
+
+void Texture::BindTexture()
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 }

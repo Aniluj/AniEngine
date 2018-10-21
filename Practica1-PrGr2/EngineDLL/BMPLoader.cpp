@@ -1,4 +1,6 @@
 #include "BMPLoader.h"
+#include <glew.h>
+#include "GLFW\glfw3.h"
 
 unsigned char BMPLoader::bmpHeader[54];
 unsigned char * BMPLoader::data;
@@ -6,6 +8,7 @@ unsigned int BMPLoader::dataPos;
 unsigned int BMPLoader::width;
 unsigned int BMPLoader::height;
 unsigned int BMPLoader::imageSize;
+unsigned int BMPLoader::textureID;
 FILE * BMPLoader::file;
 
 BMPLoader::BMPLoader()
@@ -61,4 +64,18 @@ unsigned int BMPLoader::LoadBMP(const char * imagepath)
 
 	//Todo está en memoria ahora, así que podemos cerrar el archivo
 	fclose(file);
+
+	// Se Crea una textura OpenGL
+	glGenTextures(1, &textureID);
+
+	// Se "Ata" la nueva textura : Todas las futuras funciones de texturas van a modificar esta textura
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	// Se le pasa la imagen a OpenGL
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	return textureID;
 }
