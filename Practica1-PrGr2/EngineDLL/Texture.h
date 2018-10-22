@@ -8,7 +8,7 @@
 class ENGINEDLL_API Texture : public Shape
 {
 private:
-	unsigned int textureID;
+	unsigned int texture;
 public:
 	Texture(Renderer * renderer, const char * imagepath);
 	void Draw() override;
