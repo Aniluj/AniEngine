@@ -10,18 +10,18 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath) : Shape(rendere
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
 	{
-		1.0f,1.5f, 0.0f,
-		-1.0f,1.5f, 0.0f,
-		1.0f, -1.5f, 0.0f,
-		-1.0f, -1.5f,0.0f,
+		1.0f,1.0f, 0.0f,
+		-1.0f,1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		-1.0f, -1.0f,0.0f,
 	};
 
 	g_uv_buffer_data = new float[vertexCount*2]
 	{
 		0.000059f, 1.0f - 0.000004f,
 		0.000103f, 1.0f - 0.336048f,
+		0.335973f, 1.0f - 0.335903f,
 		1.000023f, 1.0f - 0.000013f,
-		0.667979f, 1.0f - 0.335851f,
 	};
 
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
@@ -31,7 +31,10 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath) : Shape(rendere
 
 Texture::~Texture()
 {
-
+	renderer->DestroyBuffer(vertexBuffer);
+	renderer->DestroyBuffer(uvBuffer);
+	delete[] g_vertex_buffer_data;
+	delete[] g_uv_buffer_data;
 }
 
 void Texture::Draw()
@@ -43,18 +46,13 @@ void Texture::Draw()
 	{
 		material->Bind();
 		material->SetMatrixProperty(renderer->GetMVP());
+		material->SetTextureProperty(renderer->GetMVP());
 	}
 
-	BindTexture();
+	renderer->BindTexture(textureID);
 	renderer->EnableAttributes(0);
 	renderer->EnableAttributes(1);
 	renderer->BindBuffer(vertexBuffer, 0);
 	renderer->BindColorBuffer(uvBuffer, 1);
 	renderer->DrawBuffer(vertexCount);
-}
-
-void Texture::BindTexture()
-{
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
 }

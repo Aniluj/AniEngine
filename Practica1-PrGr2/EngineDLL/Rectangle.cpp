@@ -30,7 +30,9 @@ Rectangle::Rectangle(Renderer* rendererPtr) : Shape(rendererPtr)
 Rectangle::~Rectangle()
 {
 	renderer->DestroyBuffer(vertexBuffer);
+	renderer->DestroyBuffer(colorBuffer);
 	delete[] g_vertex_buffer_data;
+	delete[] g_color_buffer_data;
 }
 
 void Rectangle::Draw()

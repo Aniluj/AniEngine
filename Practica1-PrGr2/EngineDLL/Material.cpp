@@ -14,6 +14,8 @@ Material::Material()
 
 Material::~Material()
 {
+	glDeleteProgram(programID);
+	glDeleteTextures(1, &textureID);
 }
 
 unsigned int Material::LoadShader(const char * vertex_file_path, const char * fragment_file_path)
@@ -129,4 +131,11 @@ void Material::SetMatrixProperty(glm::mat4& mat)
 {
 	matrixID = glGetUniformLocation(programID, "MVP");
 	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
+}
+
+void Material::SetTextureProperty(glm::mat4& mat)
+{
+	textureID = glGetUniformLocation(programID, "myTextureSampler");
+	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
+	glUniform1i(textureID, 0);
 }

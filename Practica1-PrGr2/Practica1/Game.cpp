@@ -43,7 +43,7 @@ bool Game::OnUpdate()
 	rectangle->Translate(2.5, 2.5, 0.0);
 	triangle->RotateZ(45-i);
 	rectangle->RotateZ(56+i);
-	texture->Translate(-2.5, -2.5, 0.0);
+	texture->Translate(-2.0, -2.0, 0.0);
 	i++;
 	cout <<"Game::OnUpdate(): " << i << endl;
 	return true;

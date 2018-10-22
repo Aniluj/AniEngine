@@ -11,7 +11,6 @@ private:
 	unsigned int textureID;
 public:
 	Texture(Renderer * renderer, const char * imagepath);
-	void BindTexture();
 	void Draw() override;
 	~Texture();
 };

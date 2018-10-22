@@ -12,7 +12,7 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
-
+	glDeleteVertexArrays(1, &vertexArrayID);
 }
 
 bool Renderer::Start(Window* windowPtr)
@@ -89,9 +89,9 @@ void Renderer::DrawBuffer(int vertexCount)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
 }
 
-void Renderer::DestroyBuffer(unsigned int vertexBuffer)
+void Renderer::DestroyBuffer(unsigned int buffer)
 {
-	glDeleteBuffers(1, &vertexBuffer);
+	glDeleteBuffers(1, &buffer);
 }
 
 void Renderer::EnableAttributes(unsigned int attributebID)
@@ -136,6 +136,12 @@ void Renderer::BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID)
 		0,                                // stride
 		(void*)0                          // array buffer offset
 	);
+}
+
+void Renderer::BindTexture(unsigned int textureID)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
 unsigned int Renderer::GenColorBuffer(unsigned int size, float * g_color_buffer_data)

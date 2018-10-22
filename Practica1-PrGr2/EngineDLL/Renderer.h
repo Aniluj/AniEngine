@@ -33,7 +33,7 @@ public:
 	void SwapBuffer();
 	//void DrawBuffer(unsigned int vertexBuffer, unsigned int vertexCount);
 	void DrawBuffer(int vertexCount);
-	void DestroyBuffer(unsigned int vertexBuffer);
+	void DestroyBuffer(unsigned int buffer);
 	unsigned int GenBuffer(unsigned int size, float * g_vertex_buffer_data);
 	unsigned int GenColorBuffer(unsigned int size, float * g_color_buffer_data);
 	unsigned int GenUVBuffer(unsigned int size, float * g_uv_buffer_data);
@@ -44,6 +44,7 @@ public:
 	void SetModelMatrix(glm::mat4 model);
 	void BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID);
 	void BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID);
+	void BindTexture(unsigned int textureID);
 	void SetMVP();
 
 	glm::mat4& GetMVP();
