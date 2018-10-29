@@ -129,7 +129,7 @@ void Renderer::BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
 	glVertexAttribPointer(
-		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+		attributebID,                     // attribute. No particular reason for 1, but must match the layout in the shader.
 		2,                                // size : U+V => 2
 		GL_FLOAT,                         // type
 		GL_FALSE,                         // normalized?
