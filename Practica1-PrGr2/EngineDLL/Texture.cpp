@@ -25,7 +25,7 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath) : Shape(rendere
 	};
 
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
-	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount*2, g_uv_buffer_data);
+	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount * 2, g_uv_buffer_data);
 }
 
 
@@ -49,10 +49,18 @@ void Texture::Draw()
 		material->SetTextureProperty();
 	}
 
+
+
 	renderer->BindTexture(texture);
+
+
+
 	renderer->EnableAttributes(0);
 	renderer->EnableAttributes(1);
 	renderer->BindBuffer(vertexBuffer, 0);
-	renderer->BindColorBuffer(uvBuffer, 1);
+	renderer->BindUVBuffer(uvBuffer, 1);
 	renderer->DrawBuffer(vertexCount);
+
+	renderer->DisableAttributes(0);
+	renderer->DisableAttributes(1);
 }

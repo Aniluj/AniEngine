@@ -16,7 +16,6 @@ public:
 	static Material * CreateMaterial(const char * vertex_file_path, const char * fragment_file_path);
 	void SetMatrixProperty(glm::mat4& mat);
 	void SetTextureProperty();
-	void SetTextureSampler();
 	unsigned int textureID;
 };
 

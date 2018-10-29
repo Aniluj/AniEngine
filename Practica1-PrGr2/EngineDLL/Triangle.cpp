@@ -38,5 +38,6 @@ void Triangle::Draw()
 	renderer->EnableAttributes(0);
 	renderer->BindBuffer(vertexBuffer, 0);
 	renderer->DrawBuffer(vertexCount);
+
 	renderer->DisableAttributes(0);
 }

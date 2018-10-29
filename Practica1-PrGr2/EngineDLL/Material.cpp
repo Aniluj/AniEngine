@@ -139,8 +139,3 @@ void Material::SetTextureProperty()
 	textureID = glGetUniformLocation(programID, "myTextureSampler");
 	glUniform1i(textureID, 0);
 }
-
-void Material::SetTextureSampler()
-{
-	glUniform1i(textureID, 0);
-}
