@@ -9,7 +9,7 @@ class ENGINEDLL_API Entity
 protected:
 	Renderer * renderer;
 
-	glm::vec3 vectorPosition;
+	//glm::vec3 vectorPosition;
 	glm::vec3 vectorRotation;
 	glm::vec3 vectorScale;
 	glm::mat4 translationMatrix;
@@ -18,10 +18,13 @@ protected:
 	glm::mat4 rotationX;
 	glm::mat4 rotationY;
 	glm::mat4 rotationZ;
+
+	//glm::vec3  diff;
 public:
 
 	Entity(Renderer* rendererPtr);
 	~Entity();
+	glm::vec3 vectorPosition;
 	void Scale(float x, float y, float z);
 	void Translate(float x, float y, float z);
 	void RotateX(float angle);

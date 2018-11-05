@@ -18,6 +18,7 @@ Entity::Entity(Renderer* rendererPtr)
 	rotationY = glm::mat4(1.0f);
 	rotationZ = glm::mat4(1.0f);
 	scallingMatrix = glm::mat4(1.0f);
+	//diff = glm::vec3(4.0f, 2.0f, 1.2f) - glm::vec3(-1.0f, 23.0f, 1.2f);
 
 	UpdateModel();
 }
@@ -29,11 +30,15 @@ Entity::~Entity()
 void Entity::UpdateModel()
 {
 	model = translationMatrix * (rotationX * rotationY * rotationZ) * scallingMatrix;
+	
+	//cout << glm::distance(glm::vec3(-1.0f, -23.0f, -1.2f), glm::vec3(4.0f, 2.0f, 1.2f)) << endl;
 }
 
 void Entity::Translate(float x, float y, float z)
 {
 	glm::vec3 vector3(x, y, z);
+
+	vectorPosition = vector3;
 
 	translationMatrix = glm::translate(glm::mat4(1.0f), vector3);
 

@@ -19,9 +19,9 @@ private:
 public:
 	CollisionManager();
 	~CollisionManager();
-	void RegisterBoundingBox(BoundingBox bbox);
-	void RegisterBoundingCircle(BoundingCircle bcircle);
-	void CheckForBoundingBoxCollisions(BoundingBox bbox);
-	void CheckForBoundingCircleCollisions(BoundingCircle bcircle);
+	void RegisterBoundingBox(BoundingBox* bbox);
+	void RegisterBoundingCircle(BoundingCircle* bcircle);
+	void CheckForBoundingBoxCollisions();
+	void CheckForBoundingCircleCollisions();
 };
 

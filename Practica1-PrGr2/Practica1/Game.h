@@ -4,6 +4,7 @@
 #include "Triangle.h"
 #include "Rectangle.h"
 #include "Texture.h"
+#include "CollisionManager.h"
 #include <iostream>
 
 using namespace std;
@@ -18,6 +19,7 @@ public:
 	Triangle* triangle;
 	Rectangle* rectangle;
 	Texture* texture;
+	CollisionManager* collManager;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;

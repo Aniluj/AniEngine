@@ -6,6 +6,7 @@
 Texture::Texture(Renderer * rendererPtr, const char * imagepath) : Shape(rendererPtr)
 {
 	texture = BMPLoader::LoadBMP(imagepath);
+	bbox = new BoundingBox("gB");
 	vertexCount = 4;
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
@@ -35,12 +36,14 @@ Texture::~Texture()
 	renderer->DestroyBuffer(uvBuffer);
 	delete[] g_vertex_buffer_data;
 	delete[] g_uv_buffer_data;
+	delete bbox;
 }
 
 void Texture::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
+	bbox->UpdateBoundingBoxModel(vectorPosition, translationMatrix, rotationX, rotationY, rotationZ);
 
 	if (material != nullptr)
 	{

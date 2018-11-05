@@ -1,6 +1,11 @@
 #pragma once
 
-class BoundingCircle
+#include "Exports.h"
+#include <iostream>
+#include "glm\glm.hpp"
+
+
+class ENGINEDLL_API BoundingCircle
 {
 public:
 	BoundingCircle();
