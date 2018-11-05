@@ -40,7 +40,7 @@ void Rectangle::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(vectorPosition, translationMatrix, rotationX, rotationY, rotationZ);
+	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, rotationX, rotationY, rotationZ);
 
 	if (material != nullptr)
 	{
@@ -53,8 +53,6 @@ void Rectangle::Draw()
 	renderer->BindBuffer(vertexBuffer, 0);
 	renderer->BindColorBuffer(colorBuffer, 1);
 	renderer->DrawBuffer(vertexCount);
-	
-	
 	
 	renderer->DisableAttributes(0);
 	renderer->DisableAttributes(1);

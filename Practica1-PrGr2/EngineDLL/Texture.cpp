@@ -43,7 +43,7 @@ void Texture::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(vectorPosition, translationMatrix, rotationX, rotationY, rotationZ);
+	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, rotationX, rotationY, rotationZ);
 
 	if (material != nullptr)
 	{

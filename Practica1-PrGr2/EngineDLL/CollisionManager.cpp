@@ -2,31 +2,39 @@
 
 CollisionManager::CollisionManager()
 {
+	bboxGroupA = new list<BoundingBox>();
+	bboxGroupB = new list<BoundingBox>();
+	bcircleGroupA = new list<BoundingCircle>();
+	bcircleGroupB = new list<BoundingCircle>();
 }
 
 CollisionManager::~CollisionManager()
 {
+	delete bboxGroupA;
+	delete bboxGroupB;
+	delete bcircleGroupA;
+	delete bcircleGroupB;
 }
 
 void CollisionManager::RegisterBoundingBox(BoundingBox* bbox)
 {
 	if (bbox->bboxTag == "gA")
 	{
-		bboxGroupA.push_back(*bbox);
+		bboxGroupA->push_back(*bbox);
 	}
 	else if (bbox->bboxTag == "gB")
 	{
-		bboxGroupB.push_back(*bbox);
+		bboxGroupB->push_back(*bbox);
 	}
 }
 
 void CollisionManager::CheckForBoundingBoxCollisions()
 {
-	for (int i = 0; i < bboxGroupA.size; i++)
+	for (list<BoundingBox>::iterator it = bboxGroupA->begin; it != bboxGroupA->end; it++)
 	{
-		for (int j = 0; j < bboxGroupB.size; i++)
+		for (list<BoundingBox>::iterator it2 = bboxGroupB->begin; it2 != bboxGroupB->end; it2++)
 		{
-			//checkear colisiones
+			
 		}
 	}
 }

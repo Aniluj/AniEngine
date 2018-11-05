@@ -12,10 +12,10 @@ using namespace std;
 class ENGINEDLL_API CollisionManager
 {
 private:
-	list<BoundingBox> bboxGroupA;
-	list<BoundingBox> bboxGroupB;
-	list<BoundingCircle> bcircleGroupA;
-	list<BoundingCircle> bcircleGroupB;
+	list<BoundingBox>* bboxGroupA;
+	list<BoundingBox>* bboxGroupB;
+	list<BoundingCircle>* bcircleGroupA;
+	list<BoundingCircle>* bcircleGroupB;
 public:
 	CollisionManager();
 	~CollisionManager();
