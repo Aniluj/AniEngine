@@ -18,18 +18,27 @@ bool Game::OnStart()
 	collManager = new CollisionManager();
 
 	cout << "Game::OnStart() " << endl;
-	texture = new Texture(renderer, "C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/uvtemplate.bmp");
-	texture->material = Material::CreateMaterial("C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/TextureTransformVertexShader.txt",
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/TextureFragmentShader.txt");
+	texture = new Texture(renderer, 
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/uvtemplate.bmp",
+		10);
+	texture->material = Material::CreateMaterial(
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders/TextureTransformVertexShader.txt",
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders/TextureFragmentShader.txt");
 	triangle = new Triangle(renderer);
-	triangle->material = Material::CreateMaterial("C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/VertexShader.txt",
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/FragmentShader.txt");
-	rectangle = new Rectangle(renderer);
-	rectangle->material = Material::CreateMaterial("C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/TransformVertexShader.txt",
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/ColorFragmentShader.txt");
+	triangle->material = Material::CreateMaterial(
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders/VertexShader.txt",
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders/FragmentShader.txt");
+	rectangle = new Rectangle(renderer, 10);
+	rectangle->material = Material::CreateMaterial(
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders/TransformVertexShader.txt",
+		"C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders/ColorFragmentShader.txt"
+		);
 
 	collManager->RegisterBoundingBox(texture->bbox);
 	collManager->RegisterBoundingBox(rectangle->bbox);
+
+	collManager->RegisterBoundingCircle(texture->bcircle);
+	collManager->RegisterBoundingCircle(rectangle->bcircle);
 
 	i = 0;
 
@@ -50,15 +59,28 @@ bool Game::OnStop()
 
 bool Game::OnUpdate() 
 {
-	rectangle->Translate(2.5, 2.5 + i/8, 0.0);
-	triangle->RotateZ(45-i);
-	//rectangle->RotateZ(56+i);
-	//cout << rectangle-> << endl;
-	cout << rectangle->vectorPosition.x << endl;
-	cout << rectangle->bbox->vectorPosition.x << endl;
-	texture->Translate(2.5, -2.0 + i/8, 0.0);
-	//texture->RotateZ(56 + i);
 	i++;
+	rectangle->Translate(2.5, 2.5 - i/8, 0.0);
+	triangle->RotateZ(45-i);
+
+	//rectangle->RotateZ(56+i);
+
+	cout << rectangle->vectorPosition.y << endl;
+	cout << rectangle->bbox->vectorPosition.y << endl;
+	cout << texture->vectorPosition.y << endl;
+	cout << texture->bbox->vectorPosition.y << endl;
+
+	//cout << rectangle->vectorPosition.y << endl;
+	//cout << rectangle->bcircle->vectorPosition.y << endl;
+	//cout << texture->vectorPosition.y << endl;
+	//cout << texture->bcircle->vectorPosition.y << endl;
+	texture->Translate(2.5, -2.5 + i/8, 0.0);
+
+	//texture->RotateZ(56 + i);
+
+	collManager->CheckForBoundingBoxCollisions();
+	//collManager->CheckForBoundingCircleCollisions();
+
 	cout <<"Game::OnUpdate(): " << i << endl;
 	return true;
 }

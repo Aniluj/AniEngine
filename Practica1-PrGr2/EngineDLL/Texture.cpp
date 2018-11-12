@@ -3,10 +3,12 @@
 #include <glew.h>
 #include "GLFW\glfw3.h"
 
-Texture::Texture(Renderer * rendererPtr, const char * imagepath) : Shape(rendererPtr)
+Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet) : Shape(rendererPtr)
 {
 	texture = BMPLoader::LoadBMP(imagepath);
+	mass = massToSet;
 	bbox = new BoundingBox("gB");
+	bcircle = new BoundingCircle("gB");
 	vertexCount = 4;
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
@@ -37,13 +39,15 @@ Texture::~Texture()
 	delete[] g_vertex_buffer_data;
 	delete[] g_uv_buffer_data;
 	delete bbox;
+	delete bcircle;
 }
 
 void Texture::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, rotationX, rotationY, rotationZ);
+	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, mass);
+	//bcircle->UpdateBoundingCircleModel(1.0f, vectorPosition, mass);
 
 	if (material != nullptr)
 	{

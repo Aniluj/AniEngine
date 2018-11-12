@@ -1,9 +1,11 @@
 #include "Rectangle.h"
 
 
-Rectangle::Rectangle(Renderer* rendererPtr) : Shape(rendererPtr)
+Rectangle::Rectangle(Renderer* rendererPtr, float massToSet) : Shape(rendererPtr)
 {
+	mass = massToSet;
 	bbox = new BoundingBox("gA");
+	bcircle = new BoundingCircle("gA");
 	vertexCount = 4;
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
@@ -34,13 +36,15 @@ Rectangle::~Rectangle()
 	delete[] g_vertex_buffer_data;
 	delete[] g_color_buffer_data;
 	delete bbox;
+	delete bcircle;
 }
 
 void Rectangle::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, rotationX, rotationY, rotationZ);
+	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, mass);
+	//bcircle->UpdateBoundingCircleModel(1.0f, vectorPosition);
 
 	if (material != nullptr)
 	{
