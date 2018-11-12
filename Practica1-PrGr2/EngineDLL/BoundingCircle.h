@@ -14,6 +14,8 @@ public:
 	BoundingCircle(const char * tag);
 	~BoundingCircle();
 
+	bool isStatic;
+
 	float mass;
 
 	float radius;

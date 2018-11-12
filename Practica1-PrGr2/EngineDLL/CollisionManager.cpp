@@ -66,14 +66,33 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 				if (penetrationInX > penetrationInY)
 				{
 					cout << "P en Y" << endl;
+
+					float percentageOfExpulsionOb1 = (*bbIt)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+					float percentageOfExpulsionOb2 = (*bbIt2)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+
 					if ((*bbIt)->vectorPosition.y  > (*bbIt2)->vectorPosition.y)
 					{
-						cout << "El objeto ingresó por debajo";
+						cout << "El objeto ingresó por debajo" << endl;
+
+						cout << percentageOfExpulsionOb1 << endl;
+						cout << percentageOfExpulsionOb2 << endl;
+
+						(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->vectorPosition.y + (percentageOfExpulsionOb1 * penetrationInY), (*bbIt)->vectorPosition.z);
+						(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->vectorPosition.y - (percentageOfExpulsionOb2 * penetrationInY), (*bbIt2)->vectorPosition.z);
 					}
 				}
 				else if (penetrationInY > penetrationInX)
 				{
 					cout << "P en X" << endl;
+
+					float percentageOfExpulsionOb1 = (*bbIt)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+					float percentageOfExpulsionOb2 = (*bbIt2)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+
+					if ((*bbIt)->vectorPosition.x > (*bbIt2)->vectorPosition.x)
+					{
+						(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x + (percentageOfExpulsionOb1 * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
+						(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x - (percentageOfExpulsionOb2 * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+					}
 				}
 			}
 		}

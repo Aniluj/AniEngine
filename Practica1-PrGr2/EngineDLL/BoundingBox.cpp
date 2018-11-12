@@ -1,9 +1,9 @@
 #include "BoundingBox.h"
 
-BoundingBox::BoundingBox(const char * tag)
+BoundingBox::BoundingBox(const char * tag, Shape* shape)
 {
 	bboxTag = tag;
-
+	receivedShape = shape;
 	vectorPosition = glm::vec3(0.0f);
 }
 

@@ -7,7 +7,7 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet
 {
 	texture = BMPLoader::LoadBMP(imagepath);
 	mass = massToSet;
-	bbox = new BoundingBox("gB");
+	bbox = new BoundingBox("gB", this);
 	bcircle = new BoundingCircle("gB");
 	vertexCount = 4;
 
@@ -46,7 +46,7 @@ void Texture::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(1.0f, 1.0f, vectorPosition, mass);
+	bbox->UpdateBoundingBoxModel(2.0f, 1.0f, vectorPosition, mass);
 	//bcircle->UpdateBoundingCircleModel(1.0f, vectorPosition, mass);
 
 	if (material != nullptr)

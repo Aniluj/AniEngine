@@ -10,8 +10,12 @@ using namespace std;
 class ENGINEDLL_API BoundingBox
 {
 public:
-	BoundingBox(const char * tag);
+	BoundingBox(const char * tag, Shape* shape);
 	~BoundingBox();
+
+	Shape* receivedShape;
+
+	bool isStatic;
 
 	float mass;
 
@@ -19,7 +23,6 @@ public:
 	float height;
 
 	glm::vec3 vectorPosition;
-
 
 	string bboxTag;
 	void UpdateBoundingBoxModel(float width, float height, glm::vec3 entityVectorPosition, float massToSet);
