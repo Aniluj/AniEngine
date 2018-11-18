@@ -86,8 +86,8 @@
       </IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Shaders\VertexShader.txt" "$(OutDir)"
-copy "$(SolutionDir)Shaders\FragmentShader.txt" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

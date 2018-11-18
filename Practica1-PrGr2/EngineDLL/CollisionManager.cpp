@@ -51,47 +51,61 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 
 			float deltX = glm::abs(diff.x);
 			float deltY = glm::abs(diff.y);
-			cout << deltX << endl;
-			cout << deltY << endl;
-			float sumAndDivOfHeight = ((*bbIt)->height / 2) + ((*bbIt2)->height / 2);
-			float sumAndDivOfWidth = ((*bbIt)->width / 2) + ((*bbIt2)->width / 2);
-			cout << sumAndDivOfHeight << endl;
-			cout << sumAndDivOfWidth << endl;
-			if (deltX <= sumAndDivOfWidth && deltY <= sumAndDivOfHeight)
+			cout << "Deltx " << deltX << endl;
+			cout << "DeltY " << deltY << endl;
+			float minimumDistInY = (((*bbIt)->height + (*bbIt2)->height)/2);
+			float minimumDistInX = (((*bbIt)->width +(*bbIt2)->width)/2);
+			cout << "MinimunDistY " << minimumDistInY << endl;
+			cout << "MinimunDistX" << minimumDistInX << endl;
+			if (deltX < minimumDistInX && deltY < minimumDistInY)
 			{
 				//cout << "BOX COLLISION" << endl;
-				float penetrationInX = sumAndDivOfWidth - deltX;
-				float penetrationInY = sumAndDivOfHeight - deltY;
+				float penetrationInX = minimumDistInX - deltX;
+				float penetrationInY = minimumDistInY - deltY;
+
+				float percentageOfExpulsionOb1 = (*bbIt)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+				float percentageOfExpulsionOb2 = (*bbIt2)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
 
 				if (penetrationInX > penetrationInY)
 				{
-					cout << "P en Y" << endl;
-
-					float percentageOfExpulsionOb1 = (*bbIt)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
-					float percentageOfExpulsionOb2 = (*bbIt2)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+					cout << "P en Vertical" << endl;
 
 					if ((*bbIt)->vectorPosition.y  > (*bbIt2)->vectorPosition.y)
 					{
-						cout << "El objeto ingresó por debajo" << endl;
-
-						cout << percentageOfExpulsionOb1 << endl;
-						cout << percentageOfExpulsionOb2 << endl;
-
-						(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->vectorPosition.y + (percentageOfExpulsionOb1 * penetrationInY), (*bbIt)->vectorPosition.z);
-						(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->vectorPosition.y - (percentageOfExpulsionOb2 * penetrationInY), (*bbIt2)->vectorPosition.z);
+						(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y + (percentageOfExpulsionOb2 * penetrationInY), (*bbIt)->vectorPosition.z);
+						(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y - (percentageOfExpulsionOb1 * penetrationInY), (*bbIt2)->vectorPosition.z);
+					}
+					if ((*bbIt2)->vectorPosition.y > (*bbIt)->vectorPosition.y)
+					{
+						(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y - (percentageOfExpulsionOb2 * penetrationInY), (*bbIt)->vectorPosition.z);
+						(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y + (percentageOfExpulsionOb1 * penetrationInY), (*bbIt2)->vectorPosition.z);
 					}
 				}
 				else if (penetrationInY > penetrationInX)
 				{
-					cout << "P en X" << endl;
+					cout << "P en Horizontal" << endl;
 
-					float percentageOfExpulsionOb1 = (*bbIt)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
-					float percentageOfExpulsionOb2 = (*bbIt2)->mass / ((*bbIt)->mass + (*bbIt2)->mass);
+
+					cout << "PercentExp1 " << percentageOfExpulsionOb1 << endl;
+					cout << "PercentExp2 " << percentageOfExpulsionOb2 << endl;
+					cout << "PenY" << penetrationInY;
+
 
 					if ((*bbIt)->vectorPosition.x > (*bbIt2)->vectorPosition.x)
 					{
-						(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x + (percentageOfExpulsionOb1 * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
-						(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x - (percentageOfExpulsionOb2 * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+						cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
+						cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
+
+						(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x + (percentageOfExpulsionOb2 * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
+						(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x - (percentageOfExpulsionOb1 * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+					}
+					else if ((*bbIt2)->vectorPosition.x > (*bbIt)->vectorPosition.x)
+					{
+						cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
+						cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
+
+						(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x - (percentageOfExpulsionOb2 * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
+						(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x + (percentageOfExpulsionOb1 * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
 					}
 				}
 			}

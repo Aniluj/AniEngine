@@ -56,7 +56,7 @@ unsigned int BMPLoader::LoadBMP(const char * imagepath)
 		dataPos = 54;
 	} // El encabezado del BMP está hecho de ésta manera
 
-	  // Se crea un buffer
+	// Se crea un buffer
 	data = new unsigned char[imageSize];
 
 	// Leemos la información del archivo y la ponemos en el buffer

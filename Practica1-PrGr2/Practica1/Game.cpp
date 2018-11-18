@@ -13,33 +13,36 @@ Game::~Game()
 
 bool Game::OnStart()
 {
-	//string shaderPathMyPC = "C:/Image Campus/Segundo año/Programacion de Graficos 2/GameEngine-PrGr/Practica1-PrGr2/Shaders";
-	//string shaderPathIC = "C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders";
 
 	collManager = new CollisionManager();
 
 	cout << "Game::OnStart() " << endl;
 	texture = new Texture(renderer, 
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/uvtemplate.bmp",
+		"uvtemplate.bmp",
 		100);
 	texture->material = Material::CreateMaterial(
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/TextureTransformVertexShader.txt",
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/TextureFragmentShader.txt");
+		"Shaders/TextureTransformVertexShader.txt",
+		"Shaders/TextureFragmentShader.txt");
 	triangle = new Triangle(renderer);
 	triangle->material = Material::CreateMaterial(
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/VertexShader.txt",
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/FragmentShader.txt");
+		"Shaders/VertexShader.txt",
+		"Shaders/FragmentShader.txt");
 	rectangle = new Rectangle(renderer, 10);
 	rectangle->material = Material::CreateMaterial(
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/TransformVertexShader.txt",
-		"C:/Users/Administrador/Desktop/GameEngine-PrGr/Practica1-PrGr2/Shaders/ColorFragmentShader.txt"
-		);
+		"Shaders/TransformVertexShader.txt",
+		"Shaders/ColorFragmentShader.txt");
 
 	collManager->RegisterBoundingBox(texture->bbox);
 	collManager->RegisterBoundingBox(rectangle->bbox);
 
 	collManager->RegisterBoundingCircle(texture->bcircle);
 	collManager->RegisterBoundingCircle(rectangle->bcircle);
+
+	//rectangle->Translate(600, 320, 0.0);
+	//texture->Translate(480, 320, 0.0);
+
+	rectangle->Translate(320, 300, 0.0);
+	texture->Translate(320, 150, 0.0);
 
 	i = 0;
 
@@ -61,7 +64,9 @@ bool Game::OnStop()
 bool Game::OnUpdate() 
 {
 	i++;
-	rectangle->Translate(2.5 - i / 26, -2.5, 0.0);
+	//rectangle->Translate(rectangle->vectorPosition.x - 2, 320, 0.0);
+	rectangle->Translate(320, rectangle->vectorPosition.y - 2, 0.0);
+
 	triangle->RotateZ(45-i);
 
 	//rectangle->RotateZ(56+i);
@@ -75,7 +80,9 @@ bool Game::OnUpdate()
 	//cout << rectangle->bcircle->vectorPosition.y << endl;
 	//cout << texture->vectorPosition.y << endl;
 	//cout << texture->bcircle->vectorPosition.y << endl;
-	texture->Translate(-2.5 + i / 15, -2.5, 0.0);
+
+	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
+	texture->Translate(320, texture->vectorPosition.y + 2, 0.0);
 
 	//texture->RotateZ(56 + i);
 

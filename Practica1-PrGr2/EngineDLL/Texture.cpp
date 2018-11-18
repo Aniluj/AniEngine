@@ -13,10 +13,10 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
 	{
-		-1.0f,1.0f, 0.0f,
-		1.0f,1.0f, 0.0f,
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f,0.0f,
+		50.0f,50.0f, 0.0f,
+		-50.0f,50.0f, 0.0f,
+		50.0f, -50.0f, 0.0f,
+		-50.0f, -50.0f,0.0f,
 	};
 
 	g_uv_buffer_data = new float[vertexCount*2]
@@ -46,7 +46,7 @@ void Texture::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(2.0f, 1.0f, vectorPosition, mass);
+	bbox->UpdateBoundingBoxModel(100.0f, 100.0f, vectorPosition, mass);
 	//bcircle->UpdateBoundingCircleModel(1.0f, vectorPosition, mass);
 
 	if (material != nullptr)
@@ -55,7 +55,6 @@ void Texture::Draw()
 		material->SetMatrixProperty(renderer->GetMVP());
 		material->SetTextureProperty();
 	}
-
 
 
 	renderer->BindTexture(texture);

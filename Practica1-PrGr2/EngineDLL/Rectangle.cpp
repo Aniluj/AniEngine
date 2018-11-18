@@ -10,10 +10,10 @@ Rectangle::Rectangle(Renderer* rendererPtr, float massToSet) : Shape(rendererPtr
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
 	{
-		1.0f,1.0f, 0.0f,
-		-1.0f,1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		-1.0f, -1.0f,0.0f,
+		50.0f,50.0f, 0.0f,
+		-50.0f,50.0f, 0.0f,
+		50.0f, -50.0f, 0.0f,
+		-50.0f, -50.0f,0.0f,
 	};
 
 	g_color_buffer_data = new float[vertexCount * 3]
@@ -43,7 +43,7 @@ void Rectangle::Draw()
 {
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
-	bbox->UpdateBoundingBoxModel(2.0f, 1.0f, vectorPosition, mass);
+	bbox->UpdateBoundingBoxModel(100.0f, 100.0f, vectorPosition, mass);
 	//bcircle->UpdateBoundingCircleModel(1.0f, vectorPosition);
 
 	if (material != nullptr)

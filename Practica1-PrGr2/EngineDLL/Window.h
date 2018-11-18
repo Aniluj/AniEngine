@@ -9,6 +9,8 @@ class ENGINEDLL_API Window
 {
 private:
 	void* window;
+	int height;
+	int width;
 public:
 	Window();
 	~Window();
@@ -17,5 +19,6 @@ public:
 	void PollEvents();
 	bool ShouldClose();
 	void* GetWindowPtr();
+	inline int GetWidth() { return width; };
+	inline int GetHeight() { return height; };
 };
-
