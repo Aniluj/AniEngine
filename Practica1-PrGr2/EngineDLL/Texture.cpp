@@ -7,7 +7,7 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet
 {
 	texture = BMPLoader::LoadBMP(imagepath);
 	mass = massToSet;
-	bbox = new BoundingBox("gB", this);
+	bbox = new BoundingBox("gB", this, false);
 	bcircle = new BoundingCircle("gB");
 	vertexCount = 4;
 

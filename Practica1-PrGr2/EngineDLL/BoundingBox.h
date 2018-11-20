@@ -10,7 +10,7 @@ using namespace std;
 class ENGINEDLL_API BoundingBox
 {
 public:
-	BoundingBox(const char * tag, Shape* shape);
+	BoundingBox(const char * tag, Shape* shape, bool isStaticValidation);
 	~BoundingBox();
 
 	Shape* receivedShape;

@@ -1,10 +1,11 @@
 #include "BoundingBox.h"
 
-BoundingBox::BoundingBox(const char * tag, Shape* shape)
+BoundingBox::BoundingBox(const char * tag, Shape* shape, bool isStaticValidation)
 {
 	bboxTag = tag;
 	receivedShape = shape;
 	vectorPosition = glm::vec3(0.0f);
+	isStatic = isStaticValidation;
 }
 
 

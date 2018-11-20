@@ -4,7 +4,7 @@
 Rectangle::Rectangle(Renderer* rendererPtr, float massToSet) : Shape(rendererPtr)
 {
 	mass = massToSet;
-	bbox = new BoundingBox("gA", this);
+	bbox = new BoundingBox("gA", this, false);
 	bcircle = new BoundingCircle("gA");
 	vertexCount = 4;
 
