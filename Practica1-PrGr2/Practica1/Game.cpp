@@ -16,9 +16,12 @@ bool Game::OnStart()
 
 	collManager = new CollisionManager();
 
+	//bmp base = uvtemplate.bmp
+	//bmp test spritesheet = Test-Spritesheet1.bmp
+
 	cout << "Game::OnStart() " << endl;
 	texture = new Texture(renderer, 
-		"uvtemplate.bmp",
+		"Test-Spritesheet.bmp",
 		100);
 	texture->material = Material::CreateMaterial(
 		"Shaders/TextureTransformVertexShader.txt",

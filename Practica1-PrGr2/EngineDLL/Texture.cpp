@@ -21,10 +21,10 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet
 
 	g_uv_buffer_data = new float[vertexCount*2]
 	{
+		0.166f, 1.0f,
 		0.0f, 1.0f,
-		1.0f, 1.0f,
-		0.0f, 0.0f,
-		1.0f, 0.0f,
+		0.166f, 0.875f,
+		0.0f, 0.875f,
 	};
 
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);

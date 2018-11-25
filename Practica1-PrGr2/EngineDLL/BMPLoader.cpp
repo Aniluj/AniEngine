@@ -11,6 +11,8 @@ unsigned int BMPLoader::imageSize;
 unsigned int BMPLoader::textureID;
 FILE * BMPLoader::file;
 
+using namespace std;
+
 BMPLoader::BMPLoader()
 {
 	file = new FILE;
