@@ -25,7 +25,7 @@ BMPLoader::~BMPLoader()
 	delete data;
 }
 
-unsigned int BMPLoader::LoadBMP(const char * imagepath)
+unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & frameHeight, int & row, int & column, float & minU, float & maxU, float & minV, float & maxV)
 {
 	if (fopen_s(&file, imagepath, "rb") != 0)
 	{
@@ -57,6 +57,14 @@ unsigned int BMPLoader::LoadBMP(const char * imagepath)
 	{
 		dataPos = 54;
 	} // El encabezado del BMP está hecho de ésta manera
+
+	cout << "W: " << width << endl;
+	cout << "H: " << height << endl;
+
+	maxU = (frameWidth*column) / (float)width; cout << "maxU: " << maxU << endl;
+	minU = maxU - (frameWidth / (float)width); cout << "minU: " << minU << endl;
+	minV = 1.0f - ((frameHeight*row) / (float)height); cout << "minV: " << minV << endl;
+	maxV = minV + (frameHeight / (float)height); cout << "maxV: " << maxV << endl;
 
 	// Se crea un buffer
 	data = new unsigned char[imageSize];

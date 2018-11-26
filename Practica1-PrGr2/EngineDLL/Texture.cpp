@@ -3,9 +3,9 @@
 #include <glew.h>
 #include "GLFW\glfw3.h"
 
-Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet) : Shape(rendererPtr)
+Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet, int frameWidth, int frameHeight, int row, int column) : Shape(rendererPtr)
 {
-	texture = BMPLoader::LoadBMP(imagepath);
+	texture = BMPLoader::LoadBMP(imagepath, frameWidth, frameHeight, row, column, minU, maxU, minV, maxV);
 	mass = massToSet;
 	bbox = new BoundingBox("gB", this, false);
 	bcircle = new BoundingCircle("gB");
@@ -21,10 +21,10 @@ Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet
 
 	g_uv_buffer_data = new float[vertexCount*2]
 	{
-		0.166f, 1.0f,
-		0.0f, 1.0f,
-		0.166f, 0.875f,
-		0.0f, 0.875f,
+		maxU, maxV,
+		minU, maxV,
+		maxU, minV,
+		minU, minV,
 	};
 
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
@@ -58,7 +58,6 @@ void Texture::Draw()
 
 
 	renderer->BindTexture(texture);
-
 
 
 	renderer->EnableAttributes(0);

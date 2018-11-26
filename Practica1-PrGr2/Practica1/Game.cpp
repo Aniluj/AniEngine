@@ -22,7 +22,11 @@ bool Game::OnStart()
 	cout << "Game::OnStart() " << endl;
 	texture = new Texture(renderer, 
 		"Test-Spritesheet.bmp",
-		100);
+		100,
+		32,
+		32,
+		7,
+		5);
 	texture->material = Material::CreateMaterial(
 		"Shaders/TextureTransformVertexShader.txt",
 		"Shaders/TextureFragmentShader.txt");
