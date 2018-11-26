@@ -11,7 +11,7 @@ BoundingBox::BoundingBox(const char * tag, Shape* shape, bool isStaticValidation
 
 BoundingBox::~BoundingBox()
 {
-
+	
 }
 
 void BoundingBox::UpdateBoundingBoxModel(

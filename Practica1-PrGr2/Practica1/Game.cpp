@@ -70,7 +70,8 @@ bool Game::OnStop()
 
 bool Game::OnUpdate() 
 {
-	i++;
+	//i++;
+	
 	//rectangle->Translate(rectangle->vectorPosition.x - 2, 320, 0.0);
 	rectangle->Translate(320, rectangle->vectorPosition.y - 2, 0.0);
 
@@ -96,7 +97,7 @@ bool Game::OnUpdate()
 	collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
 
-	cout <<"Game::OnUpdate(): " << i << endl;
+	cout <<"Game::OnUpdate(): " << acumTime << endl;
 	return true;
 }
 

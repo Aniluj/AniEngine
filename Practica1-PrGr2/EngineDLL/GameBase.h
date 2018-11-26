@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "TypeDef.h"
 #include "Window.h"
+#include <ctime>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
 	void Loop();
 	Renderer* renderer;
 	Window* window;
+	double deltaTime;
+	double acumTime;
 protected:
 	bool virtual OnStart()= 0;
 	bool virtual OnStop()= 0;

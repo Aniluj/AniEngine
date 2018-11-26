@@ -1,6 +1,5 @@
 #include "GameBase.h"
 
-
 GameBase::GameBase()
 {
 }
@@ -13,6 +12,9 @@ GameBase::~GameBase()
 bool GameBase::Start() 
 {
 	cout << "GameBase::Start()" << endl;
+
+	acumTime = 0;
+	deltaTime = 0;
 
 	window = new Window();
 	renderer = new Renderer();
@@ -64,10 +66,15 @@ void GameBase::Loop()
 
 	while (res && !window->ShouldClose()) 
 	{
+		clock_t begin = clock();
 		res = OnUpdate();
 		renderer->ClearScreen();
 		OnDraw();
 		renderer->SwapBuffer();
 		window->PollEvents();
+		clock_t end = clock();
+
+		deltaTime += double(end -begin) / CLOCKS_PER_SEC;
+		acumTime += deltaTime;
 	}
 }

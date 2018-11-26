@@ -19,7 +19,7 @@ Entity::Entity(Renderer* rendererPtr)
 	rotationZ = glm::mat4(1.0f);
 	scallingMatrix = glm::mat4(1.0f);
 	//diff = glm::vec3(4.0f, 2.0f, 1.2f) - glm::vec3(-1.0f, 23.0f, 1.2f);
-
+	
 	UpdateModel();
 }
 

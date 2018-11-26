@@ -26,6 +26,7 @@ void CollisionManager::RegisterBoundingBox(BoundingBox* bbox)
 	{
 		bboxGroupB->push_back(bbox);
 	}
+	
 }
 
 void CollisionManager::RegisterBoundingCircle(BoundingCircle* bcircle)
