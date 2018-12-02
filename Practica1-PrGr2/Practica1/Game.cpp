@@ -25,8 +25,8 @@ bool Game::OnStart()
 		100,
 		32,
 		32,
-		7,
-		5);
+		8,
+		6);
 	texture->material = Material::CreateMaterial(
 		"Shaders/TextureTransformVertexShader.txt",
 		"Shaders/TextureFragmentShader.txt");
@@ -90,14 +90,14 @@ bool Game::OnUpdate()
 	//cout << texture->bcircle->vectorPosition.y << endl;
 
 	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
-	texture->Translate(320, texture->vectorPosition.y + 2, 0.0);
+	texture->Translate(320, texture->vectorPosition.y, 0.0);
+
 
 	//texture->RotateZ(56 + i);
 
 	collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
 
-	cout <<"Game::OnUpdate(): " << acumTime << endl;
 	return true;
 }
 

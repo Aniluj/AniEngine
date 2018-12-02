@@ -5,6 +5,7 @@
 #include <iostream>
 #include "BoundingCircle.h"
 #include "BoundingBox.h"
+#include "Animation.h"
 #include "glm\glm.hpp"
 
 class ENGINEDLL_API Texture : public Shape
@@ -22,6 +23,7 @@ private:
 	float maxV;
 public:
 	Texture(Renderer * renderer, const char * imagepath, float massToSet, int frameWidth, int frameHeight, int row, int column);
+	Animation testAnimation;
 	BoundingBox* bbox;
 	BoundingCircle* bcircle;
 	void Draw() override;

@@ -74,7 +74,6 @@ void GameBase::Loop()
 		window->PollEvents();
 		clock_t end = clock();
 
-		deltaTime += double(end -begin) / CLOCKS_PER_SEC;
-		acumTime += deltaTime;
+		deltaTime = double(end -begin) / CLOCKS_PER_SEC;
 	}
 }

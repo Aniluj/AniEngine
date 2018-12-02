@@ -3,13 +3,18 @@
 #include <glew.h>
 #include "GLFW\glfw3.h"
 
-Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet, int frameWidth, int frameHeight, int row, int column) : Shape(rendererPtr)
+Texture::Texture(Renderer * rendererPtr, const char * imagepath, float massToSet, int frameWidth, int frameHeight, int rows, int columns) : Shape(rendererPtr)
 {
-	texture = BMPLoader::LoadBMP(imagepath, frameWidth, frameHeight, row, column, minU, maxU, minV, maxV);
+	int initialFrameID = 0;
+
+	texture = BMPLoader::LoadBMP(imagepath, frameWidth, frameHeight, rows, columns, minU, maxU, minV, maxV, initialFrameID);
 	mass = massToSet;
 	bbox = new BoundingBox("gB", this, false);
+	bbox->isStatic = true;
 	bcircle = new BoundingCircle("gB");
 	vertexCount = 4;
+
+	testAnimation = new Animation(this, initialFrameID, 47);
 
 	g_vertex_buffer_data = new float[vertexCount * 3]
 	{
