@@ -25,7 +25,7 @@ BMPLoader::~BMPLoader()
 	delete data;
 }
 
-unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & frameHeight, int & row, int & column, float & minU, float & maxU, float & minV, float & maxV, int & initialFrameID)
+unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & frameHeight, int & row, int & column, float & minU, float & maxU, float & minV, float & maxV, int & initialFrameID/*, float & x, float & y*/)
 {
 	if (fopen_s(&file, imagepath, "rb") != 0)
 	{
@@ -61,8 +61,9 @@ unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & 
 	cout << "W: " << width << endl;
 	cout << "H: " << height << endl;
 
-	float x = (initialFrameID % column) * frameWidth;
-	float y = (initialFrameID / row) * frameHeight;
+	/*
+	x = (float)(initialFrameID % column) * (float)frameWidth;
+	y = ((float)initialFrameID / (float)row) * (float)frameHeight;
 
 	cout << "x = " << x << endl;
 	cout << "y = " << y << endl;
@@ -71,6 +72,7 @@ unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & 
 	minU = x / width; cout << "minU: " << minU << endl;
 	minV = 1.0f - ((y + frameHeight) / height); cout << "minV: " << minV << endl;
 	maxV = 1.0f - (y / height); cout << "maxV: " << maxV << endl;
+	*/
 
 	// Se crea un buffer
 	data = new unsigned char[imageSize];

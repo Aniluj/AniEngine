@@ -23,7 +23,7 @@ private:
 	float maxV;
 public:
 	Texture(Renderer * renderer, const char * imagepath, float massToSet, int frameWidth, int frameHeight, int row, int column);
-	Animation * testAnimation;
+	//Animation * testAnimation;
 	BoundingBox * bbox;
 	BoundingCircle* bcircle;
 	void Draw() override;
