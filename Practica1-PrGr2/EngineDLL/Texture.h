@@ -35,12 +35,12 @@ public:
 		int  frameWidth,
 		int  frameHeight,
 		int  initialRow,
-		int  initialColumn,
-		double & deltaTime);
+		int  initialColumn);
 	Animation * testAnimation;
 	BoundingBox * bbox;
 	BoundingCircle* bcircle;
 	void Draw() override;
+	void UpdateDT(double & deltaTime);
 	~Texture();
 };
 

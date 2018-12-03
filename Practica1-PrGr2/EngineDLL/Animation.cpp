@@ -39,17 +39,8 @@ Animation::Animation(
 	
 	g_uv_buffer_data = g_uv_buffer_data_received;
 
-	//
-	//g_uv_buffer_data[0] = spriteToAdd->maxU;
-	//g_uv_buffer_data[1] = spriteToAdd->maxV;
-	//g_uv_buffer_data[2] = spriteToAdd->minU;
-	//g_uv_buffer_data[3] = spriteToAdd->maxV;
-	//g_uv_buffer_data[4] = spriteToAdd->maxU;
-	//g_uv_buffer_data[5] = spriteToAdd->minV;
-	//g_uv_buffer_data[6] = spriteToAdd->minU;
-	//g_uv_buffer_data[7] = spriteToAdd->minV;
-
 	frameList->push_back(spriteToAdd);
+	frameIt = frameList->begin();
 }
 
 
@@ -58,20 +49,31 @@ Animation::~Animation()
 	delete frameList;
 }
 
-void Animation::Update(double deltaTime)
+void Animation::Update(double & deltaTime)
 {
+	timer += deltaTime;
 
+	cout << "COUNT: " << timer << endl;
+
+	if (timer >= speed)
+	{
+		if (frameIt != frameList->end())
+		{
+			g_uv_buffer_data_received[0] = (*frameIt)->maxU;	g_uv_buffer_data_received[1] = (*frameIt)->maxV;
+			g_uv_buffer_data_received[2] = (*frameIt)->minU;	g_uv_buffer_data_received[3] = (*frameIt)->maxV;
+			g_uv_buffer_data_received[4] = (*frameIt)->maxU;	g_uv_buffer_data_received[5] = (*frameIt)->minV;
+			g_uv_buffer_data_received[6] = (*frameIt)->minU;	g_uv_buffer_data_received[7] = (*frameIt)->minV;
+
+			frameIt++;
+		}
+		else
+		{
+			frameIt = frameList->begin();
+		}
+		
+		timer = 0;
+	}
 }
-
-void Animation::SetFirstFrameForUVBufferData()
-{
-	currentRow = 0;
-	currentColumn = 0;
-
-
-}
-
-
 
 void Animation::AddFrame(int frameRow, int frameColumn)
 {

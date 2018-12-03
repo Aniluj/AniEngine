@@ -28,7 +28,6 @@ private:
 	float timer;
 	float elapsedTime;
 
-	void SetFirstFrameForUVBufferData();
 public:
 	Animation(
 		Shape* shape,
@@ -45,7 +44,8 @@ public:
 	~Animation();
 
 	list<Sprite*>* frameList;
-	void Update(double deltaTime);
+	list<Sprite*>::iterator frameIt;
+	void Update(double & deltaTime);
 	void AddFrame(int frameRow, int frameColumn);
 };
 

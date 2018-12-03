@@ -26,10 +26,8 @@ bool Game::OnStart()
 		100.0f,
 		32,
 		32,
-		8,
-		6,
-		deltaTime
-		);
+		1,
+		1);
 	texture->material = Material::CreateMaterial(
 		"Shaders/TextureTransformVertexShader.txt",
 		"Shaders/TextureFragmentShader.txt");
@@ -94,7 +92,7 @@ bool Game::OnUpdate()
 
 	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
 	texture->Translate(320, texture->vectorPosition.y, 0.0);
-
+	texture->UpdateDT(deltaTime);
 
 	//texture->RotateZ(56 + i);
 

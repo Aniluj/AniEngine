@@ -10,8 +10,7 @@ Texture::Texture(
 	int frameWidth,
 	int frameHeight,
 	int initialRow,
-	int initialColumn,
-	double &  deltaTime) : Shape(renderer)
+	int initialColumn) : Shape(renderer)
 {
 	int initialFrameID = 5;
 	float x = 0;
@@ -26,8 +25,7 @@ Texture::Texture(
 		spritesheetWidth,
 		spritesheetHeight);
 
-	dt = deltaTime;
-	animationSpeed = 1.0f;
+	animationSpeed = 0.5f;
 	mass = massToSet;
 	bbox = new BoundingBox("gB", this, false);
 	bbox->isStatic = true;
@@ -65,9 +63,14 @@ Texture::Texture(
 		0.0f, 0.7812f,
 	};*/
 	
-	testAnimation->AddFrame(1, 1);
-	testAnimation->AddFrame(3, 3);
-	testAnimation->AddFrame(4, 4);
+	//testAnimation->AddFrame(1, 1);
+	testAnimation->AddFrame(2, 1);
+	testAnimation->AddFrame(3, 1);
+	testAnimation->AddFrame(4, 1);
+	testAnimation->AddFrame(5, 1);
+	testAnimation->AddFrame(6, 1);
+	testAnimation->AddFrame(7, 1);
+	testAnimation->AddFrame(8, 1);
 
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
 	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount * 2, g_uv_buffer_data);
@@ -76,6 +79,10 @@ Texture::Texture(
 	cout << "maxU del ultimo " << testAnimation->frameList->back()->minU << endl;
 }
 
+void Texture::UpdateDT(double & deltaTime)
+{
+	dt = deltaTime;
+}
 
 Texture::~Texture()
 {
@@ -85,13 +92,19 @@ Texture::~Texture()
 	delete[] g_uv_buffer_data;
 	delete bbox;
 	delete bcircle;
+	delete testAnimation;
 }
 
 void Texture::Draw()
 {
+	cout << "Timer 1: " << dt << endl;
+
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
 	bbox->UpdateBoundingBoxModel(100.0f, 100.0f, vectorPosition, mass);
+	testAnimation->Update(dt);
+	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount * 2, g_uv_buffer_data);
+
 	//bcircle->UpdateBoundingCircleModel(1.0f, vectorPosition, mass);
 
 	if (material != nullptr)
@@ -101,9 +114,7 @@ void Texture::Draw()
 		material->SetTextureProperty();
 	}
 
-
 	renderer->BindTexture(texture);
-
 
 	renderer->EnableAttributes(0);
 	renderer->EnableAttributes(1);
