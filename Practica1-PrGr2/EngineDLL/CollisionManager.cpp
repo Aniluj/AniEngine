@@ -48,7 +48,7 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 	{
 		for (bbIt2 = bboxGroupB->begin(); bbIt2 != bboxGroupB->end(); bbIt2++)
 		{
-			glm::vec3 diff = (*bbIt2)->vectorPosition - (*bbIt)->vectorPosition;
+			glm::vec3 diff = (*bbIt2)->receivedShape->vectorPosition - (*bbIt)->receivedShape->vectorPosition;
 
 			float deltX = glm::abs(diff.x);
 			float deltY = glm::abs(diff.y);
@@ -71,42 +71,42 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 				{
 					cout << "P en Vertical" << endl;
 
-					if ((*bbIt)->vectorPosition.y  > (*bbIt2)->vectorPosition.y)
+					if ((*bbIt)->receivedShape->vectorPosition.y  > (*bbIt2)->receivedShape->vectorPosition.y)
 					{
 						if ((*bbIt)->isStatic || (*bbIt2)->isStatic)
 						{
 							if ((*bbIt)->isStatic)
 							{
-								(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt2)->vectorPosition.z);
+								(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt2)->receivedShape->vectorPosition.z);
 							}
 							else if ((*bbIt2)->isStatic)
 							{
-								(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt)->vectorPosition.z);
+								(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt)->receivedShape->vectorPosition.z);
 							}
 						}
 						else
 						{
-							(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y + (percentageOfExpulsionOb2 * penetrationInY), (*bbIt)->vectorPosition.z);
-							(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y - (percentageOfExpulsionOb1 * penetrationInY), (*bbIt2)->vectorPosition.z);
+							(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y + (percentageOfExpulsionOb2 * penetrationInY), (*bbIt)->receivedShape->vectorPosition.z);
+							(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y - (percentageOfExpulsionOb1 * penetrationInY), (*bbIt2)->receivedShape->vectorPosition.z);
 						}
 					}
-					else if ((*bbIt2)->vectorPosition.y > (*bbIt)->vectorPosition.y)
+					else if ((*bbIt2)->receivedShape->vectorPosition.y >= (*bbIt)->receivedShape->vectorPosition.y)
 					{
 						if ((*bbIt)->isStatic || (*bbIt2)->isStatic)
 						{
 							if ((*bbIt)->isStatic)
 							{
-								(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt2)->vectorPosition.z);
+								(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt2)->receivedShape->vectorPosition.z);
 							}
 							else if ((*bbIt2)->isStatic)
 							{
-								(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt)->vectorPosition.z);
+								(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInY), (*bbIt)->receivedShape->vectorPosition.z);
 							}
 						}
 						else
 						{
-							(*bbIt)->receivedShape->Translate((*bbIt)->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y - (percentageOfExpulsionOb2 * penetrationInY), (*bbIt)->vectorPosition.z);
-							(*bbIt2)->receivedShape->Translate((*bbIt2)->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y + (percentageOfExpulsionOb1 * penetrationInY), (*bbIt2)->vectorPosition.z);
+							(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x, (*bbIt)->receivedShape->vectorPosition.y - (percentageOfExpulsionOb2 * penetrationInY), (*bbIt)->receivedShape->vectorPosition.z);
+							(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x, (*bbIt2)->receivedShape->vectorPosition.y + (percentageOfExpulsionOb1 * penetrationInY), (*bbIt2)->receivedShape->vectorPosition.z);
 
 						}
 					}
@@ -121,7 +121,7 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 					cout << "PenY" << penetrationInY;
 
 
-					if ((*bbIt)->vectorPosition.x > (*bbIt2)->vectorPosition.x)
+					if ((*bbIt)->receivedShape->vectorPosition.x >= (*bbIt2)->receivedShape->vectorPosition.x)
 					{
 						cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
 						cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
@@ -130,21 +130,21 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 						{
 							if ((*bbIt)->isStatic)
 							{
-								(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+								(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt2)->receivedShape->vectorPosition.y, (*bbIt2)->receivedShape->vectorPosition.z);
 							}
 							else if ((*bbIt2)->isStatic)
 							{
-								(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
+								(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt)->receivedShape->vectorPosition.y, (*bbIt)->receivedShape->vectorPosition.z);
 							}
 						}
 						else
 						{
-							(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x + (percentageOfExpulsionOb2 * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
-							(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x - (percentageOfExpulsionOb1 * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+							(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x + (percentageOfExpulsionOb2 * penetrationInX), (*bbIt)->receivedShape->vectorPosition.y, (*bbIt)->receivedShape->vectorPosition.z);
+							(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x - (percentageOfExpulsionOb1 * penetrationInX), (*bbIt2)->receivedShape->vectorPosition.y, (*bbIt2)->receivedShape->vectorPosition.z);
 
 						}
 					}
-					else if ((*bbIt2)->vectorPosition.x > (*bbIt)->vectorPosition.x)
+					else if ((*bbIt2)->receivedShape->vectorPosition.x > (*bbIt)->receivedShape->vectorPosition.x)
 					{
 						cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
 						cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
@@ -153,17 +153,17 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 						{
 							if ((*bbIt)->isStatic)
 							{
-								(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+								(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x + ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt2)->receivedShape->vectorPosition.y, (*bbIt2)->receivedShape->vectorPosition.z);
 							}
 							else if ((*bbIt2)->isStatic)
 							{
-								(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
+								(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x - ((percentageOfExpulsionOb1 + percentageOfExpulsionOb2) * penetrationInX), (*bbIt)->receivedShape->vectorPosition.y, (*bbIt)->receivedShape->vectorPosition.z);
 							}
 						}
 						else
 						{
-							(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x - (percentageOfExpulsionOb2 * penetrationInX), (*bbIt)->vectorPosition.y, (*bbIt)->vectorPosition.z);
-							(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x + (percentageOfExpulsionOb1 * penetrationInX), (*bbIt2)->vectorPosition.y, (*bbIt2)->vectorPosition.z);
+							(*bbIt)->receivedShape->Translate((*bbIt)->receivedShape->vectorPosition.x - (percentageOfExpulsionOb2 * penetrationInX), (*bbIt)->receivedShape->vectorPosition.y, (*bbIt)->receivedShape->vectorPosition.z);
+							(*bbIt2)->receivedShape->Translate((*bbIt2)->receivedShape->vectorPosition.x + (percentageOfExpulsionOb1 * penetrationInX), (*bbIt2)->receivedShape->vectorPosition.y, (*bbIt2)->receivedShape->vectorPosition.z);
 						}
 					}
 				}
@@ -172,7 +172,7 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 	}
 }
 
-void CollisionManager::CheckForBoundingCircleCollisions()
+/*void CollisionManager::CheckForBoundingCircleCollisions()
 {
 	for(bcIt = bcircleGroupA->begin(); bcIt != bcircleGroupA->end(); bcIt++)
 	{
@@ -197,4 +197,4 @@ void CollisionManager::CheckForBoundingCircleCollisions()
 			}
 		}
 	}
-}
+}*/

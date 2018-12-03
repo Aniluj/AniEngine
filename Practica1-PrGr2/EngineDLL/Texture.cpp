@@ -28,7 +28,7 @@ Texture::Texture(
 	animationSpeed = 0.5f;
 	mass = massToSet;
 	bbox = new BoundingBox("gB", this, false);
-	bbox->isStatic = true;
+	//bbox->isStatic = true;
 	bcircle = new BoundingCircle("gB");
 	vertexCount = 4;
 
@@ -64,6 +64,8 @@ Texture::Texture(
 	};*/
 	
 	//testAnimation->AddFrame(1, 1);
+
+	/*
 	testAnimation->AddFrame(2, 1);
 	testAnimation->AddFrame(3, 1);
 	testAnimation->AddFrame(4, 1);
@@ -71,7 +73,7 @@ Texture::Texture(
 	testAnimation->AddFrame(6, 1);
 	testAnimation->AddFrame(7, 1);
 	testAnimation->AddFrame(8, 1);
-
+	*/
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
 	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount * 2, g_uv_buffer_data);
 
@@ -97,8 +99,6 @@ Texture::~Texture()
 
 void Texture::Draw()
 {
-	cout << "Timer 1: " << dt << endl;
-
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
 	bbox->UpdateBoundingBoxModel(100.0f, 100.0f, vectorPosition, mass);

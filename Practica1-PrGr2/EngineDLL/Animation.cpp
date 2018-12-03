@@ -1,7 +1,6 @@
 #include "Animation.h"
 
 
-
 Animation::Animation(
 	Shape * shape,
 	int & frameWidthRef,
@@ -47,13 +46,14 @@ Animation::Animation(
 Animation::~Animation()
 {
 	delete frameList;
+	delete g_uv_buffer_data_received;
 }
 
 void Animation::Update(double & deltaTime)
 {
 	timer += deltaTime;
 
-	cout << "COUNT: " << timer << endl;
+	cout << "Timer: " << timer << endl;
 
 	if (timer >= speed)
 	{

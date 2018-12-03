@@ -19,7 +19,8 @@ public:
 	~Game();
 	Triangle* triangle;
 	Rectangle* rectangle;
-	Texture* texture;
+	Texture* character;
+	Texture* enemy;
 	CollisionManager* collManager;
 protected:
 	bool OnStart() override;
