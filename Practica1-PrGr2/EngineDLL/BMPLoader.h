@@ -18,6 +18,21 @@ private:
 public:
 	BMPLoader();
 	~BMPLoader();
-	static unsigned int LoadBMP(const char * imagepath, int & frameWidth, int & frameHeight, int & row, int & column, float & minU, float & maxU, float & minV, float & maxV, int & initialFrameID /*, float & x, float & y*/);
+	static unsigned int LoadBMP(
+		const char * imagepath,
+		int & frameWidth,
+		int & frameHeight,
+		int & row,
+		int & column,
+		/*
+		float & minU,
+		float & maxU,
+		float & minV,
+		float & maxV,
+		int & initialFrameID,
+		float & x,
+		float & y,*/
+		int & spritesheetWidth,
+		int & spritesheetHeight);
 };
 

@@ -14,10 +14,6 @@ class Game : public GameBase
 {
 private:
 	int i;
-	float timeSinceStart;
-	float oldtimeSinceStart;
-	float deltaTime;
-	
 public:
 	Game();
 	~Game();

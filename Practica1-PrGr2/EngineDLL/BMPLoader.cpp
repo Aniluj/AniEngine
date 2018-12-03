@@ -25,7 +25,21 @@ BMPLoader::~BMPLoader()
 	delete data;
 }
 
-unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & frameHeight, int & row, int & column, float & minU, float & maxU, float & minV, float & maxV, int & initialFrameID/*, float & x, float & y*/)
+unsigned int BMPLoader::LoadBMP(
+	const char * imagepath,
+	int & frameWidth,
+	int & frameHeight,
+	int & row,
+	int & column,
+	/*float & minU,
+	float & maxU,
+	float & minV,
+	float & maxV,
+	int & initialFrameID,
+	float & x,
+	float & y,*/
+	int & spritesheetWidth,
+	int & spritesheetHeight)
 {
 	if (fopen_s(&file, imagepath, "rb") != 0)
 	{
@@ -60,6 +74,9 @@ unsigned int BMPLoader::LoadBMP(const char * imagepath, int & frameWidth, int & 
 
 	cout << "W: " << width << endl;
 	cout << "H: " << height << endl;
+
+	spritesheetWidth = width;
+	spritesheetHeight = height;
 
 	/*
 	x = (float)(initialFrameID % column) * (float)frameWidth;

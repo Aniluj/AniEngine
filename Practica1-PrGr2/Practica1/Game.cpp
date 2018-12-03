@@ -20,13 +20,16 @@ bool Game::OnStart()
 	//bmp test spritesheet = Test-Spritesheet1.bmp
 
 	cout << "Game::OnStart() " << endl;
-	texture = new Texture(renderer, 
+	texture = new Texture(
+		renderer, 
 		"Test-Spritesheet.bmp",
-		100,
+		100.0f,
 		32,
 		32,
 		8,
-		6);
+		6,
+		deltaTime
+		);
 	texture->material = Material::CreateMaterial(
 		"Shaders/TextureTransformVertexShader.txt",
 		"Shaders/TextureFragmentShader.txt");
