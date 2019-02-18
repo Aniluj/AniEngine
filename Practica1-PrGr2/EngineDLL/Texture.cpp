@@ -12,7 +12,7 @@ Texture::Texture(
 	int initialRow,
 	int initialColumn) : Shape(renderer)
 {
-	int initialFrameID = 5;
+	//int initialFrameID = 5;
 	float x = 0;
 	float y = 0;
 
@@ -74,6 +74,7 @@ Texture::Texture(
 	testAnimation->AddFrame(7, 1);
 	testAnimation->AddFrame(8, 1);
 	*/
+
 	vertexBuffer = renderer->GenBuffer(sizeof(float)*vertexCount * 3, g_vertex_buffer_data);
 	uvBuffer = renderer->GenUVBuffer(sizeof(float)*vertexCount * 2, g_uv_buffer_data);
 
