@@ -71,6 +71,19 @@ bool Game::OnStart()
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
 
+	/*tilemap->material = Material::CreateMaterial(
+	"Shaders/TextureTransformVertexShader.txt",
+	"Shaders/TextureFragmentShader.txt");*/
+
+	tilemap = new Tilemap(
+		renderer,
+		1,
+		2,
+		960,
+		640,
+		"BattleCityCloneTiles.bmp",
+		"BattleCityCloneTiledMap.csv");
+
 	collManager->RegisterBoundingBox(character->bbox);
 	collManager->RegisterBoundingBox(rectangle->bbox);
 	collManager->RegisterBoundingBox(enemy->bbox);
@@ -114,10 +127,10 @@ bool Game::OnUpdate()
 
 	//rectangle->RotateZ(56+i);
 
-	cout << rectangle->vectorPosition.y << endl;
-	cout << rectangle->bbox->vectorPosition.y << endl;
-	cout << character->vectorPosition.y << endl;
-	cout << character->bbox->vectorPosition.y << endl;
+	//cout << rectangle->vectorPosition.y << endl;
+	//cout << rectangle->bbox->vectorPosition.y << endl;
+	//cout << character->vectorPosition.y << endl;
+	//cout << character->bbox->vectorPosition.y << endl;
 
 	//cout << rectangle->vectorPosition.y << endl;
 	//cout << rectangle->bcircle->vectorPosition.y << endl;

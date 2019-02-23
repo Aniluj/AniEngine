@@ -35,7 +35,7 @@ Animation::Animation(
 		spriteToAdd->maxU, spriteToAdd->minV,
 		spriteToAdd->minU, spriteToAdd->minV
 	};
-	
+
 	g_uv_buffer_data = g_uv_buffer_data_received;
 
 	frameList->push_back(spriteToAdd);
@@ -53,7 +53,7 @@ void Animation::Update(double & deltaTime)
 {
 	timer += deltaTime;
 
-	cout << "Timer: " << timer << endl;
+	//cout << "Timer: " << timer << endl;
 
 	if (timer >= speed)
 	{

@@ -5,6 +5,7 @@
 #include "Rectangle.h"
 #include "Texture.h"
 #include "CollisionManager.h"
+#include "Tilemap.h"
 #include <iostream>
 #include <time.h>
 
@@ -22,6 +23,7 @@ public:
 	Texture* character;
 	Texture* enemy;
 	CollisionManager* collManager;
+	Tilemap* tilemap;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;

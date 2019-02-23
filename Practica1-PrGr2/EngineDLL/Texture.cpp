@@ -18,10 +18,10 @@ Texture::Texture(
 
 	texture = BMPLoader::LoadBMP(
 		imagepath,
-		frameWidth,
+		/*frameWidth,
 		frameHeight,
 		initialRow,
-		initialColumn, /*minU, maxU, minV, maxV, initialFrameID, x, y*/
+		initialColumn, minU, maxU, minV, maxV, initialFrameID, x, y*/
 		spritesheetWidth,
 		spritesheetHeight);
 

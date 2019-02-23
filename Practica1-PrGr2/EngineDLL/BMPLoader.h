@@ -20,11 +20,11 @@ public:
 	~BMPLoader();
 	static unsigned int LoadBMP(
 		const char * imagepath,
-		int & frameWidth,
+		/*int & frameWidth,
 		int & frameHeight,
 		int & row,
 		int & column,
-		/*
+		
 		float & minU,
 		float & maxU,
 		float & minV,

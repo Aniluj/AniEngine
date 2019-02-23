@@ -52,12 +52,12 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 
 			float deltX = glm::abs(diff.x);
 			float deltY = glm::abs(diff.y);
-			cout << "Deltx " << deltX << endl;
-			cout << "DeltY " << deltY << endl;
+			//cout << "Deltx " << deltX << endl;
+			//cout << "DeltY " << deltY << endl;
 			float minimumDistInY = (((*bbIt)->height + (*bbIt2)->height)/2);
 			float minimumDistInX = (((*bbIt)->width +(*bbIt2)->width)/2);
-			cout << "MinimunDistY " << minimumDistInY << endl;
-			cout << "MinimunDistX" << minimumDistInX << endl;
+			//cout << "MinimunDistY " << minimumDistInY << endl;
+			//cout << "MinimunDistX" << minimumDistInX << endl;
 			if (deltX < minimumDistInX && deltY < minimumDistInY)
 			{
 				//cout << "BOX COLLISION" << endl;
@@ -69,7 +69,7 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 
 				if (penetrationInX > penetrationInY)
 				{
-					cout << "P en Vertical" << endl;
+					//cout << "P en Vertical" << endl;
 
 					if ((*bbIt)->receivedShape->vectorPosition.y  > (*bbIt2)->receivedShape->vectorPosition.y)
 					{
@@ -113,18 +113,18 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 				}
 				else if (penetrationInY > penetrationInX)
 				{
-					cout << "P en Horizontal" << endl;
+					//cout << "P en Horizontal" << endl;
 
 
-					cout << "PercentExp1 " << percentageOfExpulsionOb1 << endl;
-					cout << "PercentExp2 " << percentageOfExpulsionOb2 << endl;
-					cout << "PenY" << penetrationInY;
+					//cout << "PercentExp1 " << percentageOfExpulsionOb1 << endl;
+					//cout << "PercentExp2 " << percentageOfExpulsionOb2 << endl;
+					//cout << "PenY" << penetrationInY;
 
 
 					if ((*bbIt)->receivedShape->vectorPosition.x >= (*bbIt2)->receivedShape->vectorPosition.x)
 					{
-						cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
-						cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
+						//cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
+						//cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
 
 						if ((*bbIt)->isStatic || (*bbIt2)->isStatic)
 						{
@@ -146,8 +146,8 @@ void CollisionManager::CheckForBoundingBoxCollisions()
 					}
 					else if ((*bbIt2)->receivedShape->vectorPosition.x > (*bbIt)->receivedShape->vectorPosition.x)
 					{
-						cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
-						cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
+						//cout << "Obj1*Pen " << percentageOfExpulsionOb1 * penetrationInX << endl;
+						//cout << "Obj2*Pen " << percentageOfExpulsionOb2 * penetrationInX << endl;
 
 						if ((*bbIt)->isStatic || (*bbIt2)->isStatic)
 						{

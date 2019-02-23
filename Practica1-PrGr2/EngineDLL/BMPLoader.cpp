@@ -27,11 +27,11 @@ BMPLoader::~BMPLoader()
 
 unsigned int BMPLoader::LoadBMP(
 	const char * imagepath,
-	int & frameWidth,
+	/*int & frameWidth,
 	int & frameHeight,
 	int & row,
 	int & column,
-	/*float & minU,
+	float & minU,
 	float & maxU,
 	float & minV,
 	float & maxV,
@@ -72,8 +72,8 @@ unsigned int BMPLoader::LoadBMP(
 		dataPos = 54;
 	} // El encabezado del BMP está hecho de ésta manera
 
-	cout << "W: " << width << endl;
-	cout << "H: " << height << endl;
+	//cout << "W: " << width << endl;
+	//cout << "H: " << height << endl;
 
 	spritesheetWidth = width;
 	spritesheetHeight = height;
