@@ -45,6 +45,12 @@ public:
 	void BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID);
 	void BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID);
 	void BindTexture(unsigned int textureID);
+
+	void SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar);
+	void SetProjectionMatrixToOrtho(float left, float right, float bottom, float top);
+	void SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar);
+	void SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
+
 	void SetMVP();
 
 	glm::mat4& GetMVP();

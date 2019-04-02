@@ -31,14 +31,17 @@ bool Renderer::Start(Window* windowPtr)
 		glGenVertexArrays(1, &vertexArrayID);
 		glBindVertexArray(vertexArrayID);
 
-		projectionMatrix = glm::ortho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
+		//projectionMatrix = glm::ortho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
 		//projectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
-		viewMatrix = glm::lookAt(
+		SetProjectionMatrixToOrtho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
+		SetViewMatrix(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+
+		/*viewMatrix = glm::lookAt(
 			glm::vec3(0, 0, 3), 
 			glm::vec3(0, 0, 0), 
 			glm::vec3(0, 1, 0)  
-		);
+		);*/
 
 		cout << "Renderer::Start()" << endl;
 
@@ -46,6 +49,26 @@ bool Renderer::Start(Window* windowPtr)
 	}
 
 	return false;
+}
+
+void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
+{
+	viewMatrix = glm::lookAt(eye, center, up);
+}
+
+void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar)
+{
+	glm::ortho(left, right, bottom, top, zNear, zFar);
+}
+
+void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top)
+{
+	glm::ortho(left, right, bottom, top);
+}
+
+void Renderer::SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar)
+{
+	projectionMatrix = glm::perspective(fovy, aspect, zNear, zFar);
 }
 
 bool Renderer::Stop()

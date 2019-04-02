@@ -15,6 +15,8 @@ class Game : public GameBase
 {
 private:
 	int i;
+	float timeLim = 2.0f;
+	float timer;
 public:
 	Game();
 	~Game();

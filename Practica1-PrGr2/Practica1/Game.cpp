@@ -1,4 +1,3 @@
-
 #include "Game.h"
 
 
@@ -119,7 +118,13 @@ bool Game::OnStop()
 bool Game::OnUpdate() 
 {
 	i++;
-	
+	timer += deltaTime;
+
+	if (timer >= timeLim)
+	{
+		renderer->SetProjectionMatrixToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+	}
+
 	//rectangle->Translate(rectangle->vectorPosition.x - 2, 320, 0.0);
 	rectangle->Translate(rectangle->vectorPosition.x, rectangle->vectorPosition.y - (100 * deltaTime), 0.0);
 
