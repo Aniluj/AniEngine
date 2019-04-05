@@ -122,7 +122,8 @@ bool Game::OnUpdate()
 
 	if (timer >= timeLim)
 	{
-		renderer->SetProjectionMatrixToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+		cout << "SALIO" << endl;
+		renderer->SetProjectionMatrixToOrtho(0.0f, 450.0f, 0.0f, 500.0f, 0.0f, 100.0f);
 	}
 
 	//rectangle->Translate(rectangle->vectorPosition.x - 2, 320, 0.0);

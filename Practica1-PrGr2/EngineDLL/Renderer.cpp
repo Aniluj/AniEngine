@@ -58,12 +58,12 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar)
 {
-	glm::ortho(left, right, bottom, top, zNear, zFar);
+	projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
 }
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top)
 {
-	glm::ortho(left, right, bottom, top);
+	projectionMatrix = glm::ortho(left, right, bottom, top);
 }
 
 void Renderer::SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar)
