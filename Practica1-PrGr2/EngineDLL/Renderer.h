@@ -13,6 +13,12 @@
 
 using namespace std;
 
+enum  ProjectionType
+{
+	Ortho,
+	Perspective
+};
+
 class ENGINEDLL_API Renderer
 {
 private:
@@ -21,11 +27,14 @@ private:
 
 	glm::mat4 modelMatrix;
 	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
 	glm::mat4 MVP;
+	ProjectionType typeOfProjection;
 public:
 	Renderer();
 	~Renderer();
+
+	glm::mat4 projectionMatrix;
+
 	bool Start(Window* windowPtr);
 	bool Stop();
 	void ClearColor(float r, float g, float b, float a);

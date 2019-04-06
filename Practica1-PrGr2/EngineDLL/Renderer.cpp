@@ -59,16 +59,19 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar)
 {
 	projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
+	typeOfProjection = Ortho;
 }
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top)
 {
 	projectionMatrix = glm::ortho(left, right, bottom, top);
+	typeOfProjection = Ortho;
 }
 
 void Renderer::SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar)
 {
 	projectionMatrix = glm::perspective(fovy, aspect, zNear, zFar);
+	typeOfProjection = Perspective;
 }
 
 bool Renderer::Stop()
