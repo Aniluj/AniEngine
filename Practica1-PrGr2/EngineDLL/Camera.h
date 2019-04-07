@@ -10,6 +10,7 @@ public:
 	Camera(Renderer* rendererPtr);
 	~Camera();
 	void Walk(float forwardMovement);
-	void Strafe();
+	void Strafe(float horizontalMovement);
+	void Draw() override;
 };
 

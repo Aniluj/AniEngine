@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "CollisionManager.h"
 #include "Tilemap.h"
+#include "Camera.h"
 #include <iostream>
 #include <time.h>
 
@@ -20,6 +21,7 @@ private:
 public:
 	Game();
 	~Game();
+	Camera* camera;
 	Triangle* triangle;
 	Rectangle* rectangle;
 	Texture* character;

@@ -12,9 +12,10 @@ Game::~Game()
 
 bool Game::OnStart()
 {
-	renderer->SetProjectionMatrixToPerspective(45.0f, 16.0f / 9.0f, 0.1f, 100.0f);
-	renderer->SetViewMatrix(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-
+	//renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
+	//renderer->SetViewMatrix(glm::vec3(window->GetWidth()/2, window->GetHeight()/2, window->GetWidth()), glm::vec3(window->GetWidth()/2, window->GetHeight()/2, 0), glm::vec3(0, 1, 0));
+	
+	camera = new Camera(renderer);
 	collManager = new CollisionManager();
 
 	//bmp base = uvtemplate.bmp
@@ -95,10 +96,10 @@ bool Game::OnStart()
 	rectangle->Translate(600, 320, 0.0);
 	texture->Translate(480, 320, 0.0);*/
 
-	triangle->Translate(750, 400, 0);
+	triangle->Translate(750, 400, 0.0);
 	rectangle->Translate(320, 300, 0.0);
 	character->Translate(320, 150, 0.0);
-	enemy->Translate(600, 250, 0);
+	enemy->Translate(600, 250, 0.0);
 
 	i = 0;
 
@@ -121,12 +122,14 @@ bool Game::OnUpdate()
 {
 	i++;
 	timer += deltaTime;
+	//camera->Walk(100 * deltaTime);
+	//camera->Strafe(-100 * deltaTime);
 
-	if (timer >= timeLim)
+	/*if (timer >= timeLim)
 	{
 		cout << "SALIO" << endl;
 		renderer->SetProjectionMatrixToOrtho(0.0f, 450.0f, 0.0f, 500.0f, 0.0f, 100.0f);
-	}
+	}*/
 
 	//rectangle->Translate(rectangle->vectorPosition.x - 2, 320, 0.0);
 	rectangle->Translate(rectangle->vectorPosition.x, rectangle->vectorPosition.y - (100 * deltaTime), 0.0);
@@ -146,6 +149,7 @@ bool Game::OnUpdate()
 	//cout << texture->bcircle->vectorPosition.y << endl;
 
 	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
+
 	character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
 	character->UpdateDT(deltaTime);
 
