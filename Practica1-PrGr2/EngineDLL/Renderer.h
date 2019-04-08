@@ -59,6 +59,7 @@ public:
 	void SetProjectionMatrixToOrtho(float left, float right, float bottom, float top);
 	void SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar);
 	void SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
+	void SetViewMatrix(glm::mat4 viewMatrixValues);
 
 	void SetMVP();
 

@@ -122,8 +122,13 @@ bool Game::OnUpdate()
 {
 	i++;
 	timer += deltaTime;
+
 	//camera->Walk(100 * deltaTime);
 	//camera->Strafe(-100 * deltaTime);
+
+	//camera->Pitch(-i * 0.5);
+	camera->Yaw(-i * 0.5);
+	//camera->Roll(-i * 0.5);
 
 	/*if (timer >= timeLim)
 	{
@@ -132,9 +137,10 @@ bool Game::OnUpdate()
 	}*/
 
 	//rectangle->Translate(rectangle->vectorPosition.x - 2, 320, 0.0);
-	rectangle->Translate(rectangle->vectorPosition.x, rectangle->vectorPosition.y - (100 * deltaTime), 0.0);
 
-	triangle->RotateZ(45-i);
+	//rectangle->Translate(rectangle->vectorPosition.x, rectangle->vectorPosition.y - (100 * deltaTime), 0.0);
+
+	triangle->RotateZ(-i);
 
 	//rectangle->RotateZ(56+i);
 
@@ -150,11 +156,11 @@ bool Game::OnUpdate()
 
 	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
 
-	character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
+	/*character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
 	character->UpdateDT(deltaTime);
 
 	enemy->Translate(enemy->vectorPosition.x - (150 * deltaTime), 350, 0.0);
-	enemy->UpdateDT(deltaTime);
+	enemy->UpdateDT(deltaTime);*/
 
 	//texture->RotateZ(56 + i);
 

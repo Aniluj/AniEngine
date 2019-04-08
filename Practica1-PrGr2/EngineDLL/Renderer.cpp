@@ -56,6 +56,11 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 	viewMatrix = glm::lookAt(eye, center, up);
 }
 
+void Renderer::SetViewMatrix(glm::mat4 viewMatrixValues)
+{
+	viewMatrix = viewMatrixValues;
+}
+
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar)
 {
 	projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
