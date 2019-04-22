@@ -1,6 +1,5 @@
 #include "Game.h"
 
-
 Game::Game()
 {
 }
@@ -126,9 +125,9 @@ bool Game::OnUpdate()
 	//camera->Walk(100 * deltaTime);
 	//camera->Strafe(-100 * deltaTime);
 
-	//camera->Pitch(-i);
-	camera->Yaw(-i);
-	//camera->Roll(-i);
+	//camera->Pitch(-0.5f);
+	//camera->Yaw(0.3f);
+	//camera->Roll(0.3);
 
 	/*if (timer >= timeLim)
 	{

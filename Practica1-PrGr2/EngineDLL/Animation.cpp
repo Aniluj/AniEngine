@@ -46,7 +46,6 @@ Animation::Animation(
 Animation::~Animation()
 {
 	delete frameList;
-	delete g_uv_buffer_data_received;
 }
 
 void Animation::Update(double & deltaTime)

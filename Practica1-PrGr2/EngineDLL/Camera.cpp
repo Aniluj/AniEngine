@@ -3,7 +3,8 @@
 
 Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 {
-	int hola = 0;
+	forward = glm::vec4(0, 0, -1, 0);
+	up = glm::vec4(0, 1, 0, 0);
 
 	/*vectorPosition.x = 480;
 	vectorPosition.y = 320;
@@ -11,12 +12,10 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 
 	Translate(480, 320, 960);
 
-	center.x = 0;
-	center.y = 0;
-	center.z = 0;
-
 	renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
-	renderer->SetViewMatrix(glm::vec3(vectorPosition.x, vectorPosition.y, vectorPosition.z), glm::vec3(480, 320, 0), glm::vec3(0, 1, 0));
+	renderer->SetViewMatrix(vectorPosition, glm::vec3(480, 320, -1), glm::vec3(0, 1, 0));
+
+	//Pitch(180);
 }
 
 
@@ -40,11 +39,12 @@ void Camera::Pitch(float xRotation)
 {
 	RotateX(xRotation);
 
-	center.y = vectorPosition.y + rotationX[1][1];
-	center.z = vectorPosition.z + rotationX[1][2];
+	forward = rotationX * forward;
+	//forward.y = vectorPosition.y + rotationX[1][1];
+	//forward.z = vectorPosition.z + rotationX[1][2];
 
-	renderer->SetViewMatrix(glm::vec3(vectorPosition.x, vectorPosition.y, vectorPosition.z),
-							glm::vec3(vectorPosition.x, center.y, center.z),
+	renderer->SetViewMatrix(vectorPosition,
+							vectorPosition + (glm::vec3)forward,
 							glm::vec3(0, 1, 0));
 }
 
@@ -52,24 +52,28 @@ void Camera::Yaw(float yRotation)
 {
 	RotateY(yRotation);
 
-	center.x += rotationY[0][0];
-	center.z += rotationY[0][2];
+	forward = rotationY * forward;
 
-	cout << center.x << endl;
-	cout << center.z << endl;
+	//forward.x += rotationY[0][0];
+	//forward.z += rotationY[0][2];
 
-	renderer->SetViewMatrix(glm::vec3(vectorPosition.x, vectorPosition.y, vectorPosition.z),
-		glm::vec3(vectorPosition.x + center.x, vectorPosition.y, vectorPosition.z + center.z),
-		glm::vec3(0, 1, 0));
+	cout << forward.x << endl;
+	cout << forward.z << endl;
+
+	renderer->SetViewMatrix(vectorPosition,
+							vectorPosition + (glm::vec3)forward,
+							glm::vec3(0, 1, 0));
 }
 
 void Camera::Roll(float zRotation)
 {
 	RotateZ(zRotation);
 
-	renderer->SetViewMatrix(glm::vec3(vectorPosition.x, vectorPosition.y, vectorPosition.z),
-							glm::vec3(center.x, center.y, center.z - 1),
-							glm::vec3(rotationZ[0][0], rotationZ[1][0], 0));
+	up = rotationZ * up;
+
+	renderer->SetViewMatrix(vectorPosition,
+							vectorPosition + (glm::vec3)forward,
+							(glm::vec3) up);
 }
 
 void Camera::Draw()

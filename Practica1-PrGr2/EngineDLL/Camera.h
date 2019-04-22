@@ -7,7 +7,8 @@
 class ENGINEDLL_API Camera : public Entity
 {
 private:
-	glm::vec3 center;
+	glm::vec4 forward;
+	glm::vec4 up;
 public:
 	Camera(Renderer* rendererPtr);
 	~Camera();
