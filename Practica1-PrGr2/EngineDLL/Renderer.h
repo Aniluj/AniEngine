@@ -42,10 +42,14 @@ public:
 	void SwapBuffer();
 	//void DrawBuffer(unsigned int vertexBuffer, unsigned int vertexCount);
 	void DrawBuffer(int vertexCount);
+	void DrawElementBuffer(int vertexCount);
 	void DestroyBuffer(unsigned int buffer);
+
 	unsigned int GenBuffer(unsigned int size, float * g_vertex_buffer_data);
 	unsigned int GenColorBuffer(unsigned int size, float * g_color_buffer_data);
 	unsigned int GenUVBuffer(unsigned int size, float * g_uv_buffer_data);
+	unsigned int GenElementBuffer(unsigned int size, unsigned int & g_element_buffer_data);
+
 	void EnableAttributes(unsigned int attributeId);
 	void BindBuffer(unsigned int vertexBuffer, unsigned int attributeId);
 	void DisableAttributes(unsigned int attributeId);
@@ -54,6 +58,7 @@ public:
 	void BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID);
 	void BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID);
 	void BindTexture(unsigned int textureID);
+	void BindElementBuffer(unsigned int elementBuffer);
 
 	void SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar);
 	void SetProjectionMatrixToOrtho(float left, float right, float bottom, float top);

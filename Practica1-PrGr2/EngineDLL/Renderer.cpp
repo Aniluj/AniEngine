@@ -115,9 +115,32 @@ unsigned int Renderer::GenBuffer(unsigned int size, float * g_vertex_buffer_data
 	return vertexbuffer;
 }
 
+unsigned int Renderer::GenElementBuffer(unsigned int size, unsigned int & g_element_buffer_data)
+{
+	GLuint elementbuffer;
+
+	glGenBuffers(1, &elementbuffer);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
+
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, & g_element_buffer_data, GL_STATIC_DRAW);
+
+	return elementbuffer;
+}
+
 void Renderer::DrawBuffer(int vertexCount)
 {
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
+}
+
+void Renderer::DrawElementBuffer(int vertexCount)
+{
+	glDrawElements(
+		GL_TRIANGLES,      // mode
+		vertexCount,    // count
+		GL_UNSIGNED_INT,   // type
+		(void*)0           // element array buffer offset
+	);
 }
 
 void Renderer::DestroyBuffer(unsigned int buffer)
@@ -141,6 +164,11 @@ void Renderer::BindBuffer(unsigned int vertexBuffer, unsigned int attributebID)
 		0,                  
 		(void*)0            
 	);
+}
+
+void Renderer::BindElementBuffer(unsigned int elementBuffer)
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 }
 
 void Renderer::BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID)

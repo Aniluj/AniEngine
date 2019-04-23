@@ -125,8 +125,8 @@ bool Game::OnUpdate()
 	//camera->Walk(100 * deltaTime);
 	//camera->Strafe(-100 * deltaTime);
 
-	//camera->Pitch(-0.5f);
-	//camera->Yaw(0.3f);
+	camera->Pitch(-0.1f);
+	camera->Yaw(0.1f);
 	//camera->Roll(0.3);
 
 	/*if (timer >= timeLim)
