@@ -13,7 +13,7 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 	Translate(480, 320, 960);
 
 	renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
-	renderer->SetViewMatrix(vectorPosition, glm::vec3(480, 320, -1), glm::vec3(0, 1, 0));
+	renderer->SetViewMatrix(vectorPosition, vectorPosition + (glm::vec3)forward, glm::vec3(0, 1, 0));
 
 	//Pitch(180);
 }
@@ -26,13 +26,19 @@ Camera::~Camera()
 void Camera::Walk(float forwardMovement)
 {
 	Translate(vectorPosition.x, vectorPosition.y, vectorPosition.z + forwardMovement);
-	renderer->SetViewMatrix(glm::vec3(vectorPosition.x, vectorPosition.y, vectorPosition.z + forwardMovement), glm::vec3(vectorPosition.x, vectorPosition.y, 0), glm::vec3(0, 1, 0));
+
+	renderer->SetViewMatrix(vectorPosition,
+							vectorPosition + (glm::vec3)forward,
+							(glm::vec3) up);
 }
 
 void Camera::Strafe(float horizontalMovement)
 {
 	Translate(vectorPosition.x + horizontalMovement, vectorPosition.y, vectorPosition.z);
-	renderer->SetViewMatrix(glm::vec3(vectorPosition.x + horizontalMovement, vectorPosition.y, vectorPosition.z), glm::vec3(vectorPosition.x, vectorPosition.y, 0), glm::vec3(0, 1, 0));
+
+	renderer->SetViewMatrix(vectorPosition,
+							vectorPosition + (glm::vec3)forward,
+							(glm::vec3) up);
 }
 
 void Camera::Pitch(float xRotation)
@@ -45,7 +51,7 @@ void Camera::Pitch(float xRotation)
 
 	renderer->SetViewMatrix(vectorPosition,
 							vectorPosition + (glm::vec3)forward,
-							glm::vec3(0, 1, 0));
+							(glm::vec3) up);
 }
 
 void Camera::Yaw(float yRotation)
@@ -62,7 +68,7 @@ void Camera::Yaw(float yRotation)
 
 	renderer->SetViewMatrix(vectorPosition,
 							vectorPosition + (glm::vec3)forward,
-							glm::vec3(0, 1, 0));
+							(glm::vec3) up);
 }
 
 void Camera::Roll(float zRotation)
