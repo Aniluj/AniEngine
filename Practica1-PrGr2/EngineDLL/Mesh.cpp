@@ -4,7 +4,6 @@
 
 Mesh::Mesh(Renderer* rendererPtr):Entity(rendererPtr)
 {
-
 }
 
 
