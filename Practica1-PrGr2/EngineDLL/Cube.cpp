@@ -6,7 +6,7 @@ Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 {
 	vertexCount = 3;
 
-	g_vertex_buffer_data = new float[vertexCount * 36]
+	/*g_vertex_buffer_data = new float[vertexCount * 36]
 	{
 		-50.0f,-50.0f,-50.0f, // triangle 1 : begin
 		-50.0f,-50.0f, 50.0f,
@@ -37,13 +37,27 @@ Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 		50.0f,-50.0f, 50.0f,
 		50.0f, 50.0f, 50.0f,
 		50.0f, 50.0f,-50.0f,
-		-50.0f, 1.0f,-50.0f,
+		-50.0f, 50.0f,-50.0f,
 		50.0f, 50.0f, 50.0f,
 		-50.0f, 50.0f,-50.0f,
 		-50.0f, 50.0f, 50.0f,
 		50.0f, 50.0f, 50.0f,
 		-50.0f, 50.0f, 50.0f,
 		50.0f,-50.0f, 50.0f
+	};*/
+
+	g_vertex_buffer_data = new float[vertexCount * 8]
+	{
+		// Front
+		-50.0, -50.0, 50.0,
+		50.0, -50.0, 50.0,
+		50.0, 50.0, 50.0,
+		-50.0, 50.0, 50.0,
+		// Back
+		-50.0, -50.0, -50.0,
+		50.0, -50.0, -50.0,
+		50.0, 50.0, -50.0,
+		-50.0, 50.0, -50.0,
 	};
 
 	g_color_buffer_data = new float[vertexCount * 36]
@@ -86,33 +100,62 @@ Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 		0.982f,  0.099f,  0.879f
 	};
 
-	indices = new unsigned int [vertexCount * 12]
-	{
+	vector<unsigned int> indices {
+		// front
 		0, 1, 2,
-		3, 1, 2,
-		1, 4, 0,
-		5, 4, 0,
-		1, 4, 3,
-		6, 4, 3,
-		5, 0, 7,
-		2, 0, 7,
-		2, 3, 7,
-		6, 3, 7,
+		2, 3, 0,
+		// right
+		1, 5, 6,
+		6, 2, 1,
+		// back
+		7, 6, 5,
 		5, 4, 7,
-		6, 4, 7
+		// left
+		4, 0, 3,
+		3, 7, 4,
+		// bottom
+		4, 5, 1,
+		1, 0, 4,
+		// top
+		3, 2, 6,
+		6, 7, 3
 	};
 
-	vertexBuffer = renderer->GenBuffer(vertexCount * 36 * sizeof(float), g_vertex_buffer_data);
-	colorBuffer = renderer->GenBuffer(vertexCount * 36 * sizeof(float), g_color_buffer_data);
-	elementBuffer = renderer->GenElementBuffer(vertexCount * 12 * sizeof(unsigned int), indices);
+	vertexBuffer = renderer->GenBuffer(vertexCount * 8 * sizeof(float), g_vertex_buffer_data);
+	//colorBuffer = renderer->GenBuffer(vertexCount * 36 * sizeof(float), g_color_buffer_data);
+	elementBuffer = renderer->GenElementBuffer(sizeof(unsigned int) * indices.size(), indices[0]);
 }
 
 
 Cube::~Cube()
 {
+	delete[] g_vertex_buffer_data;
+	//delete[] g_color_buffer_data;
+	//delete[] indices;
+
+	renderer->DestroyBuffer(vertexBuffer);
+	//renderer->DestroyBuffer(colorBuffer);
+	renderer->DestroyBuffer(elementBuffer);
 }
 
 void Cube::Draw()
 {
+	renderer->LoadIdentityMatrix();
+	renderer->SetModelMatrix(model);
 
+	if (material != nullptr)
+	{
+		material->Bind();
+		material->SetMatrixProperty(renderer->GetMVP());
+	}
+
+	renderer->EnableAttributes(0);
+	//renderer->EnableAttributes(1);
+	renderer->BindBuffer(vertexBuffer, 0);
+	//renderer->BindColorBuffer(colorBuffer, 1);
+	renderer->BindElementBuffer(elementBuffer);
+	renderer->DrawElementBuffer(vertexCount * 12);
+
+	renderer->DisableAttributes(0);
+	//renderer->DisableAttributes(1);
 }

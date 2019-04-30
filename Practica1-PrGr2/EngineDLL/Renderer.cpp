@@ -115,7 +115,7 @@ unsigned int Renderer::GenBuffer(unsigned int size, float * g_vertex_buffer_data
 	return vertexbuffer;
 }
 
-unsigned int Renderer::GenElementBuffer(unsigned int size, unsigned int * g_element_buffer_data)
+unsigned int Renderer::GenElementBuffer(unsigned int size, unsigned int &g_element_buffer_data)
 {
 	GLuint elementbuffer;
 
@@ -123,7 +123,7 @@ unsigned int Renderer::GenElementBuffer(unsigned int size, unsigned int * g_elem
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, g_element_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, &g_element_buffer_data, GL_STATIC_DRAW);
 
 	return elementbuffer;
 }

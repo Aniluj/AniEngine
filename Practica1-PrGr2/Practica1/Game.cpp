@@ -72,6 +72,12 @@ bool Game::OnStart()
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
 
+	cube = new Cube(renderer);
+	cube->material = Material::CreateMaterial(
+		"Shaders/TransformVertexShader.txt",
+		"Shaders/ColorFragmentShader.txt");
+	
+
 	/*tilemap->material = Material::CreateMaterial(
 	"Shaders/TextureTransformVertexShader.txt",
 	"Shaders/TextureFragmentShader.txt");*/
@@ -99,6 +105,7 @@ bool Game::OnStart()
 	rectangle->Translate(320, 300, 0.0);
 	character->Translate(320, 150, 0.0);
 	enemy->Translate(600, 250, 0.0);
+	cube->Translate(750, 400, 300.0);
 
 	i = 0;
 
@@ -139,7 +146,7 @@ bool Game::OnUpdate()
 
 	//rectangle->Translate(rectangle->vectorPosition.x, rectangle->vectorPosition.y - (100 * deltaTime), 0.0);
 
-	triangle->RotateZ(-i);
+	//triangle->RotateZ(-i);
 
 	//rectangle->RotateZ(56+i);
 
@@ -163,16 +170,18 @@ bool Game::OnUpdate()
 
 	//texture->RotateZ(56 + i);
 
-	collManager->CheckForBoundingBoxCollisions();
+	//collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
-
+	cube->RotateY(-i);
+	cube->RotateX(-i);
 	return true;
 }
 
 void Game::OnDraw()
 {
-	character->Draw();
-	enemy->Draw();
-	triangle->Draw();
-	rectangle->Draw();
+	//character->Draw();
+	//enemy->Draw();
+	//triangle->Draw();
+	//rectangle->Draw();
+	cube->Draw();
 }
