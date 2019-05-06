@@ -119,6 +119,7 @@ bool Game::OnStop()
 	delete character;
 	delete triangle;
 	delete rectangle;
+	delete cube;
 	delete collManager;
 
 	return true;
