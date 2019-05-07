@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D34FBD06-95AE-4F17-959E-E1AC170E4EE9}</ProjectGuid>
     <RootNamespace>EngineDLL</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,14 +77,17 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINEDLL_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew-2.1.0\include\GL;$(SolutionDir)external\glfw-3.2.1\include;$(SolutionDir)external\glm-0.9.9.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glew-2.1.0\include\GL;$(SolutionDir)external\glfw-3.2.1\include;$(SolutionDir)external\glm-0.9.9.0;$(SolutionDir)external\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)external\glew-2.1.0\bin\Win32\glew32.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)external\glew-2.1.0\bin\Win32\glew32.dll" "$(OutDir)"
+copy "$(SolutionDir)external\assimp\lib\assimp-vc140-mt.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
