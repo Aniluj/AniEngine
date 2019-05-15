@@ -173,6 +173,7 @@ bool Game::OnUpdate()
 
 	//collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
+
 	cube->RotateY(-i);
 	cube->RotateX(-i);
 	return true;
