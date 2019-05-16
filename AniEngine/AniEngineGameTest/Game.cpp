@@ -72,10 +72,10 @@ bool Game::OnStart()
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
 
-	cube = new Cube(renderer);
+	/*cube = new Cube(renderer);
 	cube->material = Material::CreateMaterial(
 		"Shaders/TransformVertexShader.txt",
-		"Shaders/ColorFragmentShader.txt");
+		"Shaders/ColorFragmentShader.txt");*/
 	
 
 	/*tilemap->material = Material::CreateMaterial(
@@ -105,7 +105,7 @@ bool Game::OnStart()
 	rectangle->Translate(320, 300, 0.0);
 	character->Translate(320, 150, 0.0);
 	enemy->Translate(600, 250, 0.0);
-	cube->Translate(750, 400, 300.0);
+	//cube->Translate(750, 400, 300.0);
 
 	i = 0;
 
@@ -119,7 +119,7 @@ bool Game::OnStop()
 	delete character;
 	delete triangle;
 	delete rectangle;
-	delete cube;
+	//delete cube;
 	delete collManager;
 
 	return true;
@@ -174,16 +174,16 @@ bool Game::OnUpdate()
 	//collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
 
-	cube->RotateY(-i);
-	cube->RotateX(-i);
+	//cube->RotateY(-i);
+	//cube->RotateX(-i);
 	return true;
 }
 
 void Game::OnDraw()
 {
 	//character->Draw();
-	//enemy->Draw();
+	enemy->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();
-	cube->Draw();
+	//cube->Draw();
 }

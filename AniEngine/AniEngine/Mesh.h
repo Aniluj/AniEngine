@@ -10,14 +10,10 @@ protected:
 	//unsigned int * indices;
 	MeshData* meshData;
 
-	unsigned int vertexBuffer;
-	unsigned int elementBuffer;
-	unsigned int uvBuffer;
-
 	int vertexCount;
 public:
 	Mesh(Renderer* rendererPtr);
 	~Mesh();
-	Material * material;
+	void Draw() override;
 };
 

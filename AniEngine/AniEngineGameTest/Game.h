@@ -25,7 +25,7 @@ public:
 	Camera* camera;
 	Triangle* triangle;
 	Rectangle* rectangle;
-	Cube* cube;
+	//Cube* cube;
 	Texture* character;
 	Texture* enemy;
 	CollisionManager* collManager;

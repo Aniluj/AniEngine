@@ -4,6 +4,7 @@
 
 Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 {
+	/*
 	vertexCount = 3;
 
 	meshData->g_vertex_buffer_data = new float[vertexCount * 8]
@@ -19,6 +20,7 @@ Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 		50.0, 50.0, -50.0,
 		-50.0, 50.0, -50.0,
 	};
+	*/
 
 	/*g_color_buffer_data = new float[vertexCount * 36]
 	{
@@ -63,6 +65,7 @@ Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 
 	//vector<unsigned int> indice{
 
+	/*
 	meshData->indices = new vector<unsigned int> {
 		// front
 		0, 1, 2,
@@ -84,23 +87,25 @@ Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
 		6, 7, 3
 	};
 
-	cout << sizeof(unsigned int) * meshData->indices->size() << endl;
-
 	vertexBuffer = renderer->GenBuffer(vertexCount * 8 * sizeof(float), meshData->g_vertex_buffer_data);
 	//colorBuffer = renderer->GenBuffer(vertexCount * 36 * sizeof(float), g_color_buffer_data);
 	elementBuffer = renderer->GenElementBuffer(sizeof(unsigned int) * meshData->indices->size(), meshData->indices->at(0));
+	*/
 }
 
 
 Cube::~Cube()
 {
+	/*
 	renderer->DestroyBuffer(vertexBuffer);
 	//renderer->DestroyBuffer(colorBuffer);
 	renderer->DestroyBuffer(elementBuffer);
+	*/
 }
 
 void Cube::Draw()
 {
+	/*
 	renderer->LoadIdentityMatrix();
 	renderer->SetModelMatrix(model);
 
@@ -119,4 +124,6 @@ void Cube::Draw()
 
 	renderer->DisableAttributes(0);
 	//renderer->DisableAttributes(1);
+
+	*/
 }

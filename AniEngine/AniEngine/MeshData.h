@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Exports.h"
+#include "Renderer.h"
+#include "Material.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -23,20 +25,30 @@ struct Vertex
 	*/
 };
 
-struct Texture
+/*struct Texture
 {
 	unsigned int id;
 	string type;
 	string path;
-};
+};*/
 
 class ENGINEDLL_API MeshData
 {
+private:
+	Renderer * renderer;
+	Material * material;
+	void Draw(glm::mat4 & model);
 public:
+	MeshData(const vector<Vertex> & vertices, const vector<unsigned int> & indices, Renderer * rendererPtr);
 	MeshData();
 	~MeshData();
-
+	void SetUpMeshData();
+	unsigned int vertexBuffer;
+	unsigned int elementBuffer;
+	unsigned int uvBuffer;
 	vector<unsigned int>* indices;
+	vector<Vertex>* vertex_buffer_data;
+
 	float * g_vertex_buffer_data;
 	float * g_uv_buffer_data;
 };
