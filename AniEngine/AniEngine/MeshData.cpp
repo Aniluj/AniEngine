@@ -2,7 +2,7 @@
 
 
 
-MeshData::MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr)
+MeshData::MeshData(vector<Vertex> & vertices,vector<unsigned int> & indices, Renderer * rendererPtr)
 {
 	vertex_buffer_data = new vector<Vertex>(vertices);
 	this->indices = new vector<unsigned int>(indices);
@@ -49,5 +49,5 @@ MeshData::~MeshData()
 {
 	delete vertex_buffer_data;
 	delete indices;
-	delete g_vertex_buffer_data;
+	//delete g_vertex_buffer_data;
 }

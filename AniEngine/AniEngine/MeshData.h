@@ -37,12 +37,13 @@ class ENGINEDLL_API MeshData
 private:
 	Renderer * renderer;
 	Material * material;
-	void Draw(glm::mat4 & model);
 public:
-	MeshData(const vector<Vertex> & vertices, const vector<unsigned int> & indices, Renderer * rendererPtr);
+	MeshData(vector<Vertex> & vertices,vector<unsigned int> & indices, Renderer * rendererPtr);
 	MeshData();
-	~MeshData();
 	void SetUpMeshData();
+	void Draw(glm::mat4 & model);
+	~MeshData();
+
 	unsigned int vertexBuffer;
 	unsigned int elementBuffer;
 	unsigned int uvBuffer;

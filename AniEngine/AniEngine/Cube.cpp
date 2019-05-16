@@ -2,7 +2,7 @@
 
 
 
-Cube::Cube(Renderer * rendererPtr) : Mesh(rendererPtr)
+Cube::Cube(Renderer * rendererPtr) : Entity(rendererPtr)
 {
 	/*
 	vertexCount = 3;

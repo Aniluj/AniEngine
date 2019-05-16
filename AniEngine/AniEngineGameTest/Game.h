@@ -4,6 +4,7 @@
 #include "Triangle.h"
 #include "Rectangle.h"
 #include "Cube.h"
+#include "Mesh.h"
 #include "Texture.h"
 #include "CollisionManager.h"
 #include "Tilemap.h"
@@ -26,6 +27,7 @@ public:
 	Triangle* triangle;
 	Rectangle* rectangle;
 	//Cube* cube;
+	Mesh* mesh;
 	Texture* character;
 	Texture* enemy;
 	CollisionManager* collManager;
