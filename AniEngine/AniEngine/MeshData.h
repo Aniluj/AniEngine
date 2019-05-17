@@ -12,10 +12,9 @@ struct Vertex
 {
 	// position
 	glm::vec3 Position;
-
-	/*
 	// normal
 	glm::vec3 Normal;
+	/*
 	// texCoords
 	glm::vec2 TexCoords;
 	// tangent
@@ -50,7 +49,7 @@ public:
 	vector<unsigned int>* indices;
 	vector<Vertex>* vertex_buffer_data;
 
-	float * g_vertex_buffer_data;
-	float * g_uv_buffer_data;
+	//float * g_vertex_buffer_data;
+	//float * g_uv_buffer_data;
 };
 

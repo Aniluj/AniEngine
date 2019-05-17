@@ -11,12 +11,14 @@ void Mesh::LoadModel(string path)
 	Assimp::Importer import;
 	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
+
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
 		return;
 	}
 	directory = path.substr(0, path.find_last_of('/'));
+
 
 	ProcessNode(scene->mRootNode, scene);
 }
@@ -46,10 +48,16 @@ MeshData Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		Vertex vertex;
 
 		glm::vec3 vector;
+
 		vector.x = mesh->mVertices[i].x;
 		vector.y = mesh->mVertices[i].y;
 		vector.z = mesh->mVertices[i].z;
 		vertex.Position = vector;
+
+		vector.x = mesh->mNormals[i].x;
+		vector.y = mesh->mNormals[i].y;
+		vector.z = mesh->mNormals[i].z;
+		vertex.Normal = vector;
 
 		vertices.push_back(vertex);
 	}
@@ -72,10 +80,10 @@ void Mesh::Draw()
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
 		meshesData[i].Draw(model);
+		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
 }
 
 Mesh::~Mesh()
 {
-
 }

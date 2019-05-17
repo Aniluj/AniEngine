@@ -13,7 +13,7 @@ class ENGINEDLL_API Mesh : public Entity
 {
 protected:
 	//unsigned int * indices;
-	int vertexCount;
+	int counter;
 	vector<MeshData> meshesData;
 public:
 	Mesh(const char* path, Renderer* rendererPtr);

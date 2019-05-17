@@ -52,6 +52,7 @@ public:
 
 	void EnableAttributes(unsigned int attributeId);
 	void BindBuffer(unsigned int vertexBuffer, unsigned int attributeId);
+	void NormalVertexAttrib(unsigned int attributebID);
 	void DisableAttributes(unsigned int attributeId);
 	void LoadIdentityMatrix();
 	void SetModelMatrix(glm::mat4 model);

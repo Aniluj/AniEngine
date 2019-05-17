@@ -171,6 +171,18 @@ void Renderer::BindElementBuffer(unsigned int elementBuffer)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 }
 
+void Renderer::NormalVertexAttrib(unsigned int attributebID)
+{
+	glVertexAttribPointer(
+		attributebID,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		0,
+		(void*)0
+	);
+}
+
 void Renderer::BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
