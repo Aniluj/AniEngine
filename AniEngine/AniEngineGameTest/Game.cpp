@@ -21,7 +21,7 @@ bool Game::OnStart()
 	//bmp test spritesheet = Test-Spritesheet1.bmp
 
 	cout << "Game::OnStart() " << endl;
-	character = new Texture(
+	character = new Sprite(
 		renderer, 
 		"Test-Spritesheet.bmp",
 		20.0f,
@@ -42,7 +42,7 @@ bool Game::OnStart()
 	character->testAnimation->AddFrame(8, 1);
 
 
-	enemy = new Texture(
+	enemy = new Sprite(
 		renderer,
 		"uvtemplate.bmp",
 		100.0f,
@@ -168,11 +168,11 @@ bool Game::OnUpdate()
 
 	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
 
-	/*character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
+	character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
 	character->UpdateDT(deltaTime);
 
 	enemy->Translate(enemy->vectorPosition.x - (150 * deltaTime), 350, 0.0);
-	enemy->UpdateDT(deltaTime);*/
+	enemy->UpdateDT(deltaTime);
 
 	//texture->RotateZ(56 + i);
 
@@ -186,10 +186,10 @@ bool Game::OnUpdate()
 
 void Game::OnDraw()
 {
-	//character->Draw();
-	//enemy->Draw();
+	character->Draw();
+	enemy->Draw();
 	//triangle->Draw();
-	rectangle->Draw();
+	//rectangle->Draw();
 	//cube->Draw();
 	mesh->Draw();
 }

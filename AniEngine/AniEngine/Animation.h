@@ -4,7 +4,7 @@
 #include <iostream>
 #include <list>
 #include "Shape.h"
-#include "Sprite.h"
+#include "Frame.h"
 #include "glm\glm.hpp"
 
 using namespace std;
@@ -43,8 +43,8 @@ public:
 
 	~Animation();
 
-	list<Sprite*>* frameList;
-	list<Sprite*>::iterator frameIt;
+	list<Frame*>* frameList;
+	list<Frame*>::iterator frameIt;
 	void Update(double & deltaTime);
 	void AddFrame(int frameRow, int frameColumn);
 };

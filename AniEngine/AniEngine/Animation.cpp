@@ -13,7 +13,7 @@ Animation::Animation(
 	int & initialFrameRow,
 	int & initialFrameColumn)
 {
-	frameList = new list<Sprite*>();
+	frameList = new list<Frame*>();
 	receivedShape = shape;
 	frameWidth = frameWidthRef;
 	frameHeight = frameHeightRef;
@@ -21,7 +21,7 @@ Animation::Animation(
 	spritesheetHeight = spritesheetHeightRef;
 	speed = animationSpeedRef;
 
-	Sprite * spriteToAdd = new Sprite(initialFrameRow, initialFrameColumn);
+	Frame * spriteToAdd = new Frame(initialFrameRow, initialFrameColumn);
 
 	spriteToAdd->maxU = ((float)frameWidth * (float)spriteToAdd->columPositionOfFrame) / (float)spritesheetWidth;
 	spriteToAdd->minU = spriteToAdd->maxU - ((float)frameWidth / (float)spritesheetWidth);
@@ -76,7 +76,7 @@ void Animation::Update(double & deltaTime)
 
 void Animation::AddFrame(int frameRow, int frameColumn)
 {
-	Sprite* spriteToAdd = new Sprite(frameRow, frameColumn);
+	Frame* spriteToAdd = new Frame(frameRow, frameColumn);
 
 	spriteToAdd->maxU = ((float)frameWidth * (float)spriteToAdd->columPositionOfFrame) / (float)spritesheetWidth;
 	spriteToAdd->minU = spriteToAdd->maxU - ((float)frameWidth / (float)spritesheetWidth);

@@ -5,7 +5,7 @@
 #include "Rectangle.h"
 #include "Cube.h"
 #include "Mesh.h"
-#include "Texture.h"
+#include "Sprite.h"
 #include "CollisionManager.h"
 #include "Tilemap.h"
 #include "Camera.h"
@@ -28,8 +28,8 @@ public:
 	Rectangle* rectangle;
 	//Cube* cube;
 	Mesh* mesh;
-	Texture* character;
-	Texture* enemy;
+	Sprite* character;
+	Sprite* enemy;
 	CollisionManager* collManager;
 	Tilemap* tilemap;
 protected:
