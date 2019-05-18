@@ -36,7 +36,7 @@ Rectangle::~Rectangle()
 	delete[] g_vertex_buffer_data;
 	delete[] g_color_buffer_data;
 	delete bbox;
-	delete bcircle;
+	//delete bcircle;
 }
 
 void Rectangle::Draw()

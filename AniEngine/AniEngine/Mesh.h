@@ -14,12 +14,12 @@ class ENGINEDLL_API Mesh : public Entity
 protected:
 	//unsigned int * indices;
 	int counter;
-	vector<MeshData> meshesData;
+	vector<MeshData*> meshesData;
 public:
 	Mesh(const char* path, Renderer* rendererPtr);
 	void LoadModel(string path);
 	void ProcessNode(aiNode *node, const aiScene *scene);
-	MeshData ProcessMesh(aiMesh *mesh, const aiScene *scene);
+	MeshData* ProcessMesh(aiMesh *mesh, const aiScene *scene);
 	void Draw() override;
 	~Mesh();
 

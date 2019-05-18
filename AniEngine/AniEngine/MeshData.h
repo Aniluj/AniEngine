@@ -12,9 +12,10 @@ struct Vertex
 {
 	// position
 	glm::vec3 Position;
+	/*
 	// normal
 	glm::vec3 Normal;
-	/*
+	
 	// texCoords
 	glm::vec2 TexCoords;
 	// tangent
@@ -37,7 +38,7 @@ private:
 	Renderer * renderer;
 	Material * material;
 public:
-	MeshData(vector<Vertex> & vertices,vector<unsigned int> & indices, Renderer * rendererPtr);
+	MeshData(vector<Vertex> vertices,vector<unsigned int> indices, Renderer * rendererPtr);
 	MeshData();
 	void SetUpMeshData();
 	void Draw(glm::mat4 & model);

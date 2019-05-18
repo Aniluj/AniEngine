@@ -38,7 +38,7 @@ void Mesh::ProcessNode(aiNode *node, const aiScene *scene)
 	}
 }
 
-MeshData Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
+MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
@@ -54,10 +54,10 @@ MeshData Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		vector.z = mesh->mVertices[i].z;
 		vertex.Position = vector;
 
-		vector.x = mesh->mNormals[i].x;
-		vector.y = mesh->mNormals[i].y;
-		vector.z = mesh->mNormals[i].z;
-		vertex.Normal = vector;
+		//vector.x = mesh->mNormals[i].x;
+		//vector.y = mesh->mNormals[i].y;
+		//vector.z = mesh->mNormals[i].z;
+		//vertex.Normal = vector;
 
 		vertices.push_back(vertex);
 	}
@@ -72,14 +72,14 @@ MeshData Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		}
 	}
 
-	return MeshData(vertices, indices, renderer);
+	return new MeshData(vertices, indices, renderer);
 }
 
 void Mesh::Draw()
 {
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
-		meshesData[i].Draw(model);
+		meshesData[i]->Draw(model);
 		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
 }

@@ -2,7 +2,7 @@
 
 
 
-MeshData::MeshData(vector<Vertex> & vertices,vector<unsigned int> & indices, Renderer * rendererPtr)
+MeshData::MeshData(vector<Vertex> vertices, vector<unsigned int> indices, Renderer * rendererPtr)
 {
 	vertex_buffer_data = new vector<Vertex>(vertices);
 	this->indices = new vector<unsigned int>(indices);
@@ -18,7 +18,7 @@ MeshData::MeshData()
 
 void MeshData::SetUpMeshData()
 {
-	vertexBuffer = renderer->GenBuffer(sizeof(Vertex) * vertex_buffer_data->size(), &vertex_buffer_data[0]);
+	vertexBuffer = renderer->GenBuffer(sizeof(Vertex) * vertex_buffer_data->size(), &vertex_buffer_data->at(0));
 	//cout << "vertex buffer size: " << sizeof(Vertex) * vertex_buffer_data->size() << endl;
 	elementBuffer = renderer->GenElementBuffer(sizeof(unsigned int) * indices->size(), &indices[0]);
 	material = Material::CreateMaterial(
@@ -40,8 +40,8 @@ void MeshData::Draw(glm::mat4 & model)
 	renderer->EnableAttributes(0);
 	renderer->BindBuffer(vertexBuffer, 0);
 
-	renderer->EnableAttributes(1);
-	renderer->NormalVertexAttrib(1);
+	//renderer->EnableAttributes(1);
+	//renderer->NormalVertexAttrib(1);
 
 	renderer->BindElementBuffer(elementBuffer);
 	renderer->DrawElementBuffer(indices->size());
