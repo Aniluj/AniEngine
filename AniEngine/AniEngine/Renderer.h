@@ -45,7 +45,7 @@ public:
 	void DrawElementBuffer(int vertexCount);
 	void DestroyBuffer(unsigned int buffer);
 
-	unsigned int GenBuffer(unsigned int size, const void * g_vertex_buffer_data);
+	unsigned int GenBuffer(unsigned int size, float * g_vertex_buffer_data);
 	unsigned int GenColorBuffer(unsigned int size, float * g_color_buffer_data);
 	unsigned int GenUVBuffer(unsigned int size, float * g_uv_buffer_data);
 	unsigned int GenElementBuffer(unsigned int size, const void * g_element_buffer_data);

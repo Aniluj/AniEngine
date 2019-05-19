@@ -47,11 +47,13 @@ MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 	{
 		Vertex vertex;
 
+		const aiVector3D* pPos = &(mesh->mVertices[i]);
+
 		glm::vec3 vector;
 
-		vector.x = mesh->mVertices[i].x;
-		vector.y = mesh->mVertices[i].y;
-		vector.z = mesh->mVertices[i].z;
+		vector.x = (float)pPos->x;
+		vector.y = (float)pPos->y;
+		vector.z = (float)pPos->z;
 		vertex.Position = vector;
 
 		//vector.x = mesh->mNormals[i].x;

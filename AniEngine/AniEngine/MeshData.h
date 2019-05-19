@@ -38,7 +38,7 @@ private:
 	Renderer * renderer;
 	Material * material;
 public:
-	MeshData(vector<Vertex> vertices,vector<unsigned int> indices, Renderer * rendererPtr);
+	MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr);
 	MeshData();
 	void SetUpMeshData();
 	void Draw(glm::mat4 & model);

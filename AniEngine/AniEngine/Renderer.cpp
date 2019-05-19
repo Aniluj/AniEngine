@@ -101,7 +101,7 @@ void Renderer::SwapBuffer()
 	glfwSwapBuffers((GLFWwindow*)window->GetWindowPtr());
 }
 
-unsigned int Renderer::GenBuffer(unsigned int size,const void * g_vertex_buffer_data)
+unsigned int Renderer::GenBuffer(unsigned int size,float * g_vertex_buffer_data)
 {
 
 	GLuint vertexbuffer;

@@ -102,13 +102,11 @@ bool Game::OnStart()
 	rectangle->Translate(600, 320, 0.0);
 	texture->Translate(480, 320, 0.0);*/
 
-	camera->Translate(400, 320, 1000);
-
 	triangle->Translate(750, 400, 0.0);
 	rectangle->Translate(320, 300, 0.0);
 	character->Translate(320, 150, 0.0);
 	enemy->Translate(600, 250, 0.0);
-	mesh->Translate(400, 320, 1000);
+	mesh->Translate(480, 312, 1475);
 	//cube->Translate(750, 400, 300.0);
 
 	i = 0;
@@ -116,29 +114,16 @@ bool Game::OnStart()
 	return true;
 }
 
-bool Game::OnStop() 
-{
-	cout << "Game::OnStop()" << endl;
-
-	delete character;
-	delete triangle;
-	delete rectangle;
-	//delete cube;
-	delete mesh;
-	delete collManager;
-
-	return true;
-}
 
 bool Game::OnUpdate() 
 {
 	i++;
 	timer += deltaTime;
 
-	camera->Walk(100 * deltaTime);
+	camera->Walk(-10 * deltaTime);
 	//camera->Strafe(-75 * deltaTime);
 
-	//camera->Pitch(-0.1f);
+	//camera->Pitch(-0.7f);
 	//camera->Yaw(0.5f);
 	//camera->Roll(0.3);
 
@@ -192,4 +177,19 @@ void Game::OnDraw()
 	//rectangle->Draw();
 	//cube->Draw();
 	mesh->Draw();
+}
+
+bool Game::OnStop()
+{
+	cout << "Game::OnStop()" << endl;
+
+	delete character;
+	delete triangle;
+	delete rectangle;
+	//delete cube;
+	delete mesh;
+	delete collManager;
+	delete camera;
+
+	return true;
 }
