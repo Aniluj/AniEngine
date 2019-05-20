@@ -2,12 +2,12 @@
 
 
 
-MeshData::MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr)
+MeshData::MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr, string texturePath)
 {
 	vertex_buffer_data = new vector<Vertex>(vertices);
 	this->indices = new vector<unsigned int>(indices);
 	texture = new Texture();
-	texture->path = "M4A1/M4A1Tex.bmp";
+	texture->path = texturePath;
 	texture->id = BMPLoader::LoadBMP(texture->path.c_str());
 	renderer = rendererPtr;
 	SetUpMeshData();
@@ -54,8 +54,8 @@ void MeshData::Draw(glm::mat4 & model)
 	{
 		material->Bind();
 		renderer->BindTexture(texture->id);
-		material->SetTextureProperty();
 		material->SetMatrixProperty(renderer->GetMVP());
+		material->SetTextureProperty();
 	}
 
 	renderer->EnableAttributes(0);
@@ -69,6 +69,7 @@ void MeshData::Draw(glm::mat4 & model)
 	renderer->NormalVertexAttrib(2);
 
 	renderer->BindElementBuffer(elementBuffer);
+
 	renderer->DrawElementBuffer(indices->size());
 
 	renderer->DisableAttributes(0);

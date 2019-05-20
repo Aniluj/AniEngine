@@ -16,10 +16,10 @@ protected:
 	int counter;
 	vector<MeshData*> meshesData;
 public:
-	Mesh(const char* path, Renderer* rendererPtr);
-	void LoadModel(string path);
-	void ProcessNode(aiNode *node, const aiScene *scene);
-	MeshData* ProcessMesh(aiMesh *mesh, const aiScene *scene);
+	Mesh(const char* path, Renderer* rendererPtr, const char* texturePath);
+	void LoadModel(string path, string texturePath);
+	void ProcessNode(aiNode *node, const aiScene *scene, string texturePath);
+	MeshData* ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath);
 	void Draw() override;
 	~Mesh();
 

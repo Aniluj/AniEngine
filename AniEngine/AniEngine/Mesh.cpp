@@ -1,12 +1,12 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(const char* path, Renderer* rendererPtr):Entity(rendererPtr)
+Mesh::Mesh(const char* path, Renderer* rendererPtr, const char* texturePath) :Entity(rendererPtr)
 {
-	LoadModel(path);
+	LoadModel(path, texturePath);
 }
 
-void Mesh::LoadModel(string path)
+void Mesh::LoadModel(string path, string texturePath)
 {
 	Assimp::Importer import;
 	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
@@ -20,25 +20,25 @@ void Mesh::LoadModel(string path)
 	directory = path.substr(0, path.find_last_of('/'));
 
 
-	ProcessNode(scene->mRootNode, scene);
+	ProcessNode(scene->mRootNode, scene, texturePath);
 }
 
-void Mesh::ProcessNode(aiNode *node, const aiScene *scene)
+void Mesh::ProcessNode(aiNode *node, const aiScene *scene, string texturePath)
 {
 	// process all the node's meshes (if any)
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		meshesData.push_back(ProcessMesh(mesh, scene));
+		meshesData.push_back(ProcessMesh(mesh, scene, texturePath));
 	}
 	// then do the same for each of its children
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene);
+		ProcessNode(node->mChildren[i], scene, texturePath);
 	}
 }
 
-MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
+MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
@@ -84,7 +84,7 @@ MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		}
 	}
 
-	return new MeshData(vertices, indices, renderer);
+	return new MeshData(vertices, indices, renderer, texturePath);
 }
 
 void Mesh::Draw()

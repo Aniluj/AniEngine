@@ -40,7 +40,7 @@ private:
 	Renderer * renderer;
 	Material * material;
 public:
-	MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr);
+	MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr, string texturePath);
 	MeshData();
 	void SetUpMeshData();
 	void Draw(glm::mat4 & model);

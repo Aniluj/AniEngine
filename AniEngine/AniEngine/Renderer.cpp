@@ -34,7 +34,7 @@ bool Renderer::Start(Window* windowPtr)
 		//projectionMatrix = glm::ortho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
 		//projectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
-		SetProjectionMatrixToOrtho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
+		SetProjectionMatrixToOrtho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.1f, 1000.0f);
 		SetViewMatrix(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 		/*viewMatrix = glm::lookAt(
@@ -42,6 +42,9 @@ bool Renderer::Start(Window* windowPtr)
 			glm::vec3(0, 0, 0), 
 			glm::vec3(0, 1, 0)  
 		);*/
+
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
 
 		cout << "Renderer::Start()" << endl;
 

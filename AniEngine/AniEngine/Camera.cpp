@@ -12,7 +12,7 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 
 	Translate(480, 320, 1500);
 
-	renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 10000.0f);
+	renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
 	renderer->SetViewMatrix(vectorPosition, vectorPosition + (glm::vec3)forward, glm::vec3(0, 1, 0));
 
 	//Pitch(180);

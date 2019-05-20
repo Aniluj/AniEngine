@@ -27,7 +27,8 @@ public:
 	Triangle* triangle;
 	Rectangle* rectangle;
 	//Cube* cube;
-	Mesh* mesh;
+	Mesh* M4Fusil;
+	Mesh* Spider;
 	Sprite* character;
 	Sprite* enemy;
 	CollisionManager* collManager;
