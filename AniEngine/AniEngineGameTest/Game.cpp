@@ -77,7 +77,7 @@ bool Game::OnStart()
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");*/
 	
-	mesh = new Mesh("NanosuitModel/nanosuit.obj", renderer);
+	mesh = new Mesh("M4A1/M4A1.FBX", renderer);
 
 	/*tilemap->material = Material::CreateMaterial(
 	"Shaders/TextureTransformVertexShader.txt",
@@ -106,7 +106,10 @@ bool Game::OnStart()
 	rectangle->Translate(320, 300, 0.0);
 	character->Translate(320, 150, 0.0);
 	enemy->Translate(600, 250, 0.0);
-	mesh->Translate(480, 312, 1475);
+	mesh->Translate(480, 312, 1200);
+	mesh->RotateZ(90);
+	mesh->RotateX(-90);
+	//mesh->Translate(480, 312, 1475);
 	//cube->Translate(750, 400, 300.0);
 
 	i = 0;
@@ -120,7 +123,7 @@ bool Game::OnUpdate()
 	i++;
 	timer += deltaTime;
 
-	camera->Walk(-10 * deltaTime);
+	//camera->Walk(-10 * deltaTime);
 	//camera->Strafe(-75 * deltaTime);
 
 	//camera->Pitch(-0.7f);
@@ -160,7 +163,7 @@ bool Game::OnUpdate()
 	enemy->UpdateDT(deltaTime);
 
 	//texture->RotateZ(56 + i);
-
+	mesh->RotateZ(-i);
 	//collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
 

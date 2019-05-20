@@ -9,7 +9,7 @@ Mesh::Mesh(const char* path, Renderer* rendererPtr):Entity(rendererPtr)
 void Mesh::LoadModel(string path)
 {
 	Assimp::Importer import;
-	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
 
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -43,11 +43,15 @@ MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 
+	const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
+
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
 
 		const aiVector3D* pPos = &(mesh->mVertices[i]);
+		const aiVector3D* pTexCoord = mesh->HasTextureCoords(0) ? &(mesh->mTextureCoords[0][i]) : &Zero3D;
+		const aiVector3D* pNormal = &(mesh->mNormals[i]);
 
 		glm::vec3 vector;
 
@@ -56,10 +60,16 @@ MeshData* Mesh::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		vector.z = (float)pPos->z;
 		vertex.Position = vector;
 
-		//vector.x = mesh->mNormals[i].x;
-		//vector.y = mesh->mNormals[i].y;
-		//vector.z = mesh->mNormals[i].z;
-		//vertex.Normal = vector;
+		vector.x = (float)pNormal->x;
+		vector.y = (float)pNormal->y;
+		vector.z = (float)pNormal->z;
+		vertex.Normal = vector;
+
+		glm::vec2 vec;
+
+		vec.x = (float)pTexCoord->x;
+		vec.y = (float)pTexCoord->y;
+		vertex.TexCoords = vec;
 
 		vertices.push_back(vertex);
 	}
