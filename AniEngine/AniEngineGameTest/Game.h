@@ -9,6 +9,7 @@
 #include "CollisionManager.h"
 #include "Tilemap.h"
 #include "Camera.h"
+#include "Input.h"
 #include <iostream>
 #include <time.h>
 
@@ -31,6 +32,7 @@ public:
 	Mesh* Spider;
 	Sprite* character;
 	Sprite* enemy;
+	Input* input;
 	CollisionManager* collManager;
 	Tilemap* tilemap;
 protected:

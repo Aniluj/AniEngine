@@ -137,6 +137,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exports.h" />
     <ClInclude Include="GameBase.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshData.h" />
@@ -161,6 +162,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameBase.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshData.cpp" />

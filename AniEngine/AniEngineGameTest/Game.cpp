@@ -16,6 +16,8 @@ bool Game::OnStart()
 	
 	camera = new Camera(renderer);
 	collManager = new CollisionManager();
+	input = Input::getInstance();
+	input->SetWindowContext(window);
 
 	//bmp base = uvtemplate.bmp
 	//bmp test spritesheet = Test-Spritesheet1.bmp
@@ -125,11 +127,47 @@ bool Game::OnUpdate()
 	i++;
 	timer += deltaTime;
 
-	//camera->Walk(-10 * deltaTime);
-	//camera->Strafe(-75 * deltaTime);
-
+	if (input->isInput(GLFW_KEY_W))
+	{
+		camera->Walk(-30 * deltaTime);
+	}
+	if (input->isInput(GLFW_KEY_S))
+	{
+		camera->Walk(30 * deltaTime);
+	}
+	if (input->isInput(GLFW_KEY_A))
+	{
+		camera->Strafe(-75 * deltaTime);
+	}
+	if (input->isInput(GLFW_KEY_D))
+	{
+		camera->Strafe(75 * deltaTime);
+	}
+	if (input->isInput(GLFW_KEY_F))
+	{
+		camera->Yaw(0.5f);
+	}
+	if (input->isInput(GLFW_KEY_G))
+	{
+		camera->Yaw(-0.5f);
+	}
+	if (input->isInput(GLFW_KEY_Q))
+	{
+		camera->Roll(0.5);
+	}
+	if (input->isInput(GLFW_KEY_E))
+	{
+		camera->Roll(-0.5);
+	}
+	if (input->isInput(GLFW_KEY_C))
+	{
+		camera->Pitch(0.5f);
+	}
+	if (input->isInput(GLFW_KEY_Z))
+	{
+		camera->Pitch(-0.5f);
+	}
 	//camera->Pitch(-0.7f);
-	//camera->Yaw(0.5f);
 	//camera->Roll(0.3);
 
 	/*if (timer >= timeLim)
@@ -165,8 +203,8 @@ bool Game::OnUpdate()
 	enemy->UpdateDT(deltaTime);
 
 	//texture->RotateZ(56 + i);
-	M4Fusil->RotateZ(-i);
-	Spider->RotateY(-i);
+	//M4Fusil->RotateZ(-i);
+	//Spider->RotateY(-i);
 	//collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
 
