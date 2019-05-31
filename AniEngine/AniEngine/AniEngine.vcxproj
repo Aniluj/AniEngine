@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D34FBD06-95AE-4F17-959E-E1AC170E4EE9}</ProjectGuid>
     <RootNamespace>AniEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -142,7 +142,6 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshData.h" />
-    <ClInclude Include="ModelImporter.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
@@ -150,6 +149,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="TypeDef.h" />
     <ClInclude Include="Window.h" />
@@ -169,7 +169,6 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="ModelImporter.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -177,6 +176,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

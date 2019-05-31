@@ -4,6 +4,7 @@
 
 Node::Node(Renderer * rendererPtr)
 {
+	renderer = rendererPtr;
 }
 
 

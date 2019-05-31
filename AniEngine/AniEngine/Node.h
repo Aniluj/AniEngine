@@ -13,6 +13,8 @@ class ENGINEDLL_API Node
 private:
 	list<Node*>* childNodes;
 	list<Component*>* components;
+
+	Renderer * renderer;
 public:
 	Node(Renderer * rendererPtr);
 	~Node();
