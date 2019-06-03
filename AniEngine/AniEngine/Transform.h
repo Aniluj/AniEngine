@@ -12,11 +12,10 @@
 class ENGINEDLL_API Transform : public Component
 {
 private:
-	glm::vec3 vectorRotation;
+	glm::vec3 localRotation;
 	glm::vec3 localPosition;
-	glm::vec3 worldPositio;
+	glm::vec3 worldPosition;
 	glm::vec3 localScale;
-	glm::mat4 translationMatrix;
 	glm::mat4 worldMatrix;
 	glm::mat4 model;
 	glm::mat4 scallingMatrix;
@@ -27,11 +26,13 @@ public:
 	Transform();
 	~Transform();
 
+	glm::mat4 translationMatrix;
 	void Scale(float x, float y, float z);
 	void Translate(float x, float y, float z);
 	void RotateX(float angle);
 	void RotateY(float angle);
 	void RotateZ(float angle);
 	void UpdateModel();
+	glm::mat4& GetModel();
 };
 

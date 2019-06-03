@@ -1,10 +1,28 @@
 #include "Transform.h"
 
 
+Transform::Transform()
+{
+	localPosition = glm::vec3(0.0f);
+	localRotation = glm::vec3(0.0f);
+	localScale = glm::vec3(0.0f);
+	worldPosition = glm::vec3(0.0f);
+	model = glm::mat4(1.0f);
+	translationMatrix = glm::mat4(1.0f);
+	rotationX = glm::mat4(1.0f);
+	rotationY = glm::mat4(1.0f);
+	rotationZ = glm::mat4(1.0f);
+	scallingMatrix = glm::mat4(1.0f);
+}
 
 void Transform::UpdateModel()
 {
 	model = translationMatrix * (rotationX * rotationY * rotationZ) * scallingMatrix;
+}
+
+glm::mat4& Transform::GetModel()
+{
+	return model;
 }
 
 void Transform::Translate(float x, float y, float z)
@@ -65,3 +83,8 @@ void Transform::RotateZ(float angle)
 
 	UpdateModel();
 }
+
+Transform::~Transform()
+{
+}
+

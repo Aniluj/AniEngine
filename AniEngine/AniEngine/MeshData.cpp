@@ -86,5 +86,4 @@ MeshData::~MeshData()
 	delete indices;
 	delete material;
 	delete texture;
-	//delete g_vertex_buffer_data;
 }

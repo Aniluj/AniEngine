@@ -52,7 +52,5 @@ public:
 	vector<unsigned int>* indices;
 	vector<Vertex>* vertex_buffer_data;
 	Texture * texture;
-	//float * g_vertex_buffer_data;
-	//float * g_uv_buffer_data;
 };
 

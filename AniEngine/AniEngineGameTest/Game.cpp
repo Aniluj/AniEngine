@@ -73,11 +73,6 @@ bool Game::OnStart()
 	rectangle->material = Material::CreateMaterial(
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
-
-	/*cube = new Cube(renderer);
-	cube->material = Material::CreateMaterial(
-		"Shaders/TransformVertexShader.txt",
-		"Shaders/ColorFragmentShader.txt");*/
 	
 	M4Fusil = new Mesh("M4A1/M4A1.FBX", renderer, "M4A1/M4A1Tex.bmp");
 	Spider = new Mesh("Spider/spider.obj", renderer, "Spider/SpiderTex.bmp");
@@ -114,7 +109,6 @@ bool Game::OnStart()
 	M4Fusil->RotateX(-90);
 	Spider->Translate(480, 305, 1200);
 	//mesh->Translate(480, 312, 1475);
-	//cube->Translate(750, 400, 300.0);
 
 	i = 0;
 
@@ -208,8 +202,6 @@ bool Game::OnUpdate()
 	//collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
 
-	//cube->RotateY(-i);
-	//cube->RotateX(-i);
 	return true;
 }
 
@@ -219,7 +211,6 @@ void Game::OnDraw()
 	enemy->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();
-	//cube->Draw();
 	M4Fusil->Draw();
 	Spider->Draw();
 }
@@ -231,7 +222,6 @@ bool Game::OnStop()
 	delete character;
 	delete triangle;
 	delete rectangle;
-	//delete cube;
 	delete M4Fusil;
 	delete Spider;
 	delete collManager;

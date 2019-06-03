@@ -9,7 +9,7 @@ Entity::Entity(Renderer* rendererPtr)
 {
 	renderer = rendererPtr;
 
-	vectorPosition =   glm::vec3(0.0f);
+	vectorPosition =  glm::vec3(0.0f);
 	vectorRotation = glm::vec3(0.0f);
 	vectorScale = glm::vec3(0.0f);
 	model = glm::mat4(1.0f);
