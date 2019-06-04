@@ -68,6 +68,8 @@ public:
 	void SetViewMatrix(glm::mat4 viewMatrixValues);
 
 	void SetMVP();
+	void MultiplyModel(glm::mat4 matrix);
 
 	glm::mat4& GetMVP();
+	glm::mat4 GetModelMatrix();
 };

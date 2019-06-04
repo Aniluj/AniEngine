@@ -8,6 +8,7 @@ Node::Node(Renderer * rendererPtr)
 	components = new list<Component*>();
 	renderer = rendererPtr;
 	transform = new Transform();
+	transform->componentName = "transform";
 	components->push_back(transform);
 }
 
@@ -49,13 +50,14 @@ void Node::RemoveChild(Node * childNode)
 
 void Node::Update()
 {
-	if (parent)
-	{
-		transform->translationMatrix = transform->translationMatrix * parent->transform->translationMatrix;
-		transform->UpdateModel();
-	}
+
+	glm::mat4 savedWorldMatrix = renderer->GetModelMatrix();
+	renderer->MultiplyModel(transform->GetModel());
+	transform->translationMatrix = transform->translationMatrix * parent->transform->translationMatrix;
+	//transform->UpdateModel();
 }
 
 void Node::Draw()
 {
+
 }

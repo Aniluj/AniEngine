@@ -15,6 +15,11 @@ Transform::Transform()
 	scallingMatrix = glm::mat4(1.0f);
 }
 
+void Transform::Start(const char * componentName)
+{
+	this->componentName = componentName;
+}
+
 void Transform::UpdateModel()
 {
 	model = translationMatrix * (rotationX * rotationY * rotationZ) * scallingMatrix;

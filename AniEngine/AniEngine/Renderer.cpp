@@ -269,7 +269,17 @@ void Renderer::SetMVP()
 	MVP = projectionMatrix * viewMatrix * modelMatrix;
 }
 
+void Renderer::MultiplyModel(glm::mat4 matrix)
+{
+	modelMatrix *= matrix;
+}
+
 glm::mat4& Renderer::GetMVP()
 {
 	return MVP;
+}
+
+glm::mat4 Renderer::GetModelMatrix()
+{
+	return modelMatrix;
 }

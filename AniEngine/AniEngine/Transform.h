@@ -33,6 +33,7 @@ public:
 	void RotateY(float angle);
 	void RotateZ(float angle);
 	void UpdateModel();
+	void Start(const char * componentName) override;
 	glm::mat4& GetModel();
 };
 

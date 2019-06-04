@@ -22,6 +22,7 @@ public:
 
 	Node * parent;
 	void AddComponent(Component * component);
+	Component* GetComponent(const char * componentName);
 	void RemoveComponent(Component * component);
 	void AddChild(Node * childNode);
 	void RemoveChild(Node * childNode);
