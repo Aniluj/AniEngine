@@ -20,9 +20,9 @@ MeshData::MeshData()
 
 void MeshData::SetUpMeshData()
 {
-	float * positions = new float[vertex_buffer_data->size() * 3];
-	float* textureCoords = new float[vertex_buffer_data->size() * 2];
-	float* normals = new float[vertex_buffer_data->size() * 3];
+	positions = new float[vertex_buffer_data->size() * 3];
+	textureCoords = new float[vertex_buffer_data->size() * 2];
+	normals = new float[vertex_buffer_data->size() * 3];
 
 	for (int i = 0; i < vertex_buffer_data->size(); i++)
 	{
@@ -82,6 +82,9 @@ MeshData::~MeshData()
 	renderer->DestroyBuffer(vertexBuffer);
 	renderer->DestroyBuffer(elementBuffer);
 	renderer->DestroyBuffer(uvBuffer);
+	delete positions;
+	delete textureCoords;
+	delete normals;
 	delete vertex_buffer_data;
 	delete indices;
 	delete material;

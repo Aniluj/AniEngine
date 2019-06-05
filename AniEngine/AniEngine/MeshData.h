@@ -39,6 +39,9 @@ class ENGINEDLL_API MeshData
 private:
 	Renderer * renderer;
 	Material * material;
+	float* positions;
+	float* textureCoords;
+	float* normals;
 public:
 	MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr, string texturePath);
 	MeshData();
