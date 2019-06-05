@@ -44,7 +44,8 @@ Sprite::Sprite(
 
 	g_uv_buffer_data = new float[vertexCount * 2];
 
-	testAnimation = new Animation(this,
+	testAnimation = new Animation(
+		this,
 		frameWidth,
 		frameHeight,
 		spritesheetWidth,

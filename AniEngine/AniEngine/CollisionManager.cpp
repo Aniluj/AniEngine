@@ -43,7 +43,6 @@ void CollisionManager::RegisterBoundingCircle(BoundingCircle* bcircle)
 
 void CollisionManager::CheckForBoundingBoxCollisions()
 {
-
 	for (bbIt = bboxGroupA->begin(); bbIt != bboxGroupA->end(); bbIt++)
 	{
 		for (bbIt2 = bboxGroupB->begin(); bbIt2 != bboxGroupB->end(); bbIt2++)

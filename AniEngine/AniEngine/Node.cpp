@@ -8,13 +8,13 @@ Node::Node(Renderer * rendererPtr)
 	components = new list<Component*>();
 	renderer = rendererPtr;
 	transform = new Transform();
-	transform->componentName = "transform";
+	transform->Start("transform");
 	components->push_back(transform);
 }
 
 Node::~Node()
 {
-	if (childNodes->size > 0)
+	if (childNodes->size() > 0)
 	{
 		for (auto aux : *childNodes)
 		{
@@ -23,6 +23,16 @@ Node::~Node()
 		childNodes->clear();
 	}
 	delete childNodes;
+
+	if (components->size() > 0)
+	{
+		for (auto aux : *components)
+		{
+			delete aux;
+		}
+		components->clear();
+	}
+	delete components;
 }
 
 void Node::AddComponent(Component * component)
@@ -50,14 +60,31 @@ void Node::RemoveChild(Node * childNode)
 
 void Node::Update()
 {
-
-	glm::mat4 savedWorldMatrix = renderer->GetModelMatrix();
-	renderer->MultiplyModel(transform->GetModel());
-	transform->translationMatrix = transform->translationMatrix * parent->transform->translationMatrix;
-	//transform->UpdateModel();
 }
 
 void Node::Draw()
 {
+	glm::mat4 savedWorldMatrix = renderer->GetModelMatrix();
+	renderer->MultiplyModel(transform->GetModel());
 
+	if (parent)
+	{
+		transform->GetModel() = transform->GetModel() * renderer->GetModelMatrix();
+	}
+	if (childNodes->size() > 0)
+	{
+		for (auto aux : *childNodes)
+		{
+			aux->Draw();
+		}
+	}
+	if (components->size() > 0)
+	{
+		for (auto aux : *components)
+		{
+			aux->Draw();
+		}
+	}
+
+	renderer->SetModelMatrix(savedWorldMatrix);
 }

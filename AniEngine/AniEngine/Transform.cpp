@@ -3,6 +3,12 @@
 
 Transform::Transform()
 {
+
+}
+
+void Transform::Start(const char * componentName)
+{
+	this->componentName = componentName;
 	localPosition = glm::vec3(0.0f);
 	localRotation = glm::vec3(0.0f);
 	localScale = glm::vec3(0.0f);
@@ -13,11 +19,6 @@ Transform::Transform()
 	rotationY = glm::mat4(1.0f);
 	rotationZ = glm::mat4(1.0f);
 	scallingMatrix = glm::mat4(1.0f);
-}
-
-void Transform::Start(const char * componentName)
-{
-	this->componentName = componentName;
 }
 
 void Transform::UpdateModel()
@@ -87,6 +88,16 @@ void Transform::RotateZ(float angle)
 	rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
 	UpdateModel();
+}
+
+void Transform::Update()
+{
+	Component::Update();
+}
+
+void Transform::Draw()
+{
+	Component::Draw();
 }
 
 Transform::~Transform()

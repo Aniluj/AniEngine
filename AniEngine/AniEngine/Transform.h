@@ -34,6 +34,8 @@ public:
 	void RotateZ(float angle);
 	void UpdateModel();
 	void Start(const char * componentName) override;
+	void Update() override;
+	void Draw() override;
 	glm::mat4& GetModel();
 };
 

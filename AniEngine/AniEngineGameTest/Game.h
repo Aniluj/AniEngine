@@ -3,7 +3,6 @@
 #include "GameBase.h"
 #include "Triangle.h"
 #include "Rectangle.h"
-#include "Cube.h"
 #include "Mesh.h"
 #include "Sprite.h"
 #include "CollisionManager.h"
@@ -27,7 +26,6 @@ public:
 	Camera* camera;
 	Triangle* triangle;
 	Rectangle* rectangle;
-	//Cube* cube;
 	Mesh* M4Fusil;
 	Mesh* Spider;
 	Sprite* character;
