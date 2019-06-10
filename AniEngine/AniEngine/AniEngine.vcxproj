@@ -145,6 +145,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClInclude Include="Node.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ScGraphObject.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Sprite.h" />
@@ -172,6 +173,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="ScGraphObject.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Sprite.cpp" />

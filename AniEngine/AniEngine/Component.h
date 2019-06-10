@@ -12,7 +12,7 @@ public:
 	~Component();
 
 	string componentName;
-	void virtual Start(const char* componentName) = 0;
+	void virtual Start(const char* componentName);
 	void virtual Update();
 	void virtual Draw();
 };

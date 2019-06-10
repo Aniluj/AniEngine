@@ -2,6 +2,7 @@
 
 #include "Exports.h"
 #include "Component.h"
+#include "MeshComponent.h"
 #include "Renderer.h"
 #include "Transform.h"
 #include <iostream>
@@ -14,15 +15,15 @@ class ENGINEDLL_API Node
 private:
 	list<Node*>* childNodes;
 	list<Component*>* components;
-	Transform * transform;
 	Renderer * renderer;
 public:
 	Node(Renderer * rendererPtr);
 	~Node();
 
+	Transform * transform;
 	Node * parent;
 	void AddComponent(Component * component);
-	Component* GetComponent(const char * componentName);
+	//Component* GetComponent(const char * componentName);
 	void RemoveComponent(Component * component);
 	void AddChild(Node * childNode);
 	void RemoveChild(Node * childNode);

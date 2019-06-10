@@ -9,6 +9,7 @@
 #include "Tilemap.h"
 #include "Camera.h"
 #include "Input.h"
+#include "ScGraphObject.h"
 #include <iostream>
 #include <time.h>
 
@@ -33,6 +34,7 @@ public:
 	Input* input;
 	CollisionManager* collManager;
 	Tilemap* tilemap;
+	ScGraphObject* exampleObject;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;

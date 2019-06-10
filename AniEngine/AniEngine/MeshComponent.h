@@ -6,7 +6,7 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
-class ENGINEDLL_API MeshComponent : Component
+class ENGINEDLL_API MeshComponent : public Component
 {
 private:
 	int counter;
