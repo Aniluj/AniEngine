@@ -16,7 +16,7 @@ Node::~Node()
 {
 	if (childNodes->size() > 0)
 	{
-		for (auto aux : *childNodes)
+		for (Node* aux : *childNodes)
 		{
 			delete aux;
 		}
@@ -26,7 +26,7 @@ Node::~Node()
 
 	if (components->size() > 0)
 	{
-		for (auto aux : *components)
+		for (Component* aux : *components)
 		{
 			delete aux;
 		}
@@ -69,22 +69,26 @@ void Node::Draw()
 
 	if (parent)
 	{
-		cout << endl;
-		glm::mat4& modelMatrix = transform->GetModel();
-		modelMatrix = transform->GetModel() * renderer->GetModelMatrix();
-	}
-	if (childNodes->size() > 0)
-	{
-		for (auto aux : *childNodes)
-		{
-			aux->Draw();
-		}
+		glm::mat4 & modelMatrix = transform->GetModel();
+		//modelMatrix = transform->GetModel() * renderer->GetModelMatrix();
+		cout << "Antes: " << parent->transform->localPosition.y << endl;
+		cout << "Antes: " << transform->localPosition.y << endl;
+		modelMatrix = renderer->GetModelMatrix() * transform->GetModel();
+		cout << "Despues: " << transform->localPosition.z << endl;
+		cout << "Despues: " << parent->transform->localPosition.z << endl;
 	}
 	if (components->size() > 0)
 	{
-		for (auto aux : *components)
+		for (auto nodePtr : *components)
 		{
-			aux->Draw();
+			nodePtr->Draw();
+		}
+	}
+	if (childNodes->size() > 0)
+	{
+		for (auto nodePtr : *childNodes)
+		{
+			nodePtr->Draw();
 		}
 	}
 
