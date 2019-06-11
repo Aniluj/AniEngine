@@ -26,6 +26,8 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 
 ScGraphObject::~ScGraphObject()
 {
+	delete M4Mesh;
+	delete spider;
 }
 
 void ScGraphObject::Draw()

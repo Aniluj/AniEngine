@@ -69,7 +69,9 @@ void Node::Draw()
 
 	if (parent)
 	{
-		transform->GetModel() = transform->GetModel() * renderer->GetModelMatrix();
+		cout << endl;
+		glm::mat4& modelMatrix = transform->GetModel();
+		modelMatrix = transform->GetModel() * renderer->GetModelMatrix();
 	}
 	if (childNodes->size() > 0)
 	{

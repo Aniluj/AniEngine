@@ -74,9 +74,9 @@ bool Game::OnStart()
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
 	
-	exampleObject = new ScGraphObject(renderer);
-	//M4Fusil = new Mesh("M4A1/M4A1.FBX", renderer, "M4A1/M4A1Tex.bmp");
-	//Spider = new Mesh("Spider/spider.obj", renderer, "Spider/SpiderTex.bmp");
+	//exampleObject = new ScGraphObject(renderer);
+	M4Fusil = new Mesh("M4A1/M4A1.FBX", renderer, "M4A1/M4A1Tex.bmp");
+	Spider = new Mesh("Spider/spider.obj", renderer, "Spider/SpiderTex.bmp");
 
 	/*tilemap->material = Material::CreateMaterial(
 	"Shaders/TextureTransformVertexShader.txt",
@@ -105,10 +105,10 @@ bool Game::OnStart()
 	rectangle->Translate(320, 300, 0.0);
 	character->Translate(320, 150, 0.0);
 	enemy->Translate(600, 250, 0.0);
-	//M4Fusil->Translate(480, 370, 1200);
-	//M4Fusil->RotateZ(90);
-	//M4Fusil->RotateX(-90);
-	//Spider->Translate(480, 305, 1200);
+	M4Fusil->Translate(480, 370, 1200);
+	M4Fusil->RotateZ(90);
+	M4Fusil->RotateX(-90);
+	Spider->Translate(480, 305, 1200);
 	//mesh->Translate(480, 312, 1475);
 
 	i = 0;
@@ -141,6 +141,10 @@ bool Game::OnUpdate()
 	if (input->isInput(GLFW_KEY_F))
 	{
 		camera->Yaw(0.5f);
+		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
+		//										exampleObject->M4->transform->localPosition.y,
+		//										exampleObject->M4->transform->localPosition.z - (100 * deltaTime)
+		//									   );
 	}
 	if (input->isInput(GLFW_KEY_G))
 	{
@@ -211,11 +215,11 @@ void Game::OnDraw()
 {
 	character->Draw();
 	enemy->Draw();
-	exampleObject->Draw();
+	//exampleObject->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();
-	//M4Fusil->Draw();
-	//Spider->Draw();
+	M4Fusil->Draw();
+	Spider->Draw();
 }
 
 bool Game::OnStop()
@@ -225,11 +229,11 @@ bool Game::OnStop()
 	delete character;
 	delete triangle;
 	delete rectangle;
-	//delete M4Fusil;
-	//delete Spider;
+	delete M4Fusil;
+	delete Spider;
 	delete collManager;
 	delete camera;
-	delete exampleObject;
+	//delete exampleObject;
 
 	return true;
 }
