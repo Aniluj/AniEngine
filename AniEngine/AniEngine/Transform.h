@@ -16,7 +16,7 @@ private:
 
 
 	glm::vec3 localScale;
-	glm::mat4 worldMatrix;
+	//glm::mat4 worldMatrix;
 	glm::mat4 model;
 	glm::mat4 scallingMatrix;
 	glm::mat4 rotationX;
@@ -29,7 +29,7 @@ public:
 	glm::mat4 translationMatrix;
 
 	glm::vec3 localPosition;
-	glm::vec3 worldPosition;
+	//glm::vec3 worldPosition;
 
 	void Scale(float x, float y, float z);
 	void Translate(float x, float y, float z);

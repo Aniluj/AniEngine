@@ -10,11 +10,12 @@ class ENGINEDLL_API ScGraphObject
 private:
 	Renderer * renderer;
 	Node * spider;
+	Node * M4;
 	MeshComponent * M4Mesh;
 	MeshComponent * spiderMesh;
 public:
 	ScGraphObject(Renderer * rendererPtr);
-	Node * M4;
+	Node* rootNode;
 	~ScGraphObject();
 	void Draw();
 };

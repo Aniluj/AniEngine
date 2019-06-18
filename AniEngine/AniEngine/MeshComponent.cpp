@@ -9,10 +9,13 @@ MeshComponent::MeshComponent()
 void MeshComponent::Start(const char * componentName, const char* path, const char* texturePath, Renderer* rendererPtr, glm::mat4 & modelRef)
 {
 	Component::Start(componentName);
+	componentType = MeshType;
 
 	model = &modelRef;
 	renderer = rendererPtr;
 	LoadModel(path, texturePath);
+
+	cout << componentName << endl;
 }
 
 void MeshComponent::LoadModel(string path, string texturePath)
@@ -101,6 +104,7 @@ void MeshComponent::Draw()
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
 		meshesData[i]->Draw(*model);
+		cout << componentName << endl;
 		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
 }

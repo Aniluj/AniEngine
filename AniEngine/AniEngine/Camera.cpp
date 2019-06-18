@@ -84,5 +84,5 @@ void Camera::Roll(float zRotation)
 
 void Camera::Draw()
 {
-
+	
 }

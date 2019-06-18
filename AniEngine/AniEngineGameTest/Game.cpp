@@ -81,7 +81,7 @@ bool Game::OnStart()
 	/*tilemap->material = Material::CreateMaterial(
 	"Shaders/TextureTransformVertexShader.txt",
 	"Shaders/TextureFragmentShader.txt");*/
-
+	
 	tilemap = new Tilemap(
 		renderer,
 		1,
@@ -141,10 +141,18 @@ bool Game::OnUpdate()
 	if (input->isInput(GLFW_KEY_F))
 	{
 		//camera->Yaw(0.5f);
-		exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
-												exampleObject->M4->transform->localPosition.y,
-												exampleObject->M4->transform->localPosition.z - (100 * deltaTime)
+		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
+													  exampleObject->rootNode->transform->localPosition.y,
+													  exampleObject->rootNode->transform->localPosition.z - (100 * deltaTime)
 											   );
+		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
+		//	exampleObject->M4->transform->localPosition.y - (100 * deltaTime),
+		//	exampleObject->M4->transform->localPosition.z
+		//);
+		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x - (100 * deltaTime),
+		//	exampleObject->M4->transform->localPosition.y,
+		//	exampleObject->M4->transform->localPosition.z
+		//);
 	}
 	if (input->isInput(GLFW_KEY_G))
 	{

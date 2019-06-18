@@ -9,10 +9,11 @@ Transform::Transform()
 void Transform::Start(const char * componentName)
 {
 	this->componentName = componentName;
+	componentType = TransformType;
 	localPosition = glm::vec3(0.0f);
 	localRotation = glm::vec3(0.0f);
 	localScale = glm::vec3(0.0f);
-	worldPosition = glm::vec3(0.0f);
+	//worldPosition = glm::vec3(0.0f);
 	model = glm::mat4(1.0f);
 	translationMatrix = glm::mat4(1.0f);
 	rotationX = glm::mat4(1.0f);
@@ -24,6 +25,18 @@ void Transform::Start(const char * componentName)
 void Transform::UpdateModel()
 {
 	model = translationMatrix * (rotationX * rotationY * rotationZ) * scallingMatrix;
+
+	/*cout << "x1:  " << model[0][0] << endl;
+	cout << "y1:  " << model[0][1] << endl;
+	cout << "z1:  " << model[0][2] << endl;
+
+	cout << "x2:  " << model[1][0] << endl;
+	cout << "y2:  " << model[1][1] << endl;
+	cout << "z2:  " << model[1][2] << endl;
+
+	cout << "x3:  " << model[2][0] << endl;
+	cout << "y3:  " << model[2][1] << endl;
+	cout << "z3:  " << model[2][2] << endl;*/
 }
 
 glm::mat4& Transform::GetModel()
@@ -38,6 +51,18 @@ void Transform::Translate(float x, float y, float z)
 	localPosition = vector3;
 
 	translationMatrix = glm::translate(glm::mat4(1.0f), vector3);
+	
+	/*cout << "x1:  " << translationMatrix[0][0] << endl;
+	cout << "y1:  " << translationMatrix[0][1] << endl;
+	cout << "z1:  " << translationMatrix[0][2] << endl;
+	
+	cout << "x2:  " << translationMatrix[1][0] << endl;
+	cout << "y2:  " << translationMatrix[1][1] << endl;
+	cout << "z2:  " << translationMatrix[1][2] << endl;
+	
+	cout << "x3:  " << translationMatrix[2][0] << endl;
+	cout << "y3:  " << translationMatrix[2][1] << endl;
+	cout << "z3:  " << translationMatrix[2][2] << endl;*/
 
 	UpdateModel();
 }

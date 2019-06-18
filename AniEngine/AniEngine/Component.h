@@ -5,6 +5,13 @@
 
 using namespace std;
 
+enum ComponentType
+{
+	DefaultType,
+	TransformType,
+	MeshType
+};
+
 class ENGINEDLL_API Component
 {
 public:
@@ -12,6 +19,7 @@ public:
 	~Component();
 
 	string componentName;
+	ComponentType componentType;
 	void virtual Start(const char* componentName);
 	void virtual Update();
 	void virtual Draw();

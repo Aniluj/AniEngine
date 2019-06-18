@@ -70,13 +70,9 @@ void Node::Draw()
 	if (parent)
 	{
 		glm::mat4 & modelMatrix = transform->GetModel();
-		//modelMatrix = transform->GetModel() * renderer->GetModelMatrix();
-		cout << "Antes: " << parent->transform->localPosition.y << endl;
-		cout << "Antes: " << transform->localPosition.y << endl;
-		modelMatrix = renderer->GetModelMatrix() * transform->GetModel();
-		cout << "Despues: " << transform->localPosition.z << endl;
-		cout << "Despues: " << parent->transform->localPosition.z << endl;
+		modelMatrix = renderer->GetModelMatrix() * modelMatrix;
 	}
+
 	if (components->size() > 0)
 	{
 		for (auto nodePtr : *components)
