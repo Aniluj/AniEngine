@@ -5,7 +5,7 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 {
 	forward = glm::vec4(0, 0, -1, 0);
 	up = glm::vec4(0, 1, 0, 0);
-
+	
 	/*vectorPosition.x = 480;
 	vectorPosition.y = 320;
 	vectorPosition.z = 960;*/

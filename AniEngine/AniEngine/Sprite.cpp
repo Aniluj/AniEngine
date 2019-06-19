@@ -34,6 +34,11 @@ Sprite::Sprite(
 
 	//testAnimation = new Animation(this, initialFrameID, 47);
 
+	/*if (g_vertex_buffer_data == nullptr)
+	{
+		GameBase::
+	}*/
+
 	g_vertex_buffer_data = new float[vertexCount * 3]
 	{
 		50.0f,50.0f, 0.0f,

@@ -5,7 +5,7 @@
 #include "Renderer.h"
 #include "TypeDef.h"
 #include "Window.h"
-#include <ctime>
+#include "Timer.h"
 
 using namespace std;
 
@@ -25,6 +25,5 @@ protected:
 	bool virtual OnStop()= 0;
 	bool virtual OnUpdate() = 0;
 	void virtual OnDraw() = 0;
-	static double & GetDeltaTime();
 };
 

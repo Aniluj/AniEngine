@@ -151,6 +151,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="TypeDef.h" />
@@ -180,6 +181,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Window.cpp" />

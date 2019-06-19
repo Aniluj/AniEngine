@@ -14,7 +14,7 @@ Component::~Component()
 void Component::Start(const char* componentName)
 {
 	this->componentName = componentName;
-	componentType = Default;
+	componentType = DefaultType;
 }
 
 void Component::Draw()

@@ -67,19 +67,14 @@ void GameBase::Loop()
 
 	while (res && !window->ShouldClose()) 
 	{
-		clock_t begin = clock();
+		Timer::BeginClock();
 		res = OnUpdate();
 		renderer->ClearScreen();
 		OnDraw();
 		renderer->SwapBuffer();
 		window->PollEvents();
-		clock_t end = clock();
+		Timer::EndClock();
 
-		deltaTime = double(end -begin) / CLOCKS_PER_SEC;
+		deltaTime = Timer::GetDeltaTime();
 	}
-}
-
-double & GameBase::GetDeltaTime()
-{
-	return deltaTime;
 }

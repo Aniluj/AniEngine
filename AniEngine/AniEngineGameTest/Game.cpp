@@ -101,10 +101,10 @@ bool Game::OnStart()
 	rectangle->Translate(600, 320, 0.0);
 	texture->Translate(480, 320, 0.0);*/
 
-	triangle->Translate(750, 400, 0.0);
-	rectangle->Translate(320, 300, 0.0);
-	character->Translate(320, 150, 0.0);
-	enemy->Translate(600, 250, 0.0);
+	//triangle->Translate(750, 400, 0.0);
+	//rectangle->Translate(320, 300, 0.0);
+	//character->Translate(320, 150, 0.0);
+	//enemy->Translate(600, 250, 0.0);
 	//M4Fusil->Translate(480, 370, 1200);
 	//M4Fusil->RotateZ(90);
 	//M4Fusil->RotateX(-90);
@@ -121,7 +121,7 @@ bool Game::OnUpdate()
 {
 	i++;
 	timer += deltaTime;
-	
+
 	if (input->isInput(GLFW_KEY_W))
 	{
 		camera->Walk(-30 * deltaTime);
@@ -204,11 +204,11 @@ bool Game::OnUpdate()
 
 	//texture->Translate(texture->vectorPosition.x + 2, 320, 0.0);
 
-	character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
-	character->UpdateDT(deltaTime);
+	//character->Translate(character->vectorPosition.x, character->vectorPosition.y + (100 * deltaTime), 0.0);
+	//character->UpdateDT(deltaTime);
 
-	enemy->Translate(enemy->vectorPosition.x - (150 * deltaTime), 350, 0.0);
-	enemy->UpdateDT(deltaTime);
+	//enemy->Translate(enemy->vectorPosition.x - (150 * deltaTime), 350, 0.0);
+	//enemy->UpdateDT(deltaTime);
 
 	//texture->RotateZ(56 + i);
 	//M4Fusil->RotateZ(-i);
