@@ -1,5 +1,7 @@
 #include "GameBase.h"
 
+double GameBase::deltaTime;
+
 GameBase::GameBase()
 {
 }
@@ -13,7 +15,6 @@ bool GameBase::Start()
 {
 	cout << "GameBase::Start()" << endl;
 
-	acumTime = 0;
 	deltaTime = 0;
 
 	window = new Window();
@@ -76,4 +77,9 @@ void GameBase::Loop()
 
 		deltaTime = double(end -begin) / CLOCKS_PER_SEC;
 	}
+}
+
+double & GameBase::GetDeltaTime()
+{
+	return deltaTime;
 }

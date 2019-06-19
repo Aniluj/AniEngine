@@ -12,7 +12,7 @@ using namespace std;
 
 class ENGINEDLL_API Node
 {
-private:
+protected:
 	list<Node*>* childNodes;
 	list<Component*>* components;
 	Renderer * renderer;

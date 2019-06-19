@@ -60,6 +60,20 @@ void Node::RemoveChild(Node * childNode)
 
 void Node::Update()
 {
+	if (components->size() > 0)
+	{
+		for (auto nodePtr : *components)
+		{
+			nodePtr->Update();
+		}
+	}
+	if (childNodes->size() > 0)
+	{
+		for (auto nodePtr : *childNodes)
+		{
+			nodePtr->Update();
+		}
+	}
 }
 
 void Node::Draw()
