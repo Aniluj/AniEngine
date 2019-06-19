@@ -102,7 +102,7 @@ bool Game::OnStart()
 	texture->Translate(480, 320, 0.0);*/
 
 	//triangle->Translate(750, 400, 0.0);
-	//rectangle->Translate(320, 300, 0.0);
+	//rectangle->Translate(320, 300, 1000);
 	//character->Translate(320, 150, 0.0);
 	//enemy->Translate(600, 250, 0.0);
 	//M4Fusil->Translate(480, 370, 1200);

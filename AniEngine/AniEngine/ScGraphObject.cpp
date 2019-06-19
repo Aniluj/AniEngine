@@ -31,8 +31,10 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 
 ScGraphObject::~ScGraphObject()
 {
+	delete spiderMesh;
 	delete spider;
 	delete M4Mesh;
+	delete M4;
 	delete rootNode;
 }
 
