@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "Input.h"
 #include "ScGraphObject.h"
+#include "ScGraphShapeObject.h"
 #include <iostream>
 #include <time.h>
 
@@ -35,6 +36,7 @@ public:
 	CollisionManager* collManager;
 	Tilemap* tilemap;
 	ScGraphObject* exampleObject;
+	ScGraphShapeObject* shapeExampleObject;
 protected:
 	bool OnStart() override;
 	bool OnStop() override;

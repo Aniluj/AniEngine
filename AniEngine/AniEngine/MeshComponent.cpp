@@ -6,12 +6,12 @@ MeshComponent::MeshComponent()
 {
 }
 
-void MeshComponent::Start(const char * componentName, const char* path, const char* texturePath, Renderer* rendererPtr, glm::mat4 & modelRef)
+void MeshComponent::Start(const char * componentName, const char* path, const char* texturePath, Renderer* rendererPtr, glm::mat4 * modelRef)
 {
 	Component::Start(componentName);
 	componentType = MeshType;
 
-	model = &modelRef;
+	model = modelRef;
 	renderer = rendererPtr;
 	LoadModel(path, texturePath);
 

@@ -24,7 +24,7 @@ private:
 public:
 	ShapeComponent();
 
-	void Start(const char * componentName, Renderer * rendererPtr, int vertexCountValue, glm::mat4 & modelRef);
+	void Start(const char * componentName, Renderer * rendererPtr, int vertexCountValue, glm::mat4 * modelRef);
 	void Draw() override;
 	void Update() override;
 

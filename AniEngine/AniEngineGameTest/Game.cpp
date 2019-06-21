@@ -75,6 +75,7 @@ bool Game::OnStart()
 		"Shaders/ColorFragmentShader.txt");
 	
 	exampleObject = new ScGraphObject(renderer);
+	shapeExampleObject = new ScGraphShapeObject(renderer);
 	//M4Fusil = new Mesh("M4A1/M4A1.FBX", renderer, "M4A1/M4A1Tex.bmp");
 	//Spider = new Mesh("Spider/spider.obj", renderer, "Spider/SpiderTex.bmp");
 
@@ -141,10 +142,18 @@ bool Game::OnUpdate()
 	if (input->isInput(GLFW_KEY_F))
 	{
 		//camera->Yaw(0.5f);
-		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
+
+		shapeExampleObject->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
+												 exampleObject->rootNode->transform->localPosition.y,
+												 exampleObject->rootNode->transform->localPosition.z - (100 * deltaTime)
+												);
+
+		/*exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
 													  exampleObject->rootNode->transform->localPosition.y,
 													  exampleObject->rootNode->transform->localPosition.z - (100 * deltaTime)
 											   );
+		*/
+
 		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
 		//	exampleObject->M4->transform->localPosition.y - (100 * deltaTime),
 		//	exampleObject->M4->transform->localPosition.z
@@ -224,6 +233,7 @@ void Game::OnDraw()
 	character->Draw();
 	enemy->Draw();
 	exampleObject->Draw();
+	shapeExampleObject->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();
 	//M4Fusil->Draw();
@@ -242,6 +252,7 @@ bool Game::OnStop()
 	delete collManager;
 	delete camera;
 	delete exampleObject;
+	delete shapeExampleObject;
 
 	return true;
 }

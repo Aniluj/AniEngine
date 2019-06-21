@@ -11,11 +11,11 @@ ShapeComponent::ShapeComponent()
 	g_uv_buffer_data = nullptr;
 }
 
-void ShapeComponent::Start(const char * componentName, Renderer * rendererPtr, int vertexCountValue, glm::mat4 & modelRef)
+void ShapeComponent::Start(const char * componentName, Renderer * rendererPtr, int vertexCountValue, glm::mat4 * modelRef)
 {
 	Component::Start(componentName);
 	renderer = rendererPtr;
-	model = &modelRef;
+	model = modelRef;
 	vertexCount = vertexCountValue;
 }
 
@@ -33,11 +33,13 @@ void ShapeComponent::SetG_Vertex_Buffer_Data(float * g_vertex_buffer_data_Ptr)
 void ShapeComponent::SetG_Color_Buffer_Data(float * g_color_buffer_data_Ptr)
 {
 	g_color_buffer_data = g_color_buffer_data_Ptr;
+	colorBuffer = renderer->GenColorBuffer(sizeof(float) * vertexCount * 3, g_color_buffer_data);
 }
 
 void ShapeComponent::SetG_UV_Buffer_Data(float * g_uv_buffer_data_Ptr)
 {
 	g_uv_buffer_data = g_uv_buffer_data_Ptr;
+	uvBuffer = renderer->GenUVBuffer(sizeof(float) * vertexCount * 2, g_uv_buffer_data);
 }
 
 void ShapeComponent::Update()
@@ -64,20 +66,26 @@ void ShapeComponent::Draw()
 	{
 		material->Bind();
 		material->SetMatrixProperty(renderer->GetMVP());
+		if (g_uv_buffer_data != nullptr)
+		{
+			material->SetTextureProperty();
+		}
 	}
 
 	renderer->EnableAttributes(0);
 	renderer->BindBuffer(vertexBuffer, 0);
 
-	if (g_color_buffer_data != nullptr)
-	{
-		renderer->EnableAttributes(1);
-		renderer->BindBuffer(colorBuffer, 0);
-	}
-	else if (g_uv_buffer_data != nullptr)
+	if (g_uv_buffer_data != nullptr)
 	{
 		renderer->EnableAttributes(1);
 		renderer->BindBuffer(uvBuffer, 0);
+		g_color_buffer_data = nullptr;
+	}
+	else if (g_color_buffer_data != nullptr)
+	{
+		renderer->EnableAttributes(1);
+		renderer->BindBuffer(colorBuffer, 0);
+		g_uv_buffer_data = nullptr;
 	}
 
 	renderer->DrawBuffer(vertexCount);
@@ -87,11 +95,13 @@ void ShapeComponent::Draw()
 	{
 		renderer->DisableAttributes(1);
 	}
+
+	cout << *g_vertex_buffer_data << endl;
+	cout << vertexBuffer << endl;
 }
 
 ShapeComponent::~ShapeComponent()
 {
-
 	if (g_vertex_buffer_data != nullptr)
 	{
 		renderer->DestroyBuffer(vertexBuffer);
