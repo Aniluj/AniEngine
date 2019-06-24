@@ -10,7 +10,8 @@ enum ComponentType
 	DefaultType,
 	TransformType,
 	MeshType,
-	ShapeType
+	ShapeType,
+	AnimationType
 };
 
 class ENGINEDLL_API Component

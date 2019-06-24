@@ -42,6 +42,16 @@ void ShapeComponent::SetG_UV_Buffer_Data(float * g_uv_buffer_data_Ptr)
 	uvBuffer = renderer->GenUVBuffer(sizeof(float) * vertexCount * 2, g_uv_buffer_data);
 }
 
+float *& ShapeComponent::GetG_UV_Buffer_Data()
+{
+	return g_uv_buffer_data;
+}
+
+unsigned int & ShapeComponent::GetUVBuffer()
+{
+	return uvBuffer;
+}
+
 void ShapeComponent::Update()
 {
 	Component::Update();

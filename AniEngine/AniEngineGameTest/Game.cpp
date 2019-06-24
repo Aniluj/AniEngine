@@ -232,7 +232,7 @@ void Game::OnDraw()
 {
 	character->Draw();
 	enemy->Draw();
-	exampleObject->Draw();
+	//exampleObject->Draw();
 	shapeExampleObject->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();

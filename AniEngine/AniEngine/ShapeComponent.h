@@ -35,6 +35,8 @@ public:
 	void SetG_Vertex_Buffer_Data(float * g_vertex_buffer_data_Ptr);
 	void SetG_Color_Buffer_Data(float * g_color_buffer_data_Ptr);
 	void SetG_UV_Buffer_Data(float * g_uv_buffer_data_Ptr);
+	float *& GetG_UV_Buffer_Data();
+	unsigned int & GetUVBuffer();
 
 	~ShapeComponent();
 };
