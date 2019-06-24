@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "ShapeComponent.h"
 #include "Renderer.h"
 #include "Frame.h"
 #include "Timer.h"
@@ -13,10 +14,7 @@ private:
 	int currentColumn;
 	int currentRow;
 
-	int frameWidth;
-	int frameHeight;
-	int spritesheetWidth;
-	int spritesheetHeight;
+	TextureInforForShapeComponent * texture;
 
 	float * new_g_uv_buffer_data;
 	unsigned int * newUVBuffer;
@@ -34,18 +32,15 @@ public:
 	void Start(
 			   const char * componentName,
 			   Renderer * rendererPtr,
-			   int & frameWidthRef,
-			   int & frameHeightRef,
-			   int & spritesheetWidthRef,
-			   int & spritesheetHeightRef,
+			   TextureInforForShapeComponent * texturePtr,
 			   float *& g_uv_buffer_data,
 			   unsigned int * uvBufferReceived,
-			   float & animationSpeedRef,
-			   int & initialFrameRow,
-			   int & initialFrameColumn);
+			   float animationSpeed,
+			   int initialFrameRow,
+			   int initialFrameColumn);
 	void AddFrame(int frameRow, int frameColumn);
 	void Update() override;
-	void SetAnimationSpeed(int animationSpeed);
+	void SetAnimationSpeed(float animationSpeed);
 	void Draw() override;
 
 	~AnimationComponent();

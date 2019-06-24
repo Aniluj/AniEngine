@@ -219,6 +219,8 @@ bool Game::OnUpdate()
 	//enemy->Translate(enemy->vectorPosition.x - (150 * deltaTime), 350, 0.0);
 	//enemy->UpdateDT(deltaTime);
 
+	shapeExampleObject->Update();
+
 	//texture->RotateZ(56 + i);
 	//M4Fusil->RotateZ(-i);
 	//Spider->RotateY(-i);

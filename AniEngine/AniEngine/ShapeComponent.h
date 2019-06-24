@@ -2,8 +2,19 @@
 
 #include "Component.h"
 #include "Exports.h"
+#include "BMPLoader.h"
 #include "Material.h"
 #include "Renderer.h"
+
+struct TextureInforForShapeComponent
+{
+	unsigned int id;
+	string path;
+	int spritesheetWidth;
+	int spritesheetHeight;
+	int frameWidth;
+	int frameHeight;
+};
 
 class ENGINEDLL_API ShapeComponent : public Component
 {
@@ -15,6 +26,8 @@ private:
 	float * g_vertex_buffer_data;
 	float * g_color_buffer_data;
 	float * g_uv_buffer_data;
+
+	TextureInforForShapeComponent * texture;
 
 	int vertexCount;
 
@@ -30,6 +43,9 @@ public:
 
 	void SetMaterial(const char * vertexShaderPath, const char * fragmentShaderPath);
 	Material * GetMaterial();
+
+	void SetTexture(const char * texturePath, int frameWidth, int frameHeight);
+	TextureInforForShapeComponent * GetTexture();
 
 	int & GetVertexCount();
 	void SetG_Vertex_Buffer_Data(float * g_vertex_buffer_data_Ptr);

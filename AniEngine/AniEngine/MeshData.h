@@ -27,11 +27,15 @@ struct Vertex
 	*/
 };
 
-struct Texture
+struct TextureInfoForMeshData
 {
 	unsigned int id;
 	string type;
 	string path;
+	int textureWidth;
+	int textureHeight;
+	int frameWidth;
+	int frameHeight;
 };
 
 class ENGINEDLL_API MeshData
@@ -54,6 +58,6 @@ public:
 	unsigned int uvBuffer;
 	vector<unsigned int>* indices;
 	vector<Vertex>* vertex_buffer_data;
-	Texture * texture;
+	TextureInfoForMeshData * texture;
 };
 

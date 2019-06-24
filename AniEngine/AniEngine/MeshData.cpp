@@ -6,7 +6,7 @@ MeshData::MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & 
 {
 	vertex_buffer_data = new vector<Vertex>(vertices);
 	this->indices = new vector<unsigned int>(indices);
-	texture = new Texture();
+	texture = new TextureInfoForMeshData();
 	texture->path = texturePath;
 	texture->id = BMPLoader::LoadBMP(texture->path.c_str());
 	renderer = rendererPtr;

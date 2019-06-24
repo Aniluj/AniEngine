@@ -6,9 +6,13 @@ ShapeComponent::ShapeComponent()
 {
 	componentType = ShapeType;
 
+	texture = nullptr;
+
 	g_vertex_buffer_data = nullptr;
 	g_color_buffer_data = nullptr;
 	g_uv_buffer_data = nullptr;
+
+	uvBuffer = 0;
 }
 
 void ShapeComponent::Start(const char * componentName, Renderer * rendererPtr, int vertexCountValue, glm::mat4 * modelRef)
@@ -67,6 +71,20 @@ Material * ShapeComponent::GetMaterial()
 	return material;
 }
 
+void ShapeComponent::SetTexture(const char * texturePath, int frameWidth, int frametHeight)
+{
+	texture = new TextureInforForShapeComponent();
+	texture->path = texturePath;
+	texture->frameWidth = frameWidth;
+	texture->frameHeight = frametHeight;
+	texture->id = BMPLoader::LoadBMP(texture->path.c_str(), texture->spritesheetWidth, texture->spritesheetHeight);
+}
+
+TextureInforForShapeComponent * ShapeComponent::GetTexture()
+{
+	return texture;
+}
+
 void ShapeComponent::Draw()
 {
 	renderer->LoadIdentityMatrix();
@@ -82,19 +100,24 @@ void ShapeComponent::Draw()
 		}
 	}
 
+	if (texture != nullptr)
+	{
+		renderer->BindTexture(texture->id);
+	}
+
 	renderer->EnableAttributes(0);
 	renderer->BindBuffer(vertexBuffer, 0);
 
 	if (g_uv_buffer_data != nullptr)
 	{
 		renderer->EnableAttributes(1);
-		renderer->BindBuffer(uvBuffer, 0);
+		renderer->BindUVBuffer(uvBuffer, 1);
 		g_color_buffer_data = nullptr;
 	}
 	else if (g_color_buffer_data != nullptr)
 	{
 		renderer->EnableAttributes(1);
-		renderer->BindBuffer(colorBuffer, 0);
+		renderer->BindColorBuffer(colorBuffer, 1);
 		g_uv_buffer_data = nullptr;
 	}
 
@@ -105,9 +128,6 @@ void ShapeComponent::Draw()
 	{
 		renderer->DisableAttributes(1);
 	}
-
-	cout << *g_vertex_buffer_data << endl;
-	cout << vertexBuffer << endl;
 }
 
 ShapeComponent::~ShapeComponent()
@@ -126,5 +146,6 @@ ShapeComponent::~ShapeComponent()
 	{
 		renderer->DestroyBuffer(uvBuffer);
 		delete[] g_uv_buffer_data;
+		delete texture;
 	}
 }
