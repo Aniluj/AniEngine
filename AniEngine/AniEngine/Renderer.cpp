@@ -47,6 +47,8 @@ bool Renderer::Start(Window* windowPtr)
 		glDepthFunc(GL_LESS);
 
 		cout << "Renderer::Start()" << endl;
+		
+		LoadIdentityMatrix();
 
 		return true;
 	}
@@ -272,7 +274,7 @@ void Renderer::SetMVP()
 void Renderer::MultiplyModel(glm::mat4 matrix)
 {
 	modelMatrix *= matrix;
-
+	SetMVP();
 	/*cout << "x1:  " << modelMatrix[0][0] << endl;
 	cout << "y1:  " << modelMatrix[0][1] << endl;
 	cout << "z1:  " << modelMatrix[0][2] << endl;

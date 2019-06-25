@@ -5,9 +5,10 @@
 ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPtr)
 {
 	renderer = rendererPtr;
+	//transform->Translate(300, 400, 800);
 
 	triangle = new Node(renderer);
-	triangle->transform->Translate(750, 400, 920);
+	triangle->transform->Translate(750, 400, 1000);
 	triangleShape = new ShapeComponent();
 	triangleShape->Start("triangleShape", renderer, 3, &triangle->transform->GetModel());
 	triangleShape->SetMaterial("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
@@ -24,7 +25,7 @@ ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPt
 
 
 	sprite = new Node(renderer);
-	sprite->transform->Translate(500, 400, 920);
+	sprite->transform->Translate(-100, 0, 0);
 	spriteShape = new ShapeComponent();
 	spriteShape->Start("spriteShape", renderer, 4, &sprite->transform->GetModel());
 	spriteShape->SetMaterial("Shaders/TextureTransformVertexShader.txt", "Shaders/TextureFragmentShader.txt");
@@ -43,7 +44,7 @@ ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPt
 	spriteAnimation->Start("spriteAnimation",
 						   renderer,
 						   spriteShape->GetTexture(),
-						   spriteShape->GetG_UV_Buffer_Data(), 
+						   spriteShape->GetG_UV_Buffer_Data(),
 						   &spriteShape->GetUVBuffer(),
 						   0.5f,
 						   1,
@@ -61,17 +62,17 @@ ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPt
 
 
 	rectangle = new Node(renderer);
-	rectangle->transform->Translate(300, 400, 920);
+	rectangle->transform->Translate(-100, 0, 0);
 	rectangleShape = new ShapeComponent();
 	rectangleShape->Start("rectangleShape", renderer, 4, &rectangle->transform->GetModel());
 	rectangleShape->SetMaterial("Shaders/TransformVertexShader.txt", "Shaders/ColorFragmentShader.txt");
 	rectangleShape->SetG_Vertex_Buffer_Data(
 											new float[rectangleShape->GetVertexCount() * 3]
 											{
-												50.0f,50.0f, 0.0f,
-												-50.0f,50.0f, 0.0f,
+												50.0f, 50.0f, 0.0f,
+												-50.0f, 50.0f, 0.0f,
 												50.0f, -50.0f, 0.0f,
-												-50.0f, -50.0f,0.0f,
+												-50.0f, -50.0f, 0.0f,
 											}
 											);
 	rectangleShape->SetG_Color_Buffer_Data(

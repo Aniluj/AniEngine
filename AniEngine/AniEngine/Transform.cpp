@@ -12,7 +12,7 @@ void Transform::Start(const char * componentName)
 	componentType = TransformType;
 	localPosition = glm::vec3(0.0f);
 	localRotation = glm::vec3(0.0f);
-	localScale = glm::vec3(0.0f);
+	localScale = glm::vec3(1.0f);
 	//worldPosition = glm::vec3(0.0f);
 	model = glm::mat4(1.0f);
 	translationMatrix = glm::mat4(1.0f);

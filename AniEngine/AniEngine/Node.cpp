@@ -78,20 +78,16 @@ void Node::Update()
 
 void Node::Draw()
 {
-	/*glm::mat4 savedWorldMatrix = renderer->GetModelMatrix();
+	glm::mat4 savedWorldMatrix = renderer->GetModelMatrix();
 	renderer->MultiplyModel(transform->GetModel());
 
-	if (parent)
-	{
-		glm::mat4 & modelMatrix = transform->GetModel();
-		modelMatrix = renderer->GetModelMatrix() * modelMatrix;
-	}*/
 
 	if (components->size() > 0)
 	{
 		for (auto nodePtr : *components)
 		{
 			nodePtr->Draw();
+			cout << nodePtr->componentName << endl;
 		}
 	}
 	if (childNodes->size() > 0)
@@ -102,5 +98,5 @@ void Node::Draw()
 		}
 	}
 
-	//renderer->SetModelMatrix(savedWorldMatrix);
+	renderer->SetModelMatrix(savedWorldMatrix);
 }

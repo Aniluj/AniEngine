@@ -87,9 +87,6 @@ TextureInforForShapeComponent * ShapeComponent::GetTexture()
 
 void ShapeComponent::Draw()
 {
-	renderer->LoadIdentityMatrix();
-	renderer->SetModelMatrix(*model);
-
 	if (material != nullptr)
 	{
 		material->Bind();

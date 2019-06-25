@@ -112,6 +112,7 @@ bool Game::OnStart()
 	//Spider->Translate(480, 305, 1200);
 	//mesh->Translate(480, 312, 1475);
 
+
 	i = 0;
 
 	return true;
@@ -143,9 +144,9 @@ bool Game::OnUpdate()
 	{
 		//camera->Yaw(0.5f);
 
-		shapeExampleObject->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
-												 exampleObject->rootNode->transform->localPosition.y,
-												 exampleObject->rootNode->transform->localPosition.z - (100 * deltaTime)
+		shapeExampleObject->transform->Translate(shapeExampleObject->transform->localPosition.x,
+												 shapeExampleObject->transform->localPosition.y - (100 * deltaTime),
+												 shapeExampleObject->transform->localPosition.z 
 												);
 
 		/*exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
