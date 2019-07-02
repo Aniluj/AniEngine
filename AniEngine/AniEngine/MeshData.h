@@ -50,7 +50,7 @@ public:
 	MeshData(const vector<Vertex> & vertices,const vector<unsigned int> & indices, Renderer * rendererPtr, string texturePath);
 	MeshData();
 	void SetUpMeshData();
-	void Draw(glm::mat4 & model);
+	void Draw(glm::mat4 & model, bool comesFromNode);
 	~MeshData();
 
 	unsigned int vertexBuffer;

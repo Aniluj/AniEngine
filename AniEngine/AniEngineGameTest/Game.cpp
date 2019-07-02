@@ -144,16 +144,16 @@ bool Game::OnUpdate()
 	{
 		//camera->Yaw(0.5f);
 
-		shapeExampleObject->transform->Translate(shapeExampleObject->transform->localPosition.x,
+		/*shapeExampleObject->transform->Translate(shapeExampleObject->transform->localPosition.x,
 												 shapeExampleObject->transform->localPosition.y - (100 * deltaTime),
 												 shapeExampleObject->transform->localPosition.z 
-												);
+												);*/
 
-		/*exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
-													  exampleObject->rootNode->transform->localPosition.y,
-													  exampleObject->rootNode->transform->localPosition.z - (100 * deltaTime)
+		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
+													  exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
+													  exampleObject->rootNode->transform->localPosition.z 
 											   );
-		*/
+		
 
 		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
 		//	exampleObject->M4->transform->localPosition.y - (100 * deltaTime),
@@ -235,8 +235,8 @@ void Game::OnDraw()
 {
 	character->Draw();
 	enemy->Draw();
-	//exampleObject->Draw();
-	shapeExampleObject->Draw();
+	exampleObject->Draw();
+	//shapeExampleObject->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();
 	//M4Fusil->Draw();

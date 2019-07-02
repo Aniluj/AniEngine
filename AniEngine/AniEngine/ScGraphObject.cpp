@@ -19,8 +19,6 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 
 	spider = new Node(rendererPtr);
 	spiderMesh = new MeshComponent();
-	spider->transform->Translate(480, 305, 1200);
-	//spider->transform->Translate(480, 305, 1200);
 	spiderMesh->Start("spiderMesh", "Spider/spider.obj", "Spider/SpiderTex.bmp", renderer, &spider->transform->GetModel());
 	spider->AddComponent(spiderMesh);
 

@@ -45,10 +45,13 @@ void MeshData::SetUpMeshData()
 										"Shaders/TextureFragmentShader.txt");
 }
 
-void MeshData::Draw(glm::mat4 & model)
+void MeshData::Draw(glm::mat4 & model, bool comesFromNode)
 {
-	renderer->LoadIdentityMatrix();
-	renderer->SetModelMatrix(model);
+	if (!comesFromNode)
+	{
+		renderer->LoadIdentityMatrix();
+		renderer->SetModelMatrix(model);
+	}
 
 	if (material != nullptr)
 	{

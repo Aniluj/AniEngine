@@ -103,7 +103,7 @@ void MeshComponent::Draw()
 {
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
-		meshesData[i]->Draw(*model);
+		meshesData[i]->Draw(*model, true);
 		//cout << componentName << endl;
 		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
