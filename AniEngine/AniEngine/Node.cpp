@@ -87,7 +87,6 @@ void Node::Draw()
 		for (auto nodePtr : *components)
 		{
 			nodePtr->Draw();
-			cout << nodePtr->componentName << endl;
 		}
 	}
 	if (childNodes->size() > 0)

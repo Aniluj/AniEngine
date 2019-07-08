@@ -91,7 +91,7 @@ void Mesh::Draw()
 {
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
-		meshesData[i]->Draw(model, false);
+		meshesData[i]->Draw(model);
 		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
 }

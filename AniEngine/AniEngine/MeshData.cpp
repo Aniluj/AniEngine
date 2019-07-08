@@ -45,13 +45,42 @@ void MeshData::SetUpMeshData()
 										"Shaders/TextureFragmentShader.txt");
 }
 
-void MeshData::Draw(glm::mat4 & model, bool comesFromNode)
+void MeshData::Draw()
 {
-	if (!comesFromNode)
+	if (material != nullptr)
 	{
-		renderer->LoadIdentityMatrix();
-		renderer->SetModelMatrix(model);
+		material->Bind();
+		renderer->BindTexture(texture->id);
+		material->SetMatrixProperty(renderer->GetMVP());
+		material->SetTextureProperty();
 	}
+
+	renderer->EnableAttributes(0);
+	renderer->EnableAttributes(1);
+	renderer->EnableAttributes(2);
+
+	renderer->BindBuffer(vertexBuffer, 0);
+
+	renderer->BindUVBuffer(uvBuffer, 1);
+
+	renderer->NormalVertexAttrib(2);
+
+	renderer->BindElementBuffer(elementBuffer);
+
+	renderer->DrawElementBuffer(indices->size());
+
+
+	renderer->DisableAttributes(0);
+	renderer->DisableAttributes(1);
+	renderer->DisableAttributes(2);
+}
+
+void MeshData::Draw(glm::mat4 & model)
+{
+
+	renderer->LoadIdentityMatrix();
+	renderer->SetModelMatrix(model);
+
 
 	if (material != nullptr)
 	{

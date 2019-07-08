@@ -82,7 +82,6 @@ void AnimationComponent::Update()
 		}
 
 		*newUVBuffer = renderer->GenUVBuffer(sizeof(float) * newUVBufferDataSize * 2, new_g_uv_buffer_data);
-		cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
 		timer = 0;
 	}
 }

@@ -1,18 +1,21 @@
 #include "MeshComponent.h"
 
+BoundingBoxForDrawing::BoundingBoxForDrawing()
+{
 
+}
 
 MeshComponent::MeshComponent()
 {
 }
 
-void MeshComponent::Start(const char * componentName, const char* path, const char* texturePath, Renderer* rendererPtr, glm::mat4 * modelRef)
+void MeshComponent::Start(const char * componentName, const char* path, const char* texturePath, Renderer* rendererPtr)
 {
 	Component::Start(componentName);
 	componentType = MeshType;
 
-	model = modelRef;
 	renderer = rendererPtr;
+	bBox = new BoundingBoxForDrawing;
 	LoadModel(path, texturePath);
 
 	//cout << componentName << endl;
@@ -60,7 +63,7 @@ MeshData* MeshComponent::ProcessMesh(aiMesh *mesh, const aiScene *scene, string 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-
+		
 		const aiVector3D* pPos = &(mesh->mVertices[i]);
 		const aiVector3D* pTexCoord = mesh->HasTextureCoords(0) ? &(mesh->mTextureCoords[0][i]) : &Zero3D;
 		const aiVector3D* pNormal = &(mesh->mNormals[i]);
@@ -71,6 +74,8 @@ MeshData* MeshComponent::ProcessMesh(aiMesh *mesh, const aiScene *scene, string 
 		vector.y = (float)pPos->y;
 		vector.z = (float)pPos->z;
 		vertex.Position = vector;
+
+		bBox->CheckMinsAndMax(vector);
 
 		vector.x = (float)pNormal->x;
 		vector.y = (float)pNormal->y;
@@ -99,11 +104,96 @@ MeshData* MeshComponent::ProcessMesh(aiMesh *mesh, const aiScene *scene, string 
 	return new MeshData(vertices, indices, renderer, texturePath);
 }
 
+void BoundingBoxForDrawing::CheckMinsAndMax(glm::vec3 newPositionsToCheck)
+{
+	if (!isFirstTimeSet)
+	{
+		if (minX > newPositionsToCheck.x) {
+											minX = newPositionsToCheck.x;
+											bBoxVertices[0].x = minX;
+											bBoxVertices[2].x = minX;
+											bBoxVertices[4].x = minX;
+											bBoxVertices[6].x = minX;
+										  }
+		if (maxX < newPositionsToCheck.x) { 
+											maxX = newPositionsToCheck.x;
+											bBoxVertices[1].x = maxX;
+											bBoxVertices[3].x = maxX;
+											bBoxVertices[7].x = maxX;
+										  }
+
+		if (minY > newPositionsToCheck.y) {
+											minY = newPositionsToCheck.y;
+											bBoxVertices[2].y = minY;
+											bBoxVertices[3].y = minY;
+											bBoxVertices[6].y = minY;
+											bBoxVertices[7].y = minY;
+										  }
+		if (maxY < newPositionsToCheck.y) {
+											maxY = newPositionsToCheck.y;
+											bBoxVertices[0].y = maxY;
+											bBoxVertices[1].y = maxY;
+											bBoxVertices[4].y = maxY;
+											bBoxVertices[5].y = maxY;
+										  }
+
+		if (minZ > newPositionsToCheck.z) {
+											minZ = newPositionsToCheck.z; 
+											bBoxVertices[0].z = minZ;
+											bBoxVertices[1].z = minZ;
+											bBoxVertices[2].z = minZ;
+											bBoxVertices[3].z = minZ;
+										  }
+		if (maxZ < newPositionsToCheck.z) {
+											maxZ = newPositionsToCheck.z;
+											bBoxVertices[4].z = maxZ;
+											bBoxVertices[5].z = maxZ;
+											bBoxVertices[6].z = maxZ;
+											bBoxVertices[7].z = maxZ;
+										  }
+	}
+	else
+	{
+		minX = newPositionsToCheck.x;
+		minY = newPositionsToCheck.y;
+		minZ = newPositionsToCheck.z;
+
+		maxX = newPositionsToCheck.x;
+		maxY = newPositionsToCheck.y;
+		maxZ = newPositionsToCheck.z;
+
+		bBoxVertices[0].x = minX;	bBoxVertices[1].x = maxX;
+		bBoxVertices[0].y = maxY;	bBoxVertices[1].y = maxY;
+		bBoxVertices[0].z = minZ;	bBoxVertices[1].z = minZ;
+		bBoxVertices[0].w = 1;		bBoxVertices[1].w = 1;
+		
+		bBoxVertices[2].x = minX;	bBoxVertices[3].x = maxX;
+		bBoxVertices[2].y = minY;	bBoxVertices[3].y = minY;
+		bBoxVertices[2].z = minZ;	bBoxVertices[3].z = minZ;
+		bBoxVertices[2].w = 1;		bBoxVertices[3].w = 1;
+
+
+		bBoxVertices[4].x = minX;	bBoxVertices[5].x = maxX;
+		bBoxVertices[4].y = maxY;	bBoxVertices[5].y = maxY;
+		bBoxVertices[4].z = maxZ;	bBoxVertices[5].z = maxZ;
+		bBoxVertices[4].w = 1;		bBoxVertices[5].w = 1;
+
+		bBoxVertices[6].x = minX;	bBoxVertices[7].x = maxX;
+		bBoxVertices[6].y = minY;	bBoxVertices[7].y = minY;
+		bBoxVertices[6].z = maxZ;	bBoxVertices[7].z = maxZ;
+		bBoxVertices[6].w = 1;		bBoxVertices[7].w = 1;
+
+		isFirstTimeSet = false;
+	}
+}
+
 void MeshComponent::Draw()
 {
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
-		meshesData[i]->Draw(*model, true);
+		meshesData[i]->Draw();
+		cout << "minX: " << bBox->maxY << endl;
+		cout << "X de cara frontal: " << bBox->bBoxVertices[2].x << endl;
 		//cout << componentName << endl;
 		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
@@ -116,4 +206,10 @@ void MeshComponent::Update()
 
 MeshComponent::~MeshComponent()
 {
+	delete bBox;
+}
+
+BoundingBoxForDrawing::~BoundingBoxForDrawing()
+{
+
 }

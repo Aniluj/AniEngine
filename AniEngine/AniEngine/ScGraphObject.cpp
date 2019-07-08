@@ -14,12 +14,12 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 	M4->transform->RotateZ(90);
 	M4->transform->RotateX(-90);
 	M4->transform->Translate(480, 370, 1200);
-	M4Mesh->Start("M4Mesh", "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer, &M4->transform->GetModel());
+	M4Mesh->Start("M4Mesh", "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
 	M4->AddComponent(M4Mesh);
 
 	spider = new Node(rendererPtr);
 	spiderMesh = new MeshComponent();
-	spiderMesh->Start("spiderMesh", "Spider/spider.obj", "Spider/SpiderTex.bmp", renderer, &spider->transform->GetModel());
+	spiderMesh->Start("spiderMesh", "Spider/spider.obj", "Spider/SpiderTex.bmp", renderer);
 	spider->AddComponent(spiderMesh);
 
 	M4->AddChild(spider);
