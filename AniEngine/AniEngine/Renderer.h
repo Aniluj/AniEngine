@@ -3,6 +3,7 @@
 #include "Exports.h"
 #include "Window.h"
 #include <iostream>
+#include <vector>
 //#include "glm\glm.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
@@ -10,6 +11,7 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\transform.hpp>
 #include <glm\glm.hpp>
+#include "Plane.h"
 
 using namespace std;
 
@@ -19,16 +21,33 @@ enum  ProjectionType
 	Perspective
 };
 
+enum Halfspace
+{
+	NEGATIVE = -1,
+	ON_PLANE = 0,
+	POSITIVE = 1
+};
+
 class ENGINEDLL_API Renderer
 {
 private:
 	Window* window;
 	unsigned int vertexArrayID;
 
+	glm::mat4 combinedViewAndProjectionMatrix;
 	glm::mat4 modelMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 MVP;
 	ProjectionType typeOfProjection;
+
+	Plane * frustumPlanes;
+
+	Plane * leftClippingPlane;
+	Plane * rightClippingPlane;
+	Plane * topClippingPlane;
+	Plane * bottomClippingPlane;
+	Plane * nearClippingPlane;
+	Plane * farClippingPlane;
 public:
 	Renderer();
 	~Renderer();
@@ -66,10 +85,16 @@ public:
 	void SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar);
 	void SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
 	void SetViewMatrix(glm::mat4 viewMatrixValues);
+	void SetFrustumPlanes();
+
+	Halfspace ClassifyPoint(const Plane & plane, const glm::vec4 & vector);
 
 	void SetMVP();
 	void MultiplyModel(glm::mat4 matrix);
+	void MultiplyViewAndProjection();
 
 	glm::mat4& GetMVP();
 	glm::mat4 GetModelMatrix();
+	Plane * GetFrustumPlanesPtr();
+	void NormalizePlanes(Plane & plane);
 };

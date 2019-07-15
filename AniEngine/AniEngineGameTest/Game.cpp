@@ -142,17 +142,12 @@ bool Game::OnUpdate()
 	}
 	if (input->isInput(GLFW_KEY_F))
 	{
-		//camera->Yaw(0.5f);
+		camera->Yaw(0.5f);
 
 		/*shapeExampleObject->transform->Translate(shapeExampleObject->transform->localPosition.x,
 												 shapeExampleObject->transform->localPosition.y - (100 * deltaTime),
 												 shapeExampleObject->transform->localPosition.z 
 												);*/
-
-		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
-													  exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
-													  exampleObject->rootNode->transform->localPosition.z 
-											   );
 		
 
 		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
@@ -183,6 +178,13 @@ bool Game::OnUpdate()
 	if (input->isInput(GLFW_KEY_Z))
 	{
 		camera->Pitch(-0.5f);
+	}
+	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
+	{
+		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
+													  exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
+													  exampleObject->rootNode->transform->localPosition.z
+		);
 	}
 	//camera->Pitch(-0.7f);
 	//camera->Roll(0.3);

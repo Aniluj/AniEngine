@@ -17,20 +17,20 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 	M4Mesh->Start("M4Mesh", "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
 	M4->AddComponent(M4Mesh);
 
-	spider = new Node(rendererPtr);
+	/*spider = new Node(rendererPtr);
 	spiderMesh = new MeshComponent();
 	spiderMesh->Start("spiderMesh", "Spider/spider.obj", "Spider/SpiderTex.bmp", renderer);
 	spider->AddComponent(spiderMesh);
 
-	M4->AddChild(spider);
+	M4->AddChild(spider);*/
 	rootNode->AddChild(M4);
 }
 
 
 ScGraphObject::~ScGraphObject()
 {
-	delete spiderMesh;
-	delete spider;
+	//delete spiderMesh;
+	//delete spider;
 	delete M4Mesh;
 	delete M4;
 	delete rootNode;

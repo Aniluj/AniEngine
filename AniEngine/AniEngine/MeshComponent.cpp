@@ -36,6 +36,7 @@ void MeshComponent::LoadModel(string path, string texturePath)
 
 
 	ProcessNode(scene->mRootNode, scene, texturePath);
+	bBox->UpdateMaxsAndMins();
 }
 
 void MeshComponent::ProcessNode(aiNode *node, const aiScene *scene, string texturePath)
@@ -57,6 +58,8 @@ MeshData* MeshComponent::ProcessMesh(aiMesh *mesh, const aiScene *scene, string 
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
+	glm::vec3 mins;
+	glm::vec3 maxs;
 
 	const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
 
@@ -104,84 +107,65 @@ MeshData* MeshComponent::ProcessMesh(aiMesh *mesh, const aiScene *scene, string 
 	return new MeshData(vertices, indices, renderer, texturePath);
 }
 
+void BoundingBoxForDrawing::UpdateMaxsAndMins()
+{
+	bBoxVertices[0].x = mins.x;		bBoxVertices[1].x = maxs.x;
+	bBoxVertices[0].y = maxs.y;		bBoxVertices[1].y = maxs.y;
+	bBoxVertices[0].z = mins.z;		bBoxVertices[1].z = mins.z;
+	bBoxVertices[0].w = 1;			bBoxVertices[1].w = 1;
+
+	bBoxVertices[2].x = mins.x;		bBoxVertices[3].x = maxs.x;
+	bBoxVertices[2].y = mins.y;		bBoxVertices[3].y = mins.y;
+	bBoxVertices[2].z = mins.z;		bBoxVertices[3].z = mins.z;
+	bBoxVertices[2].w = 1;			bBoxVertices[3].w = 1;
+
+
+	bBoxVertices[4].x = mins.x;		bBoxVertices[5].x = maxs.x;
+	bBoxVertices[4].y = maxs.y;		bBoxVertices[5].y = maxs.y;
+	bBoxVertices[4].z = maxs.z;		bBoxVertices[5].z = maxs.z;
+	bBoxVertices[4].w = 1;			bBoxVertices[5].w = 1;
+
+	bBoxVertices[6].x = mins.x;		bBoxVertices[7].x = maxs.x;
+	bBoxVertices[6].y = mins.y;		bBoxVertices[7].y = mins.y;
+	bBoxVertices[6].z = maxs.z;		bBoxVertices[7].z = maxs.z;
+	bBoxVertices[6].w = 1;			bBoxVertices[7].w = 1;
+}
+
 void BoundingBoxForDrawing::CheckMinsAndMax(glm::vec3 newPositionsToCheck)
 {
-	if (!isFirstTimeSet)
+	if (isFirstTimeSet == false)
 	{
-		if (minX > newPositionsToCheck.x) {
-											minX = newPositionsToCheck.x;
-											bBoxVertices[0].x = minX;
-											bBoxVertices[2].x = minX;
-											bBoxVertices[4].x = minX;
-											bBoxVertices[6].x = minX;
-										  }
-		if (maxX < newPositionsToCheck.x) { 
-											maxX = newPositionsToCheck.x;
-											bBoxVertices[1].x = maxX;
-											bBoxVertices[3].x = maxX;
-											bBoxVertices[7].x = maxX;
-										  }
+		//cout << "entro" << endl;
+		if (mins.x > newPositionsToCheck.x) {
+											mins.x = newPositionsToCheck.x;
+										    }
+		if (maxs.x < newPositionsToCheck.x) {
+											maxs.x = newPositionsToCheck.x;
+										    }
 
-		if (minY > newPositionsToCheck.y) {
-											minY = newPositionsToCheck.y;
-											bBoxVertices[2].y = minY;
-											bBoxVertices[3].y = minY;
-											bBoxVertices[6].y = minY;
-											bBoxVertices[7].y = minY;
-										  }
-		if (maxY < newPositionsToCheck.y) {
-											maxY = newPositionsToCheck.y;
-											bBoxVertices[0].y = maxY;
-											bBoxVertices[1].y = maxY;
-											bBoxVertices[4].y = maxY;
-											bBoxVertices[5].y = maxY;
-										  }
+		if (mins.y > newPositionsToCheck.y) {
+											mins.y = newPositionsToCheck.y;
+										    }
+		if (maxs.y < newPositionsToCheck.y) {
+											maxs.y = newPositionsToCheck.y;
+										    }
 
-		if (minZ > newPositionsToCheck.z) {
-											minZ = newPositionsToCheck.z; 
-											bBoxVertices[0].z = minZ;
-											bBoxVertices[1].z = minZ;
-											bBoxVertices[2].z = minZ;
-											bBoxVertices[3].z = minZ;
-										  }
-		if (maxZ < newPositionsToCheck.z) {
-											maxZ = newPositionsToCheck.z;
-											bBoxVertices[4].z = maxZ;
-											bBoxVertices[5].z = maxZ;
-											bBoxVertices[6].z = maxZ;
-											bBoxVertices[7].z = maxZ;
-										  }
+		if (mins.z > newPositionsToCheck.z) {
+											mins.z = newPositionsToCheck.z; 
+										    }
+		if (maxs.z < newPositionsToCheck.z) {
+											maxs.z = newPositionsToCheck.z;
+										    }
 	}
 	else
 	{
-		minX = newPositionsToCheck.x;
-		minY = newPositionsToCheck.y;
-		minZ = newPositionsToCheck.z;
+		mins.x = newPositionsToCheck.x;
+		mins.y = newPositionsToCheck.y;
+		mins.z = newPositionsToCheck.z;
 
-		maxX = newPositionsToCheck.x;
-		maxY = newPositionsToCheck.y;
-		maxZ = newPositionsToCheck.z;
-
-		bBoxVertices[0].x = minX;	bBoxVertices[1].x = maxX;
-		bBoxVertices[0].y = maxY;	bBoxVertices[1].y = maxY;
-		bBoxVertices[0].z = minZ;	bBoxVertices[1].z = minZ;
-		bBoxVertices[0].w = 1;		bBoxVertices[1].w = 1;
-		
-		bBoxVertices[2].x = minX;	bBoxVertices[3].x = maxX;
-		bBoxVertices[2].y = minY;	bBoxVertices[3].y = minY;
-		bBoxVertices[2].z = minZ;	bBoxVertices[3].z = minZ;
-		bBoxVertices[2].w = 1;		bBoxVertices[3].w = 1;
-
-
-		bBoxVertices[4].x = minX;	bBoxVertices[5].x = maxX;
-		bBoxVertices[4].y = maxY;	bBoxVertices[5].y = maxY;
-		bBoxVertices[4].z = maxZ;	bBoxVertices[5].z = maxZ;
-		bBoxVertices[4].w = 1;		bBoxVertices[5].w = 1;
-
-		bBoxVertices[6].x = minX;	bBoxVertices[7].x = maxX;
-		bBoxVertices[6].y = minY;	bBoxVertices[7].y = minY;
-		bBoxVertices[6].z = maxZ;	bBoxVertices[7].z = maxZ;
-		bBoxVertices[6].w = 1;		bBoxVertices[7].w = 1;
+		maxs.x = newPositionsToCheck.x;
+		maxs.y = newPositionsToCheck.y;
+		maxs.z = newPositionsToCheck.z;
 
 		isFirstTimeSet = false;
 	}
@@ -189,15 +173,131 @@ void BoundingBoxForDrawing::CheckMinsAndMax(glm::vec3 newPositionsToCheck)
 
 void MeshComponent::Draw()
 {
+	Plane * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
+	
+	cout << "MIN Y: " << bBox->mins.y << endl;
+	cout << "MAX Y: " << bBox->maxs.y << endl;
+	cout << endl;
+
+	cout << "MIN X: " << bBox->mins.x << endl;
+	cout << "MAX X: " << bBox->maxs.x << endl;
+	cout << endl;
+
+	cout << "MIN Z: " << bBox->mins.z << endl;
+	cout << "MAX Z: " << bBox->maxs.z << endl;
+	cout << endl;
+
+	glm::vec4 algoRaro = renderer->GetModelMatrix() * bBox->bBoxVertices[7];
+	glm::vec4 algoRaro2 = renderer->GetModelMatrix() * bBox->bBoxVertices[5];
+
+	cout << "MAX Y Moved:  " << algoRaro.y << endl;
+	cout << "MIN Y Moved:  " << algoRaro2.y << endl;
+	cout << endl;
+
+	cout << "MIN X Moved:  " << algoRaro.x << endl;
+	cout << "MAX X Moved:  " << algoRaro2.x << endl;
+	cout << endl;
+
+	cout << "MAX Z Moved:  " << algoRaro.z << endl;
+	cout << "MAX Z Moved:  " << algoRaro2.z << endl;
+	cout << endl;
+
+	//DrawBoundingBox();
+
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	bool allBehind = true;
+
+	//	for (int j = 0; j < 8; j++)
+	//	{
+	//		if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * bBox->bBoxVertices[j] /** renderer->GetModelMatrix()*/) == POSITIVE)
+	//		{
+	//			//cout << "CHECKEO EN MESH "  << i << "  " << frustumPlanesPtr[i].a << endl;
+	//			allBehind = false;
+	//			break;
+	//		}
+	//	}
+	//	if (allBehind)
+	//	{
+	//		cout << "NO SE DIBUJAAAAAAAAAAAAAAAAAAAAAAAAA" << i << endl;
+	//		
+	//		return;
+	//	}
+	//}
+
 	for (unsigned int i = 0; i < meshesData.size(); i++)
 	{
 		meshesData[i]->Draw();
-		cout << "minX: " << bBox->maxY << endl;
-		cout << "X de cara frontal: " << bBox->bBoxVertices[2].x << endl;
+		//cout << "minX: " << bBox->maxY << endl;
+		//cout << "X de cara frontal: " << bBox->bBoxVertices[2].x << endl;
 		//cout << componentName << endl;
 		//cout << "size of mesh data vector: " << meshesData.size() << endl;
 	}
 }
+
+//void MeshComponent::DrawBoundingBox()
+//{
+//	BoundingBoxForDrawing fcNew = BoundingBoxForDrawing();
+//
+//	for (int i = 0; i < 8; i++)
+//	{
+//		fcNew.bBoxVertices[i] = bBox->bBoxVertices[i];
+//	}
+//
+//	float* fcVertex = new float[12 * 3]
+//	{
+//		fcNew.bBoxVertices[5].x, fcNew.bBoxVertices[5].y, fcNew.bBoxVertices[5].z,
+//		fcNew.bBoxVertices[1].x, fcNew.bBoxVertices[1].y, fcNew.bBoxVertices[1].z,
+//		fcNew.bBoxVertices[7].x, fcNew.bBoxVertices[7].y, fcNew.bBoxVertices[7].z,
+//
+//		fcNew.bBoxVertices[1].x, fcNew.bBoxVertices[1].y, fcNew.bBoxVertices[1].z,
+//		fcNew.bBoxVertices[7].x, fcNew.bBoxVertices[7].y, fcNew.bBoxVertices[7].z,
+//		fcNew.bBoxVertices[3].x, fcNew.bBoxVertices[3].y, fcNew.bBoxVertices[3].z,
+//
+//		fcNew.bBoxVertices[4].x, fcNew.bBoxVertices[4].y, fcNew.bBoxVertices[4].z,
+//		fcNew.bBoxVertices[0].x, fcNew.bBoxVertices[0].y, fcNew.bBoxVertices[0].z,
+//		fcNew.bBoxVertices[6].x, fcNew.bBoxVertices[6].y, fcNew.bBoxVertices[6].z,
+//
+//		fcNew.bBoxVertices[0].x, fcNew.bBoxVertices[0].y, fcNew.bBoxVertices[0].z,
+//		fcNew.bBoxVertices[6].x, fcNew.bBoxVertices[6].y, fcNew.bBoxVertices[6].z,
+//		fcNew.bBoxVertices[2].x, fcNew.bBoxVertices[2].y, fcNew.bBoxVertices[2].z,
+//	};
+//
+//	float* verticesColorData = new float[3 * 12]
+//	{
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f,
+//	};
+//
+//	vector<unsigned int> indices{
+//		0, 1, 2,
+//		3, 4, 5,
+//		6, 7, 8,
+//		9,10,11
+//	};
+//
+//	unsigned int id = renderer->GenBuffer(sizeof(float) * 12 * 3, fcVertex);
+//	unsigned int colorId = renderer->GenBuffer(sizeof(float) * 12 * 3, verticesColorData);
+//	unsigned int elementsId = renderer->GenElementBuffer(sizeof(unsigned int) * indices.size(), &indices.at(0));
+//
+//	renderer->BindBuffer(id, 0);
+//	renderer->BindTexture(colorId);
+//	renderer->BindElementBuffer(elementsId);
+//	renderer->DrawElementBuffer(elementsId);
+//}
 
 void MeshComponent::Update()
 {

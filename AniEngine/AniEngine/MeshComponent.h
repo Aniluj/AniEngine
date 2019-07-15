@@ -12,17 +12,12 @@ struct BoundingBoxForDrawing
 
 	bool isFirstTimeSet = true;
 
-	float minX;
-	float minY;
-	float minZ;
-
-	float maxX;
-	float maxY;
-	float maxZ;
-
 	glm::vec4 bBoxVertices[8];
+	glm::vec3 mins;
+	glm::vec3 maxs;
 
 	void CheckMinsAndMax(glm::vec3 newPositionsToCheck);
+	void UpdateMaxsAndMins();
 
 	~BoundingBoxForDrawing();
 };
@@ -45,5 +40,6 @@ public:
 	void Update() override;
 	string directory;
 	BoundingBoxForDrawing * bBox;
+	void DrawBoundingBox();
 };
 
