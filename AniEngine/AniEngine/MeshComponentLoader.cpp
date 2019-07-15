@@ -4,15 +4,17 @@ MeshComponentLoader::MeshComponentLoader()
 {
 }
 
-void MeshComponentLoader::Start(const char * componentName, const char* path, const char* texturePath, Renderer* rendererPtr)
+void MeshComponentLoader::Start(const char * componentName, Node * rootNode, const char* path, const char* texturePath, Renderer* rendererPtr)
 {
 	Component::Start(componentName);
-	componentType = MeshType;
+	componentType = MeshLoaderType;
 
 	renderer = rendererPtr;
-	bBox = new FrustumCullingBoundingBox;
+	FCBoundingBox = new FrustumCullingBoundingBox();
 	LoadModel(path, texturePath);
 
+	rootNode->AddChild(totalNodes[0]);
+	RelateNodes();
 	//cout << componentName << endl;
 }
 
@@ -31,7 +33,21 @@ void MeshComponentLoader::LoadModel(string path, string texturePath)
 
 
 	ProcessNode(scene->mRootNode, scene, texturePath);
-	bBox->UpdateMaxsAndMins();
+	FCBoundingBox->UpdateMaxsAndMins();
+}
+
+void MeshComponentLoader::RelateNodes()
+{
+	if (totalNodes.size() > 1)
+	{
+		for (int i = 0; i < totalNodes.size(); i++)
+		{
+			if ((i + 1) < totalNodes.size())
+			{
+				totalNodes[i]->AddChild(totalNodes[i + 1]);
+			}
+		}
+	}
 }
 
 void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string texturePath)
@@ -40,9 +56,10 @@ void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		//Node * loquito = ProcessMesh(mesh, scene, texturePath);
-		//loquito->addChild(loquito);
-		meshesData.push_back(ProcessMesh(mesh, scene, texturePath));
+		Node * childNode = new Node(renderer);
+		childNode = ProcessMesh(mesh, scene, texturePath);
+		totalNodes.push_back(childNode);
+		//meshesData.push_back(ProcessMesh(mesh, scene, texturePath));
 	}
 	// then do the same for each of its children
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -51,7 +68,7 @@ void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string
 	}
 }
 
-MeshData* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath)
+Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
@@ -75,7 +92,7 @@ MeshData* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, s
 		vector.z = (float)pPos->z;
 		vertex.Position = vector;
 
-		bBox->CheckMinsAndMax(vector);
+		FCBoundingBox->CheckMinsAndMax(vector);
 
 		vector.x = (float)pNormal->x;
 		vector.y = (float)pNormal->y;
@@ -101,138 +118,18 @@ MeshData* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, s
 		}
 	}
 
-	return new MeshData(vertices, indices, renderer, texturePath);
+	Node * childNode = new Node(renderer);
+	MeshComponent * meshComponent = new MeshComponent();
+	meshComponent->Start("meshComponent", FCBoundingBox, vertices, indices, renderer, texturePath);
+	childNode->AddComponent(meshComponent);
+
+	return childNode;
 }
 
 void MeshComponentLoader::Draw()
 {
-	Plane * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
-	
-	cout << "MIN Y: " << bBox->mins.y << endl;
-	cout << "MAX Y: " << bBox->maxs.y << endl;
-	cout << endl;
 
-	cout << "MIN X: " << bBox->mins.x << endl;
-	cout << "MAX X: " << bBox->maxs.x << endl;
-	cout << endl;
-
-	cout << "MIN Z: " << bBox->mins.z << endl;
-	cout << "MAX Z: " << bBox->maxs.z << endl;
-	cout << endl;
-
-	glm::vec4 algoRaro = renderer->GetModelMatrix() * bBox->bBoxVertices[7];
-	glm::vec4 algoRaro2 = renderer->GetModelMatrix() * bBox->bBoxVertices[5];
-
-	cout << "MAX Y Moved:  " << algoRaro.y << endl;
-	cout << "MIN Y Moved:  " << algoRaro2.y << endl;
-	cout << endl;
-
-	cout << "MIN X Moved:  " << algoRaro.x << endl;
-	cout << "MAX X Moved:  " << algoRaro2.x << endl;
-	cout << endl;
-
-	cout << "MAX Z Moved:  " << algoRaro.z << endl;
-	cout << "MAX Z Moved:  " << algoRaro2.z << endl;
-	cout << endl;
-
-	//DrawBoundingBox();
-
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	bool allBehind = true;
-
-	//	for (int j = 0; j < 8; j++)
-	//	{
-	//		if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * bBox->bBoxVertices[j] /** renderer->GetModelMatrix()*/) == POSITIVE)
-	//		{
-	//			//cout << "CHECKEO EN MESH "  << i << "  " << frustumPlanesPtr[i].a << endl;
-	//			allBehind = false;
-	//			break;
-	//		}
-	//	}
-	//	if (allBehind)
-	//	{
-	//		cout << "NO SE DIBUJAAAAAAAAAAAAAAAAAAAAAAAAA" << i << endl;
-	//		
-	//		return;
-	//	}
-	//}
-
-	for (unsigned int i = 0; i < meshesData.size(); i++)
-	{
-
-		//
-		meshesData[i]->Draw();
-		//cout << "minX: " << bBox->maxY << endl;
-		//cout << "X de cara frontal: " << bBox->bBoxVertices[2].x << endl;
-		//cout << componentName << endl;
-		//cout << "size of mesh data vector: " << meshesData.size() << endl;
-	}
 }
-
-//void MeshComponent::DrawBoundingBox()
-//{
-//	BoundingBoxForDrawing fcNew = BoundingBoxForDrawing();
-//
-//	for (int i = 0; i < 8; i++)
-//	{
-//		fcNew.bBoxVertices[i] = bBox->bBoxVertices[i];
-//	}
-//
-//	float* fcVertex = new float[12 * 3]
-//	{
-//		fcNew.bBoxVertices[5].x, fcNew.bBoxVertices[5].y, fcNew.bBoxVertices[5].z,
-//		fcNew.bBoxVertices[1].x, fcNew.bBoxVertices[1].y, fcNew.bBoxVertices[1].z,
-//		fcNew.bBoxVertices[7].x, fcNew.bBoxVertices[7].y, fcNew.bBoxVertices[7].z,
-//
-//		fcNew.bBoxVertices[1].x, fcNew.bBoxVertices[1].y, fcNew.bBoxVertices[1].z,
-//		fcNew.bBoxVertices[7].x, fcNew.bBoxVertices[7].y, fcNew.bBoxVertices[7].z,
-//		fcNew.bBoxVertices[3].x, fcNew.bBoxVertices[3].y, fcNew.bBoxVertices[3].z,
-//
-//		fcNew.bBoxVertices[4].x, fcNew.bBoxVertices[4].y, fcNew.bBoxVertices[4].z,
-//		fcNew.bBoxVertices[0].x, fcNew.bBoxVertices[0].y, fcNew.bBoxVertices[0].z,
-//		fcNew.bBoxVertices[6].x, fcNew.bBoxVertices[6].y, fcNew.bBoxVertices[6].z,
-//
-//		fcNew.bBoxVertices[0].x, fcNew.bBoxVertices[0].y, fcNew.bBoxVertices[0].z,
-//		fcNew.bBoxVertices[6].x, fcNew.bBoxVertices[6].y, fcNew.bBoxVertices[6].z,
-//		fcNew.bBoxVertices[2].x, fcNew.bBoxVertices[2].y, fcNew.bBoxVertices[2].z,
-//	};
-//
-//	float* verticesColorData = new float[3 * 12]
-//	{
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f,
-//	};
-//
-//	vector<unsigned int> indices{
-//		0, 1, 2,
-//		3, 4, 5,
-//		6, 7, 8,
-//		9,10,11
-//	};
-//
-//	unsigned int id = renderer->GenBuffer(sizeof(float) * 12 * 3, fcVertex);
-//	unsigned int colorId = renderer->GenBuffer(sizeof(float) * 12 * 3, verticesColorData);
-//	unsigned int elementsId = renderer->GenElementBuffer(sizeof(unsigned int) * indices.size(), &indices.at(0));
-//
-//	renderer->BindBuffer(id, 0);
-//	renderer->BindTexture(colorId);
-//	renderer->BindElementBuffer(elementsId);
-//	renderer->DrawElementBuffer(elementsId);
-//}
 
 void MeshComponentLoader::Update()
 {
@@ -241,7 +138,7 @@ void MeshComponentLoader::Update()
 
 MeshComponentLoader::~MeshComponentLoader()
 {
-	delete bBox;
+	delete FCBoundingBox;
 }
 
 

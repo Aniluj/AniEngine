@@ -371,13 +371,13 @@ void Renderer::SetFrustumPlanes()
 
 
 
-	/*NormalizePlanes(frustumPlanes[0]);
-	NormalizePlanes(frustumPlanes[1]);
-	NormalizePlanes(frustumPlanes[2]);
-	NormalizePlanes(frustumPlanes[3]);
-	NormalizePlanes(frustumPlanes[4]);
-	NormalizePlanes(frustumPlanes[5]);*/
-
+	//NormalizePlanes(frustumPlanes[0]);
+	//NormalizePlanes(frustumPlanes[1]);
+	//NormalizePlanes(frustumPlanes[2]);
+	//NormalizePlanes(frustumPlanes[3]);
+	//NormalizePlanes(frustumPlanes[4]);
+	//NormalizePlanes(frustumPlanes[5]);
+	
 	//cout << "CHECKEO EN RENDERER " << combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[0][0] << endl;
 }
 

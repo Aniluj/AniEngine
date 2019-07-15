@@ -11,8 +11,8 @@ struct FrustumCullingBoundingBox
 	bool isFirstTimeSet = true;
 
 	glm::vec4 bBoxVertices[8];
-	glm::vec3 mins;
-	glm::vec3 maxs;
+	glm::vec3 min;
+	glm::vec3 max;
 
 	void CheckMinsAndMax(glm::vec3 newPositionsToCheck);
 	void UpdateMaxsAndMins();

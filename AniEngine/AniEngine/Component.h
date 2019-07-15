@@ -9,6 +9,7 @@ enum ComponentType
 {
 	DefaultType,
 	TransformType,
+	MeshLoaderType,
 	MeshType,
 	ShapeType,
 	AnimationType
