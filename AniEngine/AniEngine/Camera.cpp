@@ -5,6 +5,7 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 {
 	forward = glm::vec4(0, 0, -1, 0);
 	up = glm::vec4(0, 1, 0, 0);
+	right = glm::vec4(1, 0, 0, 0);
 	
 	/*vectorPosition.x = 480;
 	vectorPosition.y = 320;
@@ -45,7 +46,9 @@ void Camera::Pitch(float xRotation)
 {
 	RotateX(xRotation);
 
-	forward = rotationX * forward;
+	//forward = rotationX * forward;
+	forward = glm::rotate(glm::mat4(1.0f), glm::radians(xRotation), glm::vec3(right.x, right.y, right.z)) * forward;
+	up = glm::rotate(glm::mat4(1.0f), glm::radians(xRotation), glm::vec3(right.x, right.y, right.z)) * up;
 	//forward.y = vectorPosition.y + rotationX[1][1];
 	//forward.z = vectorPosition.z + rotationX[1][2];
 
