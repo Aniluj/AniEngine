@@ -142,6 +142,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
+    <ClInclude Include="MeshComponentLoader.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Plane.h" />
@@ -175,6 +176,7 @@ copy "$(SolutionDir)external\assimp\WindowsSDKVersion_10.0.16299.0\lib\assimp-vc
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
+    <ClCompile Include="MeshComponentLoader.cpp" />
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Plane.cpp" />

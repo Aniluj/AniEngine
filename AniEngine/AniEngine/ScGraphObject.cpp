@@ -10,7 +10,7 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 	rootNode->transform->Translate(0, 0, 0);
 
 	M4 = new Node(renderer);
-	M4Mesh = new MeshComponent();
+	M4Mesh = new MeshComponentLoader();
 	M4->transform->RotateZ(90);
 	M4->transform->RotateX(-90);
 	M4->transform->Translate(480, 370, 1200);
