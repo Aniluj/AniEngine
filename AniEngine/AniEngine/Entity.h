@@ -27,6 +27,7 @@ public:
 	glm::vec3 vectorPosition;
 	void Scale(float x, float y, float z);
 	void Translate(float x, float y, float z);
+	void Translate(glm::vec4 & vectorPos, glm::vec3 movement);
 	void RotateX(float angle);
 	void RotateY(float angle);
 	void RotateZ(float angle);

@@ -45,6 +45,11 @@ void Entity::Translate(float x, float y, float z)
 	UpdateModel();
 }
 
+void Entity::Translate(glm::vec4 & vectorPos, glm::vec3 movement)
+{
+	vectorPos = glm::translate(glm::mat4(1.0f), movement) * vectorPos;
+}
+
 void Entity::Scale(float x, float y, float z)
 {
 	glm::vec3 vector3(x, y, z);

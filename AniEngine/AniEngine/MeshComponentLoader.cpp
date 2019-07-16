@@ -9,12 +9,13 @@ void MeshComponentLoader::Start(const char * componentName, Node * rootNode, con
 	Component::Start(componentName);
 	componentType = MeshLoaderType;
 
+	this->rootNode = rootNode;
 	renderer = rendererPtr;
 	FCBoundingBox = new FrustumCullingBoundingBox();
 	LoadModel(path, texturePath);
 
-	rootNode->AddChild(totalNodes[0]);
-	RelateNodes();
+	//->AddChild(totalNodes[0]);
+	//RelateNodes();
 	//cout << componentName << endl;
 }
 
@@ -36,29 +37,32 @@ void MeshComponentLoader::LoadModel(string path, string texturePath)
 	FCBoundingBox->UpdateMaxsAndMins();
 }
 
-void MeshComponentLoader::RelateNodes()
-{
-	if (totalNodes.size() > 1)
-	{
-		for (int i = 0; i < totalNodes.size(); i++)
-		{
-			if ((i + 1) < totalNodes.size())
-			{
-				totalNodes[i]->AddChild(totalNodes[i + 1]);
-			}
-		}
-	}
-}
+//void MeshComponentLoader::RelateNodes()
+//{
+//	if (totalNodes.size() > 1)
+//	{
+//		for (int i = 0; i < totalNodes.size(); i++)
+//		{
+//			if ((i + 1) < totalNodes.size())
+//			{
+//				totalNodes[i]->AddChild(totalNodes[i + 1]);
+//			}
+//		}
+//	}
+//}
 
 void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string texturePath)
 {
 	// process all the node's meshes (if any)
+	Node * rootNodeChild = new Node(renderer);
+	rootNode->AddChild(rootNodeChild);
+
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		Node * childNode = new Node(renderer);
-		childNode = ProcessMesh(mesh, scene, texturePath);
-		totalNodes.push_back(childNode);
+		Node * meshChildNode = new Node(renderer);
+		meshChildNode = ProcessMesh(mesh, scene, texturePath);
+		rootNodeChild->AddChild(meshChildNode);
 		//meshesData.push_back(ProcessMesh(mesh, scene, texturePath));
 	}
 	// then do the same for each of its children

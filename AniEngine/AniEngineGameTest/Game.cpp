@@ -126,23 +126,23 @@ bool Game::OnUpdate()
 
 	if (input->isInput(GLFW_KEY_W))
 	{
-		camera->Walk(-30 * deltaTime);
+		camera->Walk(cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_S))
 	{
-		camera->Walk(30 * deltaTime);
+		camera->Walk(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_A))
 	{
-		camera->Strafe(-75 * deltaTime);
+		camera->Strafe(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_D))
 	{
-		camera->Strafe(75 * deltaTime);
+		camera->Strafe(cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_F))
 	{
-		camera->Yaw(0.5f);
+		camera->Yaw(cameraSpeed * deltaTime);
 
 		/*shapeExampleObject->transform->Translate(shapeExampleObject->transform->localPosition.x,
 												 shapeExampleObject->transform->localPosition.y - (100 * deltaTime),
@@ -161,23 +161,23 @@ bool Game::OnUpdate()
 	}
 	if (input->isInput(GLFW_KEY_G))
 	{
-		camera->Yaw(-0.5f);
+		camera->Yaw(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_Q))
 	{
-		camera->Roll(0.5);
+		camera->Roll(cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_E))
 	{
-		camera->Roll(-0.5);
+		camera->Roll(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_C))
 	{
-		camera->Pitch(0.5f);
+		camera->Pitch(cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_Z))
 	{
-		camera->Pitch(-0.5f);
+		camera->Pitch(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
 	{

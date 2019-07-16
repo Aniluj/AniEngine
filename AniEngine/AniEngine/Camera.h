@@ -10,6 +10,7 @@ private:
 	glm::vec4 forward;
 	glm::vec4 up;
 	glm::vec4 right;
+	glm::vec4 pos;
 public:
 	Camera(Renderer* rendererPtr);
 	~Camera();

@@ -21,6 +21,7 @@ class Game : public GameBase
 private:
 	int i;
 	float timeLim = 4.0f;
+	float cameraSpeed = 50.0f;
 	float timer;
 public:
 	Game();
