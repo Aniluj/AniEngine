@@ -3,30 +3,40 @@
 
 Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 {
-	forward = glm::vec4(0, 0, -1, 0);
+	forward = glm::vec4(0, 0, 1, 0);
 	up = glm::vec4(0, 1, 0, 0);
 	right = glm::vec4(1, 0, 0, 0);
 	pos = glm::vec4(0, 0, 0, 1);
 
+	fovy = glm::radians(45.0f);
+	aspect = 4.0f / 3.0f;
+	zNear = 0.1f;
+	zFar = 1000.0f;
 	/*vectorPosition.x = 480;
 	vectorPosition.y = 320;
 	vectorPosition.z = 960;*/
 
 	//Translate(480, 320, 1500);
 
-	pos.x = 480;
-	pos.y = 320;
-	pos.z = 1500;
+	pos.x = 0;
+	pos.y = 0;
+	pos.z = -20;
 
 	renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
 	renderer->SetViewMatrix(pos, (glm::vec3)pos + (glm::vec3)forward, glm::vec3(0, 1, 0));
 
+	UpdateValues();
 	//Pitch(180);
 }
 
 
 Camera::~Camera()
 {
+}
+
+void Camera::UpdateValues()
+{
+	renderer->SetFrustumPlanes(pos, forward, right, up, zNear, zFar, aspect, fovy);
 }
 
 void Camera::Walk(float forwardMovement)
@@ -36,6 +46,8 @@ void Camera::Walk(float forwardMovement)
 	renderer->SetViewMatrix(pos,
 							(glm::vec3)pos + (glm::vec3)forward,
 							(glm::vec3) up);
+
+	UpdateValues();
 }
 
 void Camera::Strafe(float horizontalMovement)
@@ -45,6 +57,7 @@ void Camera::Strafe(float horizontalMovement)
 	renderer->SetViewMatrix(pos,
 							(glm::vec3)pos + (glm::vec3)forward,
 							(glm::vec3) up);
+	UpdateValues();
 }
 
 void Camera::Pitch(float xRotation)
@@ -60,6 +73,7 @@ void Camera::Pitch(float xRotation)
 	renderer->SetViewMatrix(pos,
 							(glm::vec3)pos + (glm::vec3)forward,
 							(glm::vec3) up);
+	UpdateValues();
 }
 
 void Camera::Yaw(float yRotation)
@@ -80,6 +94,7 @@ void Camera::Yaw(float yRotation)
 	renderer->SetViewMatrix(pos,
 							(glm::vec3)pos + (glm::vec3)forward,
 							(glm::vec3) up);
+	UpdateValues();
 }
 
 void Camera::Roll(float zRotation)
@@ -94,6 +109,7 @@ void Camera::Roll(float zRotation)
 	renderer->SetViewMatrix(pos,
 							(glm::vec3)pos + (glm::vec3)forward,
 							(glm::vec3) up);
+	UpdateValues();
 }
 
 void Camera::Draw()

@@ -28,6 +28,17 @@ enum Halfspace
 	POSITIVE = 1
 };
 
+enum Planes
+{
+	TOP,
+	BOTTOM,
+	LEFT,
+	RIGHT,
+	NEAR,
+	FAR,
+	COUNT
+};
+
 class ENGINEDLL_API Renderer
 {
 private:
@@ -42,12 +53,8 @@ private:
 
 	Plane * frustumPlanes;
 
-	Plane * leftClippingPlane;
-	Plane * rightClippingPlane;
-	Plane * topClippingPlane;
-	Plane * bottomClippingPlane;
-	Plane * nearClippingPlane;
-	Plane * farClippingPlane;
+	glm::vec4 planes[(int)Planes::COUNT];
+	glm::vec4 CreatePlane(const glm::vec3& normal, const glm::vec3& point);
 public:
 	Renderer();
 	~Renderer();
@@ -85,9 +92,10 @@ public:
 	void SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar);
 	void SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
 	void SetViewMatrix(glm::mat4 viewMatrixValues);
-	void SetFrustumPlanes();
+	//void SetFrustumPlanes();
+	void SetFrustumPlanes(glm::vec3 globalPos, glm::vec3 fwd, glm::vec3 right, glm::vec3 up, float zNear, float zFar, float aspRatio, float fovy);
 
-	Halfspace ClassifyPoint(const Plane & plane, const glm::vec4 & vector);
+	Halfspace ClassifyPoint(const glm::vec4 & plane, const glm::vec4 & vector);
 
 	void SetMVP();
 	void MultiplyModel(glm::mat4 matrix);
@@ -95,6 +103,6 @@ public:
 
 	glm::mat4& GetMVP();
 	glm::mat4 GetModelMatrix();
-	Plane * GetFrustumPlanesPtr();
+	glm::vec4 * GetFrustumPlanesPtr();
 	void NormalizePlanes(Plane & plane);
 };

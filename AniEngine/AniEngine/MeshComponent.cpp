@@ -95,7 +95,7 @@ void FrustumCullingBoundingBox::CheckMinsAndMax(glm::vec3 newPositionsToCheck)
 
 void MeshComponent::Draw()
 {
-	//Plane * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
+	glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
 
 	//cout << "MIN Y: " << FCBoundingBox->min.y << endl;
 	//cout << "MAX Y: " << FCBoundingBox->max.y << endl;
@@ -124,34 +124,35 @@ void MeshComponent::Draw()
 	//cout << "MAX Z Moved:  " << algoRaro2.z << endl;
 	//cout << endl;
 
-	//int aux;
+	int aux;
 
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	bool allBehind = true;
+	for (int i = 0; i < 6; i++)
+	{
+		bool allBehind = true;
 
-	//	for (int j = 0; j < 8; j++)
-	//	{
-	//		if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[j] /** renderer->GetModelMatrix()*/) == POSITIVE)
-	//		{
-	//			//cout << "CHECKEO EN MESH "  << i << "  " << frustumPlanesPtr[i].a << endl;
-	//			allBehind = false;
-	//			aux = j;
-	//			break;
-	//		}
-	//	}
-	//	if (allBehind)
-	//	{
-	//		cout << "NO SE DIBUJAAAAAAAAAAAAAAAAAAAAAAAAA: " << i << endl;
-	//		cout << "EL VERTICE QUE FALLA: " << aux << endl;
-	//		cout << "A: " << frustumPlanesPtr[1].a << endl;
-	//		cout << "B: " << frustumPlanesPtr[1].b << endl;
-	//		cout << "C: " << frustumPlanesPtr[1].c << endl;
-	//		cout << "D: " << frustumPlanesPtr[1].d << endl;
+		for (int j = 0; j < 8; j++)
+		{
+			if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[j] /** renderer->GetModelMatrix()*/) == POSITIVE)
+			{
+				//cout << "CHECKEO EN MESH "  << i << "  " << frustumPlanesPtr[i].a << endl;
+				allBehind = false;
+				aux = j;
+				break;
+			}
+		}
+		if (allBehind)
+		{
+			cout << "NO SE DIBUJAAAAAAAAAAAAAAAAAAAAAAAAA: " << i << endl;
+			//cout << "EL VERTICE QUE FALLA: " << aux << endl;
+			//cout << "A: " << frustumPlanesPtr[1].a << endl;
+			//cout << "B: " << frustumPlanesPtr[1].b << endl;
+			//cout << "C: " << frustumPlanesPtr[1].c << endl;
+			//cout << "D: " << frustumPlanesPtr[1].d << endl;
 
-	//		return;
-	//	}
-	//}
+			return;
+		}
+		cout << "SE DIBUJAAAAAAAAAAAAAAAA: " << i << endl;
+	}
 
 	meshData->Draw();
 }

@@ -235,8 +235,8 @@ bool Game::OnUpdate()
 
 void Game::OnDraw()
 {
-	character->Draw();
-	enemy->Draw();
+	//character->Draw();
+	//enemy->Draw();
 	exampleObject->Draw();
 	//shapeExampleObject->Draw();
 	//triangle->Draw();

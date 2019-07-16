@@ -11,6 +11,11 @@ private:
 	glm::vec4 up;
 	glm::vec4 right;
 	glm::vec4 pos;
+
+	float fovy;
+	float aspect;
+	float zNear;
+	float zFar;
 public:
 	Camera(Renderer* rendererPtr);
 	~Camera();
@@ -20,5 +25,6 @@ public:
 	void Yaw(float yRotation);
 	void Roll(float zRotation);
 	void Draw() override;
+	void UpdateValues();
 };
 

@@ -79,7 +79,6 @@ bool Renderer::Start(Window* windowPtr)
 		cout << "Renderer::Start()" << endl;
 		
 		LoadIdentityMatrix();
-		SetFrustumPlanes();
 
 		return true;
 	}
@@ -91,14 +90,12 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 {
 	viewMatrix = glm::lookAt(eye, center, up);
 
-	SetFrustumPlanes();
 }
 
 void Renderer::SetViewMatrix(glm::mat4 viewMatrixValues)
 {
 	viewMatrix = viewMatrixValues;
 
-	SetFrustumPlanes();
 }
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar)
@@ -106,7 +103,6 @@ void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom,
 	projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
 	typeOfProjection = Ortho;
 
-	SetFrustumPlanes();
 }
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top)
@@ -114,7 +110,6 @@ void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom,
 	projectionMatrix = glm::ortho(left, right, bottom, top);
 	typeOfProjection = Ortho;
 
-	SetFrustumPlanes();
 }
 
 void Renderer::SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar)
@@ -122,8 +117,9 @@ void Renderer::SetProjectionMatrixToPerspective(float fovy, float aspect, float 
 	projectionMatrix = glm::perspective(fovy, aspect, zNear, zFar);
 	typeOfProjection = Perspective;
 
-	SetFrustumPlanes();
+	
 }
+
 
 bool Renderer::Stop()
 {
@@ -312,80 +308,120 @@ void Renderer::SetMVP()
 	MVP = projectionMatrix * viewMatrix * modelMatrix;
 }
 
-void Renderer::NormalizePlanes(Plane & plane)
+//void Renderer::NormalizePlanes(Plane & plane)
+//{
+//	float mag;
+//
+//	mag = sqrt(plane.a * plane.a + plane.b * plane.b + plane.c * plane.c);
+//
+//	plane.a = plane.a / mag;
+//	plane.b = plane.b / mag;
+//	plane.c = plane.c / mag;
+//	plane.d = plane.d / mag;
+//}
+
+glm::vec4 Renderer::CreatePlane(const glm::vec3& normal, const glm::vec3& point)
 {
-	float mag;
+	glm::vec4 plane;
 
-	mag = sqrt(plane.a * plane.a + plane.b * plane.b + plane.c * plane.c);
+	plane.x = normal.x;
+	plane.y = normal.y;
+	plane.z = normal.z;
+	plane.w = -dot(normal, point);
 
-	plane.a = plane.a / mag;
-	plane.b = plane.b / mag;
-	plane.c = plane.c / mag;
-	plane.d = plane.d / mag;
+	return plane;
+}
+void Renderer::SetFrustumPlanes(glm::vec3 globalPos, glm::vec3 fwd, glm::vec3 right, glm::vec3 up, float zNear, float zFar, float aspRatio, float fovy)
+{
+	glm::vec3 nearCenter = globalPos + fwd * zNear;
+	glm::vec3 farCenter = globalPos + fwd * zFar;
+
+	float fovTan = tan(fovy);
+
+	float nHeight = zNear * fovTan;
+	float nWidth = nHeight * aspRatio;
+
+	glm::vec3 leftPlaneVec = (nearCenter - right * nWidth  * 0.5f) - globalPos;
+	glm::vec3 rightPlaneVec = (nearCenter + right * nWidth  * 0.5f) - globalPos;
+	glm::vec3 topPlaneVec = (nearCenter + up * nHeight * 0.5f) - globalPos;
+	glm::vec3 bottomPlaneVec = (nearCenter - up * nHeight * 0.5f) - globalPos;
+
+	glm::vec3 normalLeft = -normalize(cross(leftPlaneVec, up));
+	glm::vec3 normalRight = normalize(cross(rightPlaneVec, up));
+	glm::vec3 normalTop = -normalize(cross(topPlaneVec, right));
+	glm::vec3 normalBottom = normalize(cross(bottomPlaneVec, right));
+
+	planes[(int)Planes::NEAR] = CreatePlane(fwd, nearCenter);
+	planes[(int)Planes::FAR] = CreatePlane(-fwd, farCenter);
+	planes[(int)Planes::LEFT] = CreatePlane(normalLeft, globalPos);
+	planes[(int)Planes::RIGHT] = CreatePlane(normalRight, globalPos);
+	planes[(int)Planes::TOP] = CreatePlane(normalTop, globalPos);
+	planes[(int)Planes::BOTTOM] = CreatePlane(normalBottom, globalPos);
 }
 
-void Renderer::SetFrustumPlanes()
-{
-	MultiplyViewAndProjection();
 
-	//Left Clipping Plane
-	frustumPlanes[0].a = combinedViewAndProjectionMatrix[3][0] + combinedViewAndProjectionMatrix[0][0];
-	frustumPlanes[0].b = combinedViewAndProjectionMatrix[3][1] + combinedViewAndProjectionMatrix[0][1];
-	frustumPlanes[0].c = combinedViewAndProjectionMatrix[3][2] + combinedViewAndProjectionMatrix[0][2];
-	frustumPlanes[0].d = combinedViewAndProjectionMatrix[3][3] + combinedViewAndProjectionMatrix[0][3];
+//void Renderer::SetFrustumPlanes()
+//{
+//	MultiplyViewAndProjection();
+//
+//	//Left Clipping Plane
+//	frustumPlanes[0].a = combinedViewAndProjectionMatrix[3][0] + combinedViewAndProjectionMatrix[0][0];
+//	frustumPlanes[0].b = combinedViewAndProjectionMatrix[3][1] + combinedViewAndProjectionMatrix[0][1];
+//	frustumPlanes[0].c = combinedViewAndProjectionMatrix[3][2] + combinedViewAndProjectionMatrix[0][2];
+//	frustumPlanes[0].d = combinedViewAndProjectionMatrix[3][3] + combinedViewAndProjectionMatrix[0][3];
+//
+//
+//	//Right Clipping Plane
+//	frustumPlanes[1].a = combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[0][0];
+//	frustumPlanes[1].b = combinedViewAndProjectionMatrix[3][1] - combinedViewAndProjectionMatrix[0][1];
+//	frustumPlanes[1].c = combinedViewAndProjectionMatrix[3][2] - combinedViewAndProjectionMatrix[0][2];
+//	frustumPlanes[1].d = combinedViewAndProjectionMatrix[3][3] - combinedViewAndProjectionMatrix[0][3];
+//
+//
+//	//Top Clipping Plane
+//	frustumPlanes[2].a = combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[1][0];
+//	frustumPlanes[2].b = combinedViewAndProjectionMatrix[3][1] - combinedViewAndProjectionMatrix[1][1];
+//	frustumPlanes[2].c = combinedViewAndProjectionMatrix[3][2] - combinedViewAndProjectionMatrix[1][2];
+//	frustumPlanes[2].d = combinedViewAndProjectionMatrix[3][3] - combinedViewAndProjectionMatrix[1][3];
+//
+//
+//	//Bottom Clipping Plane
+//	frustumPlanes[3].a = combinedViewAndProjectionMatrix[3][0] + combinedViewAndProjectionMatrix[1][0];
+//	frustumPlanes[3].b = combinedViewAndProjectionMatrix[3][1] + combinedViewAndProjectionMatrix[1][1];
+//	frustumPlanes[3].c = combinedViewAndProjectionMatrix[3][2] + combinedViewAndProjectionMatrix[1][2];
+//	frustumPlanes[3].d = combinedViewAndProjectionMatrix[3][3] + combinedViewAndProjectionMatrix[1][3];
+//
+//
+//	//Near Clipping Plane
+//	frustumPlanes[4].a = combinedViewAndProjectionMatrix[3][0] + combinedViewAndProjectionMatrix[2][0];
+//	frustumPlanes[4].b = combinedViewAndProjectionMatrix[3][1] + combinedViewAndProjectionMatrix[2][1];
+//	frustumPlanes[4].c = combinedViewAndProjectionMatrix[3][2] + combinedViewAndProjectionMatrix[2][2];
+//	frustumPlanes[4].d = combinedViewAndProjectionMatrix[3][3] + combinedViewAndProjectionMatrix[2][3];
+//
+//
+//	//Far Clipping Plane
+//	frustumPlanes[5].a = combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[2][0];
+//	frustumPlanes[5].b = combinedViewAndProjectionMatrix[3][1] - combinedViewAndProjectionMatrix[2][1];
+//	frustumPlanes[5].c = combinedViewAndProjectionMatrix[3][2] - combinedViewAndProjectionMatrix[2][2];
+//	frustumPlanes[5].d = combinedViewAndProjectionMatrix[3][3] - combinedViewAndProjectionMatrix[2][3];
+//
+//
+//
+//	//NormalizePlanes(frustumPlanes[0]);
+//	//NormalizePlanes(frustumPlanes[1]);
+//	//NormalizePlanes(frustumPlanes[2]);
+//	//NormalizePlanes(frustumPlanes[3]);
+//	//NormalizePlanes(frustumPlanes[4]);
+//	//NormalizePlanes(frustumPlanes[5]);
+//	
+//	//cout << "CHECKEO EN RENDERER " << combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[0][0] << endl;
+//}
 
-
-	//Right Clipping Plane
-	frustumPlanes[1].a = combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[0][0];
-	frustumPlanes[1].b = combinedViewAndProjectionMatrix[3][1] - combinedViewAndProjectionMatrix[0][1];
-	frustumPlanes[1].c = combinedViewAndProjectionMatrix[3][2] - combinedViewAndProjectionMatrix[0][2];
-	frustumPlanes[1].d = combinedViewAndProjectionMatrix[3][3] - combinedViewAndProjectionMatrix[0][3];
-
-
-	//Top Clipping Plane
-	frustumPlanes[2].a = combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[1][0];
-	frustumPlanes[2].b = combinedViewAndProjectionMatrix[3][1] - combinedViewAndProjectionMatrix[1][1];
-	frustumPlanes[2].c = combinedViewAndProjectionMatrix[3][2] - combinedViewAndProjectionMatrix[1][2];
-	frustumPlanes[2].d = combinedViewAndProjectionMatrix[3][3] - combinedViewAndProjectionMatrix[1][3];
-
-
-	//Bottom Clipping Plane
-	frustumPlanes[3].a = combinedViewAndProjectionMatrix[3][0] + combinedViewAndProjectionMatrix[1][0];
-	frustumPlanes[3].b = combinedViewAndProjectionMatrix[3][1] + combinedViewAndProjectionMatrix[1][1];
-	frustumPlanes[3].c = combinedViewAndProjectionMatrix[3][2] + combinedViewAndProjectionMatrix[1][2];
-	frustumPlanes[3].d = combinedViewAndProjectionMatrix[3][3] + combinedViewAndProjectionMatrix[1][3];
-
-
-	//Near Clipping Plane
-	frustumPlanes[4].a = combinedViewAndProjectionMatrix[3][0] + combinedViewAndProjectionMatrix[2][0];
-	frustumPlanes[4].b = combinedViewAndProjectionMatrix[3][1] + combinedViewAndProjectionMatrix[2][1];
-	frustumPlanes[4].c = combinedViewAndProjectionMatrix[3][2] + combinedViewAndProjectionMatrix[2][2];
-	frustumPlanes[4].d = combinedViewAndProjectionMatrix[3][3] + combinedViewAndProjectionMatrix[2][3];
-
-
-	//Far Clipping Plane
-	frustumPlanes[5].a = combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[2][0];
-	frustumPlanes[5].b = combinedViewAndProjectionMatrix[3][1] - combinedViewAndProjectionMatrix[2][1];
-	frustumPlanes[5].c = combinedViewAndProjectionMatrix[3][2] - combinedViewAndProjectionMatrix[2][2];
-	frustumPlanes[5].d = combinedViewAndProjectionMatrix[3][3] - combinedViewAndProjectionMatrix[2][3];
-
-
-
-	//NormalizePlanes(frustumPlanes[0]);
-	//NormalizePlanes(frustumPlanes[1]);
-	//NormalizePlanes(frustumPlanes[2]);
-	//NormalizePlanes(frustumPlanes[3]);
-	//NormalizePlanes(frustumPlanes[4]);
-	//NormalizePlanes(frustumPlanes[5]);
-	
-	//cout << "CHECKEO EN RENDERER " << combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[0][0] << endl;
-}
-
-Halfspace Renderer::ClassifyPoint(const Plane & plane, const glm::vec4 & vector)
+Halfspace Renderer::ClassifyPoint(const glm::vec4 & plane, const glm::vec4 & vector)
 {
 	float distance;
 
-	distance = plane.a*vector.x + plane.b*vector.y + plane.c*vector.z + plane.d;
+	distance = plane.x*vector.x + plane.y*vector.y + plane.z*vector.z + plane.w;
 
 	if (distance < 0) return NEGATIVE;
 	if (distance > 0) return POSITIVE;
@@ -415,7 +451,7 @@ glm::mat4 Renderer::GetModelMatrix()
 	return modelMatrix;
 }
 
-Plane * Renderer::GetFrustumPlanesPtr()
+glm::vec4 * Renderer::GetFrustumPlanesPtr()
 {
-	return frustumPlanes;
+	return planes;
 }
