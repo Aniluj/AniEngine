@@ -7,7 +7,7 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 	renderer = rendererPtr;
 
 	rootNode = new Node(renderer);
-	rootNode->transform->Translate(0, 0, 0);
+	rootNode->transform->Translate(1, 1, 1);
 
 	M4 = new Node(renderer);
 	M4Mesh = new MeshComponentLoader();

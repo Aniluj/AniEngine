@@ -11,7 +11,7 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\transform.hpp>
 #include <glm\glm.hpp>
-#include "Plane.h"
+//#include "Plane.h"
 
 using namespace std;
 
@@ -51,7 +51,7 @@ private:
 	glm::mat4 MVP;
 	ProjectionType typeOfProjection;
 
-	Plane * frustumPlanes;
+	//Plane * frustumPlanes;
 
 	glm::vec4 planes[(int)Planes::COUNT];
 	glm::vec4 CreatePlane(const glm::vec3& normal, const glm::vec3& point);
@@ -104,5 +104,5 @@ public:
 	glm::mat4& GetMVP();
 	glm::mat4 GetModelMatrix();
 	glm::vec4 * GetFrustumPlanesPtr();
-	void NormalizePlanes(Plane & plane);
+	//void NormalizePlanes(Plane & plane);
 };

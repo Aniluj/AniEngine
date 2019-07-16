@@ -57,7 +57,6 @@ void FrustumCullingBoundingBox::CheckMinsAndMax(glm::vec3 newPositionsToCheck)
 {
 	if (isFirstTimeSet == false)
 	{
-		//cout << "entro" << endl;
 		if (min.x > newPositionsToCheck.x) {
 			min.x = newPositionsToCheck.x;
 		}
@@ -97,34 +96,39 @@ void MeshComponent::Draw()
 {
 	glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
 
-	//cout << "MIN Y: " << FCBoundingBox->min.y << endl;
-	//cout << "MAX Y: " << FCBoundingBox->max.y << endl;
-	//cout << endl;
+	if (counter <= 0)
+	{
+		cout << endl;
+		cout << "MIN X "<< componentName.c_str() << ": " << FCBoundingBox->min.x << endl;
+		cout << "MAX X "<< componentName.c_str() << ": " << FCBoundingBox->max.x << endl;
+		cout << endl;
 
-	//cout << "MIN X: " << FCBoundingBox->min.x << endl;
-	//cout << "MAX X: " << FCBoundingBox->max.x << endl;
-	//cout << endl;
+		cout << "MIN Y: " << componentName.c_str() << ": " << FCBoundingBox->min.y << endl;
+		cout << "MAX Y: " << componentName.c_str() << ": " << FCBoundingBox->max.y << endl;
+		cout << endl;
 
-	//cout << "MIN Z: " << FCBoundingBox->min.z << endl;
-	//cout << "MAX Z: " << FCBoundingBox->max.z << endl;
-	//cout << endl;
+		cout << "MIN Z: " << componentName.c_str() << ": " << FCBoundingBox->min.z << endl;
+		cout << "MAX Z: " << componentName.c_str() << ": " << FCBoundingBox->max.z << endl;
+		cout << endl;
 
-	//glm::vec4 algoRaro = renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[0];
-	//glm::vec4 algoRaro2 = renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[1];
+		cout << "Col 1-Fil 1: " << renderer->GetModelMatrix()[0][0]; cout << "| Col 2-Fil 1: " << renderer->GetModelMatrix()[1][0]; 
+		cout << "| Col 3-Fil 1: " << renderer->GetModelMatrix()[2][0]; cout << "| Col 4-Fil 1: " << renderer->GetModelMatrix()[3][0];
+		cout << endl;
 
-	//cout << "MAX Y Moved:  " << algoRaro.y << endl;
-	//cout << "MIN Y Moved:  " << algoRaro2.y << endl;
-	//cout << endl;
+		cout << "Col 1-Fil 2: " << renderer->GetModelMatrix()[0][1]; cout << "| Col 2-Fil 2: " << renderer->GetModelMatrix()[1][1];
+		cout << "| Col 3-Fil 2: " << renderer->GetModelMatrix()[2][1]; cout << "| Col 4-Fil 2: " << renderer->GetModelMatrix()[3][1];
+		cout << endl;
 
-	//cout << "MIN X Moved:  " << algoRaro.x << endl;
-	//cout << "MAX X Moved:  " << algoRaro2.x << endl;
-	//cout << endl;
+		cout << "Col 1-Fil 3: " << renderer->GetModelMatrix()[0][2]; cout << "| Col 2-Fil 3: " << renderer->GetModelMatrix()[1][2];
+		cout << "| Col 3-Fil 3: " << renderer->GetModelMatrix()[2][2]; cout << "| Col 4-Fil 3: " << renderer->GetModelMatrix()[3][2];
+		cout << endl;
 
-	//cout << "MAX Z Moved:  " << algoRaro.z << endl;
-	//cout << "MAX Z Moved:  " << algoRaro2.z << endl;
-	//cout << endl;
+		cout << "Col 1-Fil 4: " << renderer->GetModelMatrix()[0][3]; cout << "| Col 2-Fil 4: " << renderer->GetModelMatrix()[1][3];
+		cout << "| Col 3-Fil 4: " << renderer->GetModelMatrix()[2][3]; cout << "| Col 4-Fil 4: " << renderer->GetModelMatrix()[3][3];
+		cout << endl;
+	}
 
-	int aux;
+	counter++;
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -132,18 +136,15 @@ void MeshComponent::Draw()
 
 		for (int j = 0; j < 8; j++)
 		{
-			if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[j] /** renderer->GetModelMatrix()*/) == POSITIVE)
+			if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[j]) == POSITIVE)
 			{
-				//cout << "CHECKEO EN MESH "  << i << "  " << frustumPlanesPtr[i].a << endl;
 				allBehind = false;
-				aux = j;
 				break;
 			}
 		}
 		if (allBehind)
 		{
-			cout << "NO SE DIBUJAAAAAAAAAAAAAAAAAAAAAAAAA: " << i << endl;
-			//cout << "EL VERTICE QUE FALLA: " << aux << endl;
+			cout << "NO SE DIBUJA: " << componentName.c_str() << "||  con Plano: " << i <<endl;
 			//cout << "A: " << frustumPlanesPtr[1].a << endl;
 			//cout << "B: " << frustumPlanesPtr[1].b << endl;
 			//cout << "C: " << frustumPlanesPtr[1].c << endl;
@@ -151,9 +152,9 @@ void MeshComponent::Draw()
 
 			return;
 		}
-		cout << "SE DIBUJAAAAAAAAAAAAAAAA: " << i << endl;
 	}
 
+	cout << "SE DIBUJA: " << componentName.c_str() << endl;
 	meshData->Draw();
 }
 

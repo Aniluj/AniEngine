@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "Exports.h"
 #include "MeshData.h"
+#include "Material.h"
 
 struct FrustumCullingBoundingBox
 {
@@ -26,6 +27,7 @@ private:
 	MeshData * meshData;
 	FrustumCullingBoundingBox * FCBoundingBox;
 	Renderer * renderer;
+	int counter = 0;
 public:
 	MeshComponent();
 

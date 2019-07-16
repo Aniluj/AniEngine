@@ -11,7 +11,7 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 	fovy = glm::radians(45.0f);
 	aspect = 4.0f / 3.0f;
 	zNear = 0.1f;
-	zFar = 1000.0f;
+	zFar = 400.0f;
 	/*vectorPosition.x = 480;
 	vectorPosition.y = 320;
 	vectorPosition.z = 960;*/
@@ -22,11 +22,10 @@ Camera::Camera(Renderer* rendererPtr):Entity(rendererPtr)
 	pos.y = 0;
 	pos.z = -20;
 
-	renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
+	renderer->SetProjectionMatrixToPerspective(fovy, aspect, zNear, zFar);
 	renderer->SetViewMatrix(pos, (glm::vec3)pos + (glm::vec3)forward, glm::vec3(0, 1, 0));
 
 	UpdateValues();
-	//Pitch(180);
 }
 
 

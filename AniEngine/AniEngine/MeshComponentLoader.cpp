@@ -13,10 +13,6 @@ void MeshComponentLoader::Start(const char * componentName, Node * rootNode, con
 	renderer = rendererPtr;
 	FCBoundingBox = new FrustumCullingBoundingBox();
 	LoadModel(path, texturePath);
-
-	//->AddChild(totalNodes[0]);
-	//RelateNodes();
-	//cout << componentName << endl;
 }
 
 void MeshComponentLoader::LoadModel(string path, string texturePath)
@@ -34,22 +30,9 @@ void MeshComponentLoader::LoadModel(string path, string texturePath)
 
 
 	ProcessNode(scene->mRootNode, scene, texturePath);
+
 	FCBoundingBox->UpdateMaxsAndMins();
 }
-
-//void MeshComponentLoader::RelateNodes()
-//{
-//	if (totalNodes.size() > 1)
-//	{
-//		for (int i = 0; i < totalNodes.size(); i++)
-//		{
-//			if ((i + 1) < totalNodes.size())
-//			{
-//				totalNodes[i]->AddChild(totalNodes[i + 1]);
-//			}
-//		}
-//	}
-//}
 
 void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string texturePath)
 {
@@ -124,7 +107,10 @@ Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, strin
 
 	Node * childNode = new Node(renderer);
 	MeshComponent * meshComponent = new MeshComponent();
-	meshComponent->Start("meshComponent", FCBoundingBox, vertices, indices, renderer, texturePath);
+	string tempString = componentName.c_str();
+	tempString.append(" meshComponent");
+	meshComponent->Start(tempString.c_str(), FCBoundingBox, vertices, indices, renderer, texturePath);
+	cout << meshComponent->componentName << endl;
 	childNode->AddComponent(meshComponent);
 
 	return childNode;

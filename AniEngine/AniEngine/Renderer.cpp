@@ -12,15 +12,7 @@ Renderer::Renderer()
 Renderer::~Renderer()
 {
 	glDeleteVertexArrays(1, &vertexArrayID);
-	delete frustumPlanes;
-	/*if (frustumPlanes.size() > 0)
-	{
-		for (Plane* aux : frustumPlanes)
-		{
-			delete aux;
-		}
-		frustumPlanes.clear();
-	}*/
+	//delete frustumPlanes;
 }
 
 bool Renderer::Start(Window* windowPtr)
@@ -38,34 +30,13 @@ bool Renderer::Start(Window* windowPtr)
 
 		glGenVertexArrays(1, &vertexArrayID);
 		glBindVertexArray(vertexArrayID);
-
-		//projectionMatrix = glm::ortho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
-		//projectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 		
 		//frustumPlanes = new vector<Plane*>();
 
-		frustumPlanes = new Plane[6];
+		//frustumPlanes = new Plane[6];
 
-		/*leftClippingPlane = new Plane();
-		frustumPlanes.push_back(leftClippingPlane);
-
-		rightClippingPlane = new Plane();
-		frustumPlanes.push_back(rightClippingPlane);
-
-		topClippingPlane = new Plane();
-		frustumPlanes.push_back(topClippingPlane);
-
-		bottomClippingPlane = new Plane();
-		frustumPlanes.push_back(bottomClippingPlane);
-
-		nearClippingPlane = new Plane();
-		frustumPlanes.push_back(nearClippingPlane);
-
-		farClippingPlane = new Plane();
-		frustumPlanes.push_back(farClippingPlane);*/
-
-		SetProjectionMatrixToOrtho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.1f, 1000.0f);
-		SetViewMatrix(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+		//SetProjectionMatrixToOrtho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.1f, 1000.0f);
+		//SetViewMatrix(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 		/*viewMatrix = glm::lookAt(
 			glm::vec3(0, 0, 3), 
@@ -89,35 +60,29 @@ bool Renderer::Start(Window* windowPtr)
 void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 {
 	viewMatrix = glm::lookAt(eye, center, up);
-
 }
 
 void Renderer::SetViewMatrix(glm::mat4 viewMatrixValues)
 {
 	viewMatrix = viewMatrixValues;
-
 }
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top, float zNear, float zFar)
 {
 	projectionMatrix = glm::ortho(left, right, bottom, top, zNear, zFar);
 	typeOfProjection = Ortho;
-
 }
 
 void Renderer::SetProjectionMatrixToOrtho(float left, float right, float bottom, float top)
 {
 	projectionMatrix = glm::ortho(left, right, bottom, top);
 	typeOfProjection = Ortho;
-
 }
 
 void Renderer::SetProjectionMatrixToPerspective(float fovy, float aspect, float zNear, float zFar)
 {
 	projectionMatrix = glm::perspective(fovy, aspect, zNear, zFar);
 	typeOfProjection = Perspective;
-
-	
 }
 
 
@@ -331,28 +296,28 @@ glm::vec4 Renderer::CreatePlane(const glm::vec3& normal, const glm::vec3& point)
 
 	return plane;
 }
-void Renderer::SetFrustumPlanes(glm::vec3 globalPos, glm::vec3 fwd, glm::vec3 right, glm::vec3 up, float zNear, float zFar, float aspRatio, float fovy)
+void Renderer::SetFrustumPlanes(glm::vec3 globalPos, glm::vec3 forward, glm::vec3 right, glm::vec3 up, float zNear, float zFar, float aspRatio, float fovy)
 {
-	glm::vec3 nearCenter = globalPos + fwd * zNear;
-	glm::vec3 farCenter = globalPos + fwd * zFar;
+	glm::vec3 nearCenter = globalPos + forward * zNear;
+	glm::vec3 farCenter = globalPos + forward * zFar;
 
 	float fovTan = tan(fovy);
 
 	float nHeight = zNear * fovTan;
 	float nWidth = nHeight * aspRatio;
 
-	glm::vec3 leftPlaneVec = (nearCenter - right * nWidth  * 0.5f) - globalPos;
-	glm::vec3 rightPlaneVec = (nearCenter + right * nWidth  * 0.5f) - globalPos;
+	glm::vec3 leftPlaneVec = (nearCenter + right * nWidth  * 0.5f) - globalPos;
+	glm::vec3 rightPlaneVec = (nearCenter - right * nWidth  * 0.5f) - globalPos;
 	glm::vec3 topPlaneVec = (nearCenter + up * nHeight * 0.5f) - globalPos;
 	glm::vec3 bottomPlaneVec = (nearCenter - up * nHeight * 0.5f) - globalPos;
 
-	glm::vec3 normalLeft = -normalize(cross(leftPlaneVec, up));
-	glm::vec3 normalRight = normalize(cross(rightPlaneVec, up));
+	glm::vec3 normalLeft = normalize(cross(leftPlaneVec, up));
+	glm::vec3 normalRight = -normalize(cross(rightPlaneVec, up));
 	glm::vec3 normalTop = -normalize(cross(topPlaneVec, right));
 	glm::vec3 normalBottom = normalize(cross(bottomPlaneVec, right));
 
-	planes[(int)Planes::NEAR] = CreatePlane(fwd, nearCenter);
-	planes[(int)Planes::FAR] = CreatePlane(-fwd, farCenter);
+	planes[(int)Planes::NEAR] = CreatePlane(forward, nearCenter);
+	planes[(int)Planes::FAR] = CreatePlane(-forward, farCenter);
 	planes[(int)Planes::LEFT] = CreatePlane(normalLeft, globalPos);
 	planes[(int)Planes::RIGHT] = CreatePlane(normalRight, globalPos);
 	planes[(int)Planes::TOP] = CreatePlane(normalTop, globalPos);
@@ -419,14 +384,9 @@ void Renderer::SetFrustumPlanes(glm::vec3 globalPos, glm::vec3 fwd, glm::vec3 ri
 
 Halfspace Renderer::ClassifyPoint(const glm::vec4 & plane, const glm::vec4 & vector)
 {
-	float distance;
+	float distToPlane = plane.x * vector.x + plane.y * vector.y + plane.z * vector.z + plane.w;
 
-	distance = plane.x*vector.x + plane.y*vector.y + plane.z*vector.z + plane.w;
-
-	if (distance < 0) return NEGATIVE;
-	if (distance > 0) return POSITIVE;
-
-	return ON_PLANE;
+	return distToPlane >= 0.0f ? POSITIVE : NEGATIVE;
 }
 
 void Renderer::MultiplyModel(glm::mat4 matrix)

@@ -13,7 +13,6 @@ class ENGINEDLL_API MeshComponentLoader : public Component
 private:
 	int counter;
 	vector<MeshData*> meshesData;
-	vector<Node*> totalNodes;
 	Renderer * renderer;
 	Node * rootNode;
 public:
@@ -24,11 +23,9 @@ public:
 	void LoadModel(string path, string texturePath);
 	void ProcessNode(aiNode *node, const aiScene *scene, string texturePath);
 	Node* ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath);
-	void RelateNodes();
 	void Draw() override;
 	void Update() override;
 	string directory;
 	FrustumCullingBoundingBox * FCBoundingBox;
-	//void DrawBoundingBox();
 };
 

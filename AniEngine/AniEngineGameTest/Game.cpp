@@ -43,7 +43,6 @@ bool Game::OnStart()
 	character->testAnimation->AddFrame(7, 1);
 	character->testAnimation->AddFrame(8, 1);
 
-
 	enemy = new Sprite(
 		renderer,
 		"uvtemplate.bmp",
@@ -134,11 +133,11 @@ bool Game::OnUpdate()
 	}
 	if (input->isInput(GLFW_KEY_A))
 	{
-		camera->Strafe(-cameraSpeed * deltaTime);
+		camera->Strafe(cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_D))
 	{
-		camera->Strafe(cameraSpeed * deltaTime);
+		camera->Strafe(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_F))
 	{
@@ -165,11 +164,11 @@ bool Game::OnUpdate()
 	}
 	if (input->isInput(GLFW_KEY_Q))
 	{
-		camera->Roll(cameraSpeed * deltaTime);
+		camera->Roll(-cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_E))
 	{
-		camera->Roll(-cameraSpeed * deltaTime);
+		camera->Roll(cameraSpeed * deltaTime);
 	}
 	if (input->isInput(GLFW_KEY_C))
 	{
