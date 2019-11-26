@@ -37,15 +37,17 @@ void MeshComponentLoader::LoadModel(string path, string texturePath)
 void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string texturePath)
 {
 	// process all the node's meshes (if any)
-	Node * rootNodeChild = new Node(renderer);
-	rootNode->AddChild(rootNodeChild);
 
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		Node * meshChildNode = new Node(renderer);
-		meshChildNode = ProcessMesh(mesh, scene, texturePath);
-		rootNodeChild->AddChild(meshChildNode);
+		Node * meshChildNode = new Node(node->mName.C_Str, renderer);
+		ProcessMesh(mesh, scene, texturePath);
+
+		//meshChildNode = ProcessMesh(mesh, scene, texturePath);
+
+		//rootNodeChild->AddChild(meshChildNode);
+
 		//meshesData.push_back(ProcessMesh(mesh, scene, texturePath));
 	}
 	// then do the same for each of its children
@@ -55,7 +57,7 @@ void MeshComponentLoader::ProcessNode(aiNode *node, const aiScene *scene, string
 	}
 }
 
-Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath)
+void MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, string texturePath)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
@@ -63,6 +65,8 @@ Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, strin
 	glm::vec3 maxs;
 
 	const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
+
+	Node * childNode = new Node(mesh->mName.C_Str, renderer);
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
@@ -79,7 +83,7 @@ Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, strin
 		vector.z = (float)pPos->z;
 		vertex.Position = vector;
 
-		FCBoundingBox->CheckMinsAndMax(vector);
+		childNode->FCBoundingBox->CheckMinsAndMax(vector);
 
 		vector.x = (float)pNormal->x;
 		vector.y = (float)pNormal->y;
@@ -95,6 +99,8 @@ Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, strin
 		vertices.push_back(vertex);
 	}
 
+	childNode->FCBoundingBox->UpdateMaxsAndMins();
+
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
@@ -105,15 +111,12 @@ Node* MeshComponentLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, strin
 		}
 	}
 
-	Node * childNode = new Node(renderer);
 	MeshComponent * meshComponent = new MeshComponent();
 	string tempString = componentName.c_str();
 	tempString.append(" meshComponent");
 	meshComponent->Start(tempString.c_str(), FCBoundingBox, vertices, indices, renderer, texturePath);
 	cout << meshComponent->componentName << endl;
 	childNode->AddComponent(meshComponent);
-
-	return childNode;
 }
 
 void MeshComponentLoader::Draw()

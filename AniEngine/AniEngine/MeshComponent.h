@@ -16,6 +16,7 @@ struct FrustumCullingBoundingBox
 	glm::vec3 max;
 
 	void CheckMinsAndMax(glm::vec3 newPositionsToCheck);
+	void CompareMinsAndMaxs(FrustumCullingBoundingBox FCBoundingBoxToCompare);
 	void UpdateMaxsAndMins();
 
 	~FrustumCullingBoundingBox();
