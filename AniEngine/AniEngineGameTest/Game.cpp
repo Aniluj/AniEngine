@@ -13,7 +13,7 @@ bool Game::OnStart()
 {
 	//renderer->SetProjectionMatrixToPerspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
 	//renderer->SetViewMatrix(glm::vec3(window->GetWidth()/2, window->GetHeight()/2, window->GetWidth()), glm::vec3(window->GetWidth()/2, window->GetHeight()/2, 0), glm::vec3(0, 1, 0));
-	
+
 	camera = new Camera(renderer);
 	collManager = new CollisionManager();
 	input = Input::getInstance();
@@ -24,7 +24,7 @@ bool Game::OnStart()
 
 	cout << "Game::OnStart() " << endl;
 	character = new Sprite(
-		renderer, 
+		renderer,
 		"Test-Spritesheet.bmp",
 		20.0f,
 		32,
@@ -72,16 +72,17 @@ bool Game::OnStart()
 	rectangle->material = Material::CreateMaterial(
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
-	
+
 	exampleObject = new ScGraphObject(renderer);
-	shapeExampleObject = new ScGraphShapeObject(renderer);
+	//shapeExampleObject = new ScGraphShapeObject("shapeExampleObject", renderer);
+
 	//M4Fusil = new Mesh("M4A1/M4A1.FBX", renderer, "M4A1/M4A1Tex.bmp");
 	//Spider = new Mesh("Spider/spider.obj", renderer, "Spider/SpiderTex.bmp");
 
 	/*tilemap->material = Material::CreateMaterial(
 	"Shaders/TextureTransformVertexShader.txt",
 	"Shaders/TextureFragmentShader.txt");*/
-	
+
 	tilemap = new Tilemap(
 		renderer,
 		1,
@@ -118,7 +119,7 @@ bool Game::OnStart()
 }
 
 
-bool Game::OnUpdate() 
+bool Game::OnUpdate()
 {
 	i++;
 	timer += deltaTime;
@@ -145,18 +146,18 @@ bool Game::OnUpdate()
 
 		/*shapeExampleObject->transform->Translate(shapeExampleObject->transform->localPosition.x,
 												 shapeExampleObject->transform->localPosition.y - (100 * deltaTime),
-												 shapeExampleObject->transform->localPosition.z 
+												 shapeExampleObject->transform->localPosition.z
 												);*/
-		
 
-		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
-		//	exampleObject->M4->transform->localPosition.y - (100 * deltaTime),
-		//	exampleObject->M4->transform->localPosition.z
-		//);
-		//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x - (100 * deltaTime),
-		//	exampleObject->M4->transform->localPosition.y,
-		//	exampleObject->M4->transform->localPosition.z
-		//);
+
+												//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x,
+												//	exampleObject->M4->transform->localPosition.y - (100 * deltaTime),
+												//	exampleObject->M4->transform->localPosition.z
+												//);
+												//exampleObject->M4->transform->Translate(exampleObject->M4->transform->localPosition.x - (100 * deltaTime),
+												//	exampleObject->M4->transform->localPosition.y,
+												//	exampleObject->M4->transform->localPosition.z
+												//);
 	}
 	if (input->isInput(GLFW_KEY_G))
 	{
@@ -181,13 +182,13 @@ bool Game::OnUpdate()
 	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
 	{
 		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
-													  exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
-													  exampleObject->rootNode->transform->localPosition.z
+			exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
+			exampleObject->rootNode->transform->localPosition.z
 		);
 	}
 	//camera->Pitch(-0.7f);
 	//camera->Roll(0.3);
-	
+
 
 	/*if (timer >= timeLim)
 	{
@@ -221,7 +222,7 @@ bool Game::OnUpdate()
 	//enemy->Translate(enemy->vectorPosition.x - (150 * deltaTime), 350, 0.0);
 	//enemy->UpdateDT(deltaTime);
 
-	shapeExampleObject->Update();
+	//shapeExampleObject->Update();
 
 	//texture->RotateZ(56 + i);
 	//M4Fusil->RotateZ(-i);

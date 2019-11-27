@@ -14,20 +14,21 @@ class ENGINEDLL_API Node
 {
 private:
 	string name;
-	bool shouldDraw;
 protected:
 	list<Node*>* childNodes;
 	list<Component*>* components;
 	Renderer * renderer;
 public:
-	Node(string nodeNamde, Renderer * rendererPtr);
+	Node(string name, Renderer * rendererPtr);
 	~Node();
 
-	FrustumCullingBoundingBox * FCBoundingBox;
 	Transform * transform;
 	Node * parent;
-	void AddComponent(Component * component);
+	FrustumCullingBoundingBox * FCBoundingBox;
+	bool shouldDraw;
+
 	void CheckPlanes();
+	void AddComponent(Component * component);
 	//Component* GetComponent(const char * componentName);
 	void RemoveComponent(Component * component);
 	void AddChild(Node * childNode);

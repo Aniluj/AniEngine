@@ -2,12 +2,12 @@
 
 
 
-ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPtr)
+ScGraphShapeObject::ScGraphShapeObject(string nodeName, Renderer * rendererPtr) : Node(nodeName, rendererPtr)
 {
 	renderer = rendererPtr;
 	//transform->Translate(300, 400, 800);
 
-	triangle = new Node(renderer);
+	triangle = new Node("triangleNode", renderer);
 	triangle->transform->Translate(750, 400, 1000);
 	triangleShape = new ShapeComponent();
 	triangleShape->Start("triangleShape", renderer, 3, &triangle->transform->GetModel());
@@ -24,7 +24,7 @@ ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPt
 	triangle->AddComponent(triangleShape);
 
 
-	sprite = new Node(renderer);
+	sprite = new Node("spriteNode", renderer);
 	sprite->transform->Translate(-100, 0, 0);
 	spriteShape = new ShapeComponent();
 	spriteShape->Start("spriteShape", renderer, 4, &sprite->transform->GetModel());
@@ -61,7 +61,7 @@ ScGraphShapeObject::ScGraphShapeObject(Renderer * rendererPtr) : Node(rendererPt
 	sprite->AddComponent(spriteShape);
 
 
-	rectangle = new Node(renderer);
+	rectangle = new Node("rectangleNode", renderer);
 	rectangle->transform->Translate(-100, 0, 0);
 	rectangleShape = new ShapeComponent();
 	rectangleShape->Start("rectangleShape", renderer, 4, &rectangle->transform->GetModel());

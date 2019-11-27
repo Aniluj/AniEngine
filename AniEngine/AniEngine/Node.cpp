@@ -4,15 +4,17 @@
 
 Node::Node(string nodeName, Renderer * rendererPtr)
 {
-	shouldDraw = true;
-
+	name = nodeName;
 	childNodes = new list<Node*>();
 	components = new list<Component*>();
+	FCBoundingBox = new FrustumCullingBoundingBox();
 	renderer = rendererPtr;
+
+	shouldDraw = true;
+
 	transform = new Transform();
 	transform->Start("transform");
-	components->push_back(transform);
-	name = nodeName;
+	AddComponent(transform);
 }
 
 Node::~Node()
@@ -36,6 +38,50 @@ Node::~Node()
 		components->clear();
 	}
 	delete components;
+
+	if (parent)
+	{
+		parent->RemoveChild(this);
+		parent = NULL;
+	}
+}
+
+void Node::CheckPlanes()
+{
+	//if (!shouldDraw)
+	//{
+	//	return;
+	//}
+
+	if (FCBoundingBox->isFirstTimeSet == false)
+	{
+		glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
+
+		for (int i = 0; i < 6; i++)
+		{
+			bool allBehind = true;
+
+			//cout << "A punto de clasificar puntos, vuelta N: " << i << endl;
+			for (int j = 0; j < 8; j++)
+			{
+				if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * glm::vec4(FCBoundingBox->bBoxVertices[j], 1.0f)) == POSITIVE)
+				{
+					allBehind = false;
+
+					shouldDraw = true;
+					break;
+				}
+			}
+			if (allBehind)
+			{
+				cout << "NO SE DIBUJA ESTE NODO: " << name.c_str() << "||  con Plano: " << i << endl;
+
+				shouldDraw = false;
+
+				return;
+			}
+		}
+	}
 }
 
 void Node::AddComponent(Component * component)
@@ -61,40 +107,6 @@ void Node::RemoveChild(Node * childNode)
 	delete childNode;
 }
 
-void Node::CheckPlanes()
-{
-	glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
-
-	for (int i = 0; i < 6; i++)
-	{
-		bool allBehind = true;
-
-		for (int j = 0; j < 8; j++)
-		{
-			if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[j]) == POSITIVE)
-			{
-				allBehind = false;
-				shouldDraw = true;
-
-				break;
-			}
-		}
-		if (allBehind)
-		{
-			cout << "NO SE DIBUJA: " << name.c_str() << "||  con Plano: " << i << endl;
-
-			shouldDraw = false;
-
-			//cout << "A: " << frustumPlanesPtr[1].a << endl;
-			//cout << "B: " << frustumPlanesPtr[1].b << endl;
-			//cout << "C: " << frustumPlanesPtr[1].c << endl;
-			//cout << "D: " << frustumPlanesPtr[1].d << endl;
-
-			return;
-		}
-	}
-}
-
 void Node::Update()
 {
 	if (components->size() > 0)
@@ -115,7 +127,7 @@ void Node::Update()
 	{
 		if (parent->FCBoundingBox->isFirstTimeSet == false)
 		{
-			parent->FCBoundingBox->CompareMinsAndMaxs(FCBoundingBox);
+			parent->FCBoundingBox->CompareMinsAndMax(FCBoundingBox);
 		}
 	}
 }
@@ -145,6 +157,10 @@ void Node::Draw()
 		}
 	}
 
+	if (FCBoundingBox->isFirstTimeSet == false)
+	{
+		FCBoundingBox->UpdateMaxsAndMins();
+	}
 
 	renderer->SetModelMatrix(savedWorldMatrix);
 }

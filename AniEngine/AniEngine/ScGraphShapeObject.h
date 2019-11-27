@@ -17,7 +17,7 @@ private:
 	Node * rectangle;
 	ShapeComponent * rectangleShape;
 public:
-	ScGraphShapeObject(Renderer * rendererPtr);
+	ScGraphShapeObject(string nodeName, Renderer * rendererPtr);
 	~ScGraphShapeObject();
 };
 

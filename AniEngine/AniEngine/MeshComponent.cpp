@@ -13,13 +13,13 @@ FrustumCullingBoundingBox::FrustumCullingBoundingBox()
 }
 
 void MeshComponent::Start(
-					      const char * componentName,
-					      FrustumCullingBoundingBox * FCBoundingBoxPtr,
-					      const vector<Vertex> & vertices,
-					      const vector<unsigned int> & indices,
-					      Renderer * rendererPtr,
-					      string texturePath
-					     )
+	const char * componentName,
+	FrustumCullingBoundingBox * FCBoundingBoxPtr,
+	const vector<Vertex> & vertices,
+	const vector<unsigned int> & indices,
+	Renderer * rendererPtr,
+	string texturePath
+)
 {
 	Component::Start(componentName);
 	componentType = MeshType;
@@ -34,75 +34,71 @@ void FrustumCullingBoundingBox::UpdateMaxsAndMins()
 	bBoxVertices[0].x = min.x;		bBoxVertices[1].x = max.x;
 	bBoxVertices[0].y = max.y;		bBoxVertices[1].y = max.y;
 	bBoxVertices[0].z = min.z;		bBoxVertices[1].z = min.z;
-	bBoxVertices[0].w = 1;			bBoxVertices[1].w = 1;
 
 	bBoxVertices[2].x = min.x;		bBoxVertices[3].x = max.x;
 	bBoxVertices[2].y = min.y;		bBoxVertices[3].y = min.y;
 	bBoxVertices[2].z = min.z;		bBoxVertices[3].z = min.z;
-	bBoxVertices[2].w = 1;			bBoxVertices[3].w = 1;
 
 
 	bBoxVertices[4].x = min.x;		bBoxVertices[5].x = max.x;
 	bBoxVertices[4].y = max.y;		bBoxVertices[5].y = max.y;
 	bBoxVertices[4].z = max.z;		bBoxVertices[5].z = max.z;
-	bBoxVertices[4].w = 1;			bBoxVertices[5].w = 1;
 
 	bBoxVertices[6].x = min.x;		bBoxVertices[7].x = max.x;
 	bBoxVertices[6].y = min.y;		bBoxVertices[7].y = min.y;
 	bBoxVertices[6].z = max.z;		bBoxVertices[7].z = max.z;
-	bBoxVertices[6].w = 1;			bBoxVertices[7].w = 1;
 
 	isFirstTimeSet = false;
 }
 
-void FrustumCullingBoundingBox::CompareMinsAndMaxs(FrustumCullingBoundingBox FCBoundingBoxToCompare)
+void FrustumCullingBoundingBox::CompareMinsAndMax(FrustumCullingBoundingBox * FCChildBoundingBox)
 {
-	if (FCBoundingBoxToCompare.bBoxVertices[0].x < bBoxVertices[0].x) // MinX
+	if (FCChildBoundingBox->bBoxVertices[0].x < bBoxVertices[0].x) // MinX
 	{
-		bBoxVertices[0].x = FCBoundingBoxToCompare.bBoxVertices[0].x;
-		bBoxVertices[2].x = FCBoundingBoxToCompare.bBoxVertices[2].x;
-		bBoxVertices[4].x = FCBoundingBoxToCompare.bBoxVertices[4].x;
-		bBoxVertices[6].x = FCBoundingBoxToCompare.bBoxVertices[6].x;
+		bBoxVertices[0].x = FCChildBoundingBox->bBoxVertices[0].x;
+		bBoxVertices[2].x = FCChildBoundingBox->bBoxVertices[2].x;
+		bBoxVertices[4].x = FCChildBoundingBox->bBoxVertices[4].x;
+		bBoxVertices[6].x = FCChildBoundingBox->bBoxVertices[6].x;
 	}
 
-	if (FCBoundingBoxToCompare.bBoxVertices[0].y > bBoxVertices[0].y) // MaxY
+	if (FCChildBoundingBox->bBoxVertices[0].y > bBoxVertices[0].y) // MaxY
 	{
-		bBoxVertices[0].y = FCBoundingBoxToCompare.bBoxVertices[0].y;
-		bBoxVertices[1].y = FCBoundingBoxToCompare.bBoxVertices[1].y;
-		bBoxVertices[4].y = FCBoundingBoxToCompare.bBoxVertices[4].y;
-		bBoxVertices[5].y = FCBoundingBoxToCompare.bBoxVertices[5].y;
+		bBoxVertices[0].y = FCChildBoundingBox->bBoxVertices[0].y;
+		bBoxVertices[1].y = FCChildBoundingBox->bBoxVertices[1].y;
+		bBoxVertices[4].y = FCChildBoundingBox->bBoxVertices[4].y;
+		bBoxVertices[5].y = FCChildBoundingBox->bBoxVertices[5].y;
 	}
 
-	if (FCBoundingBoxToCompare.bBoxVertices[0].z < bBoxVertices[0].z) // MinZ
+	if (FCChildBoundingBox->bBoxVertices[0].z < bBoxVertices[0].z) // MinZ
 	{
-		bBoxVertices[0].z = FCBoundingBoxToCompare.bBoxVertices[0].z;
-		bBoxVertices[1].z = FCBoundingBoxToCompare.bBoxVertices[1].z;
-		bBoxVertices[2].z = FCBoundingBoxToCompare.bBoxVertices[2].z;
-		bBoxVertices[3].z = FCBoundingBoxToCompare.bBoxVertices[3].z;
+		bBoxVertices[0].z = FCChildBoundingBox->bBoxVertices[0].z;
+		bBoxVertices[1].z = FCChildBoundingBox->bBoxVertices[1].z;
+		bBoxVertices[2].z = FCChildBoundingBox->bBoxVertices[2].z;
+		bBoxVertices[3].z = FCChildBoundingBox->bBoxVertices[3].z;
 	}
 
-	if (FCBoundingBoxToCompare.bBoxVertices[7].x > bBoxVertices[7].x) // MaxX
+	if (FCChildBoundingBox->bBoxVertices[7].x > bBoxVertices[7].x) // MaxX
 	{
-		bBoxVertices[1].x = FCBoundingBoxToCompare.bBoxVertices[1].x;
-		bBoxVertices[3].x = FCBoundingBoxToCompare.bBoxVertices[3].x;
-		bBoxVertices[5].x = FCBoundingBoxToCompare.bBoxVertices[5].x;
-		bBoxVertices[7].x = FCBoundingBoxToCompare.bBoxVertices[7].x;
+		bBoxVertices[1].x = FCChildBoundingBox->bBoxVertices[1].x;
+		bBoxVertices[3].x = FCChildBoundingBox->bBoxVertices[3].x;
+		bBoxVertices[5].x = FCChildBoundingBox->bBoxVertices[5].x;
+		bBoxVertices[7].x = FCChildBoundingBox->bBoxVertices[7].x;
 	}
 
-	if (FCBoundingBoxToCompare.bBoxVertices[7].y < bBoxVertices[7].y) // MinY
+	if (FCChildBoundingBox->bBoxVertices[7].y < bBoxVertices[7].y) // MinY
 	{
-		bBoxVertices[2].y = FCBoundingBoxToCompare.bBoxVertices[2].y;
-		bBoxVertices[3].y = FCBoundingBoxToCompare.bBoxVertices[3].y;
-		bBoxVertices[6].y = FCBoundingBoxToCompare.bBoxVertices[6].y;
-		bBoxVertices[7].y = FCBoundingBoxToCompare.bBoxVertices[7].y;
+		bBoxVertices[2].y = FCChildBoundingBox->bBoxVertices[2].y;
+		bBoxVertices[3].y = FCChildBoundingBox->bBoxVertices[3].y;
+		bBoxVertices[6].y = FCChildBoundingBox->bBoxVertices[6].y;
+		bBoxVertices[7].y = FCChildBoundingBox->bBoxVertices[7].y;
 	}
 
-	if (FCBoundingBoxToCompare.bBoxVertices[7].z < bBoxVertices[7].z) // MaxZ
+	if (FCChildBoundingBox->bBoxVertices[7].z > bBoxVertices[7].z) // MaxZ
 	{
-		bBoxVertices[4].z = FCBoundingBoxToCompare.bBoxVertices[4].z;
-		bBoxVertices[5].z = FCBoundingBoxToCompare.bBoxVertices[5].z;
-		bBoxVertices[6].z = FCBoundingBoxToCompare.bBoxVertices[6].z;
-		bBoxVertices[7].z = FCBoundingBoxToCompare.bBoxVertices[7].z;
+		bBoxVertices[4].z = FCChildBoundingBox->bBoxVertices[4].z;
+		bBoxVertices[5].z = FCChildBoundingBox->bBoxVertices[5].z;
+		bBoxVertices[6].z = FCChildBoundingBox->bBoxVertices[6].z;
+		bBoxVertices[7].z = FCChildBoundingBox->bBoxVertices[7].z;
 	}
 }
 
@@ -147,7 +143,7 @@ void FrustumCullingBoundingBox::CheckMinsAndMax(glm::vec3 newPositionsToCheck)
 
 void MeshComponent::Draw()
 {
-	glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
+	//glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
 
 	//if (counter <= 0)
 	//{
@@ -183,6 +179,31 @@ void MeshComponent::Draw()
 
 	//counter++;
 
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	bool allBehind = true;
+
+	//	for (int j = 0; j < 8; j++)
+	//	{
+	//		if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * FCBoundingBox->bBoxVertices[j]) == POSITIVE)
+	//		{
+	//			allBehind = false;
+	//			break;
+	//		}
+	//	}
+	//	if (allBehind)
+	//	{
+	//		cout << "NO SE DIBUJA: " << componentName.c_str() << "||  con Plano: " << i <<endl;
+	//		//cout << "A: " << frustumPlanesPtr[1].a << endl;
+	//		//cout << "B: " << frustumPlanesPtr[1].b << endl;
+	//		//cout << "C: " << frustumPlanesPtr[1].c << endl;
+	//		//cout << "D: " << frustumPlanesPtr[1].d << endl;
+
+	//		return;
+	//	}
+	//}
+
+	//cout << "SE DIBUJA: " << componentName.c_str() << endl;
 	meshData->Draw();
 }
 

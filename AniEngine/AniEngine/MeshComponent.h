@@ -11,12 +11,12 @@ struct FrustumCullingBoundingBox
 
 	bool isFirstTimeSet = true;
 
-	glm::vec4 bBoxVertices[8];
+	glm::vec3 bBoxVertices[8];
 	glm::vec3 min;
 	glm::vec3 max;
 
 	void CheckMinsAndMax(glm::vec3 newPositionsToCheck);
-	void CompareMinsAndMaxs(FrustumCullingBoundingBox FCBoundingBoxToCompare);
+	void CompareMinsAndMax(FrustumCullingBoundingBox * FCChildBoundingBox);
 	void UpdateMaxsAndMins();
 
 	~FrustumCullingBoundingBox();
@@ -33,13 +33,13 @@ public:
 	MeshComponent();
 
 	void Start(
-			   const char * componentName,
-			   FrustumCullingBoundingBox * FCBoundingBoxPtr,
-			   const vector<Vertex> & vertices,
-			   const vector<unsigned int> & indices,
-			   Renderer * rendererPtr,
-			   string texturePath
-			   );
+		const char * componentName,
+		FrustumCullingBoundingBox * FCBoundingBoxPtr,
+		const vector<Vertex> & vertices,
+		const vector<unsigned int> & indices,
+		Renderer * rendererPtr,
+		string texturePath
+	);
 
 	void Draw() override;
 	void Update() override;
