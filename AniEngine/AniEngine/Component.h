@@ -12,7 +12,8 @@ enum ComponentType
 	MeshLoaderType,
 	MeshType,
 	ShapeType,
-	AnimationType
+	AnimationType,
+	BSPType
 };
 
 class ENGINEDLL_API Component
