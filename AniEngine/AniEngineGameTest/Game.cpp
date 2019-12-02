@@ -19,6 +19,9 @@ bool Game::OnStart()
 	input = Input::getInstance();
 	input->SetWindowContext(window);
 
+	sceneBSPTest = new Node("Scene", renderer);
+	SetScene(sceneBSPTest);
+
 	//bmp base = uvtemplate.bmp
 	//bmp test spritesheet = Test-Spritesheet1.bmp
 
@@ -82,6 +85,31 @@ bool Game::OnStart()
 	/*tilemap->material = Material::CreateMaterial(
 	"Shaders/TextureTransformVertexShader.txt",
 	"Shaders/TextureFragmentShader.txt");*/
+
+	nBSP1 = new Node("BSP1", renderer);
+	nBSP1->transform->Translate(6.0f, 0.0f, 0.0f);
+	nBSP1->transform->RotateY(90.0f);
+	BSPComponent1 = new BSP();
+	BSPComponent1->Start("BSP", renderer, camera, nBSP1->transform);
+	nBSP1->AddComponent(BSPComponent1);
+
+	nBSP2 = new Node("BSP2", renderer);
+	nBSP2->transform->Translate(-6.0f, 0.0f, 0.0f);
+	nBSP2->transform->RotateY(90.0f);
+	BSPComponent2 = new BSP();
+	BSPComponent2->Start("BSP", renderer, camera, nBSP2->transform);
+	nBSP2->AddComponent(BSPComponent2);
+
+	nBSP3 = new Node("BSP3", renderer);
+	nBSP3->transform->Translate(0.0f, 0.0f, 6.0f);
+	nBSP3->transform->RotateY(180.0f);
+	BSPComponent3 = new BSP();
+	BSPComponent3->Start("BSP", renderer, camera, nBSP3->transform);
+	nBSP3->AddComponent(BSPComponent3);
+
+	sceneBSPTest->AddChild(nBSP1);
+	sceneBSPTest->AddChild(nBSP2);
+	sceneBSPTest->AddChild(nBSP3);
 
 	tilemap = new Tilemap(
 		renderer,
@@ -181,7 +209,8 @@ bool Game::OnUpdate()
 	}
 	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
 	{
-		exampleObject->rootNode->transform->Translate(exampleObject->rootNode->transform->localPosition.x,
+		exampleObject->rootNode->transform->Translate(
+			exampleObject->rootNode->transform->localPosition.x,
 			exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
 			exampleObject->rootNode->transform->localPosition.z
 		);
@@ -237,12 +266,14 @@ void Game::OnDraw()
 {
 	//character->Draw();
 	//enemy->Draw();
-	exampleObject->Draw();
+
+	//M4Fusil->Draw();
+	//Spider->Draw();
+	//exampleObject->Draw();
+
 	//shapeExampleObject->Draw();
 	//triangle->Draw();
 	//rectangle->Draw();
-	//M4Fusil->Draw();
-	//Spider->Draw();
 }
 
 bool Game::OnStop()
@@ -258,6 +289,15 @@ bool Game::OnStop()
 	delete camera;
 	delete exampleObject;
 	delete shapeExampleObject;
+
+	delete sceneBSPTest;
+	delete sceneBSPTest;
+	delete nBSP1;
+	delete BSPComponent1;
+	delete nBSP2;
+	delete BSPComponent2;
+	delete nBSP3;
+	delete BSPComponent3;
 
 	return true;
 }

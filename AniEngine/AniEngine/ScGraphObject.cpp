@@ -39,7 +39,9 @@ ScGraphObject::~ScGraphObject()
 
 void ScGraphObject::Draw()
 {
+	//rootNode->Update();
 	//rootNode->Draw();
+	M4->Update();
 	M4->Draw();
 	//spider->Draw();
 }

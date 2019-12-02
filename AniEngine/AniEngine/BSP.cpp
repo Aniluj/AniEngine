@@ -1,17 +1,18 @@
 #include "BSP.h"
 
-BSP::BSP(Renderer * rendererPtr) : material(Material::CreateMaterial("Shaders/TextureTransformVertexShader.txt", "Shaders/TextureFragmentShader.txt")),
-								   position(glm::vec3(100000.0f, 100000.0f, 100000.0f)), forward(glm::vec3(1.0f, 0.0f, 0.0f))
+BSP::BSP(/*const char* componentName, Renderer * rendererPtr, Camera * gameCamera*/) : material(Material::CreateMaterial("Shaders/TextureTransformVertexShader.txt", "Shaders/TextureFragmentShader.txt")),
+																					   position(glm::vec3(100000.0f, 100000.0f, 100000.0f)), forward(glm::vec3(1.0f, 0.0f, 0.0f))
 {
-	Start(rendererPtr);
+	//Start(componentName, rendererPtr, gameCamera,);
 }
 BSP::~BSP()
 {
-
 }
-void BSP::Start(Renderer * rendererPtr)
+void BSP::Start(const char* componentName, Renderer * rendererPtr, Camera * gameCamera, Transform * transform)
 {
-	componentName = "BSP";
+	this->componentName = componentName;
+	this->gameCamera = gameCamera;
+	SetTransform(transform);
 	componentType = BSPType;
 	//reqTransform = true;
 	
@@ -30,13 +31,13 @@ void BSP::Update()
 		UpdatePlane();
 	}
 
-	if (position != transform->GetGlobalPosition())
+	if (position != transform->GetPosition())
 	{
-		position = transform->GetGlobalPosition();
+		position = transform->GetPosition();
 		UpdatePlane();
 	}
 
-	halfspace = renderer->ClassifyPoint(plane, glm::vec4(renderer->GetCameraGlobalPosition(), 1.0f));
+	halfspace = renderer->ClassifyPoint(plane, gameCamera->GetCameraPosition());
 }
 
 void BSP::Draw()

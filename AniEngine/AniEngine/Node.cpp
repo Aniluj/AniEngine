@@ -53,35 +53,67 @@ void Node::CheckPlanes()
 	//	return;
 	//}
 
+	//if (FCBoundingBox->isFirstTimeSet == false)
+	//{
+	//	glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
+
+	//	for (int i = 0; i < 6; i++)
+	//	{
+	//		bool allBehind = true;
+
+	//		//cout << "A punto de clasificar puntos, vuelta N: " << i << endl;
+	//		for (int j = 0; j < 8; j++)
+	//		{
+	//			if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * glm::vec4(FCBoundingBox->bBoxVertices[j], 1.0f)) == POSITIVE)
+	//			{
+	//				allBehind = false;
+
+	//				shouldDraw = true;
+	//				break;
+	//			}
+	//		}
+	//		if (allBehind)
+	//		{
+	//			cout << "NO SE DIBUJA ESTE NODO: " << name.c_str() << "||  con Plano: " << i << endl;
+
+	//			shouldDraw = false;
+
+	//			return;
+	//		}
+	//	}
+	//}
+
+	if (!shouldDraw)
+	{
+		return;
+	}
+
 	if (FCBoundingBox->isFirstTimeSet == false)
 	{
-		glm::vec4 * frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
+		glm::vec4* frustumPlanesPtr = renderer->GetFrustumPlanesPtr();
 
 		for (int i = 0; i < 6; i++)
 		{
-			bool allBehind = true;
-
-			//cout << "A punto de clasificar puntos, vuelta N: " << i << endl;
-			for (int j = 0; j < 8; j++)
-			{
-				if (renderer->ClassifyPoint(frustumPlanesPtr[i], renderer->GetModelMatrix() * glm::vec4(FCBoundingBox->bBoxVertices[j], 1.0f)) == POSITIVE)
-				{
-					allBehind = false;
-
-					shouldDraw = true;
-					break;
-				}
-			}
-			if (allBehind)
+			if (IsBehindPlane(frustumPlanesPtr[i]))
 			{
 				cout << "NO SE DIBUJA ESTE NODO: " << name.c_str() << "||  con Plano: " << i << endl;
-
 				shouldDraw = false;
-
-				return;
 			}
 		}
 	}
+}
+
+bool Node::IsBehindPlane(glm::vec4& plane, Halfspace halfspace)
+{
+	for (int v = 0; v < 8; v++)
+	{
+		if (renderer->ClassifyPoint(plane, renderer->GetModelMatrix() * glm::vec4(FCBoundingBox->bBoxVertices[v], 1.0f)) == halfspace)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void Node::AddComponent(Component * component)
@@ -109,6 +141,8 @@ void Node::RemoveChild(Node * childNode)
 
 void Node::Update()
 {
+	shouldDraw = true;
+
 	if (components->size() > 0)
 	{
 		for (auto nodePtr : *components)
@@ -160,6 +194,34 @@ void Node::Draw()
 	if (FCBoundingBox->isFirstTimeSet == false)
 	{
 		FCBoundingBox->UpdateMaxsAndMins();
+	}
+
+	renderer->SetModelMatrix(savedWorldMatrix);
+}
+
+void Node::CheckHalfspace(BSP* bsp)
+{
+	glm::mat4 savedWorldMatrix = renderer->GetModelMatrix();
+	renderer->MultiplyModel(transform->GetModel());
+
+	if (FCBoundingBox->isFirstTimeSet == false)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (IsBehindPlane(bsp->plane, bsp->halfspace))
+			{
+				shouldDraw = false;
+				break;
+			}
+		}
+	}
+
+	if (shouldDraw)
+	{
+		for (Node* child : *childNodes)
+		{
+			child->CheckHalfspace(bsp);
+		}
 	}
 
 	renderer->SetModelMatrix(savedWorldMatrix);

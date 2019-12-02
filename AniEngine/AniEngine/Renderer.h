@@ -2,6 +2,8 @@
 
 #include "Exports.h"
 #include "Window.h"
+#include "BSP.h"
+#include "Node.h"
 #include <iostream>
 #include <vector>
 //#include "glm\glm.hpp"
@@ -11,7 +13,11 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\transform.hpp>
 #include <glm\glm.hpp>
+
 //#include "Plane.h"
+
+class BSP;
+class Node;
 
 using namespace std;
 
@@ -54,6 +60,7 @@ private:
 	//Plane * frustumPlanes;
 
 	glm::vec4 planes[(int)Planes::COUNT];
+	vector<BSP*> BSPs;
 public:
 	Renderer();
 	~Renderer();
@@ -102,7 +109,10 @@ public:
 
 	glm::mat4& GetMVP();
 	glm::mat4 GetModelMatrix();
+
 	glm::vec4 CreatePlane(const glm::vec3& normal, const glm::vec3& point);
 	glm::vec4 * GetFrustumPlanesPtr();
+	void AddBSP(BSP * bsp);
+	void MakeBSPClean(Node* scene);
 	//void NormalizePlanes(Plane & plane);
 };

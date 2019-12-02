@@ -29,7 +29,7 @@ bool GameBase::Start()
 		return false;
 	}
 
-	renderer->ClearColor(0, 0, 0.4, 0);
+	renderer->ClearColor(0.3f, 0.3f, 0.3f, 0.0);
 
 	return OnStart();
 }
@@ -68,13 +68,40 @@ void GameBase::Loop()
 	while (res && !window->ShouldClose()) 
 	{
 		Timer::BeginClock();
+
 		res = OnUpdate();
+
+		if (nScene)
+		{
+			nScene->Update();
+		}
+
 		renderer->ClearScreen();
+
 		OnDraw();
+
+		if (nScene)
+		{
+			renderer->MakeBSPClean(nScene);
+			nScene->Draw();
+		}
+
 		renderer->SwapBuffer();
+
 		window->PollEvents();
+
 		Timer::EndClock();
 
 		deltaTime = Timer::GetDeltaTime();
 	}
+}
+
+Node* GameBase::GetActualScene()
+{
+	return nScene;
+}
+
+void GameBase::SetScene(Node* scene)
+{
+	nScene = scene;
 }

@@ -4,6 +4,8 @@
 #include "Renderer.h"
 #include "Material.h"
 
+class Renderer;
+
 class ENGINEDLL_API Entity
 {
 protected:

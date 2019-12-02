@@ -11,7 +11,7 @@ void Transform::Start(const char * componentName)
 	this->componentName = componentName;
 	componentType = TransformType;
 	localPosition = glm::vec3(0.0f);
-	localRotation = glm::vec3(0.0f);
+	localRotation = glm::mat4(1.0f);
 	localScale = glm::vec3(1.0f);
 	//worldPosition = glm::vec3(0.0f);
 	model = glm::mat4(1.0f);
@@ -24,7 +24,7 @@ void Transform::Start(const char * componentName)
 
 void Transform::UpdateModel()
 {
-	model = translationMatrix * (rotationX * rotationY * rotationZ) * scallingMatrix;
+	model = translationMatrix * localRotation * scallingMatrix;
 
 	/*cout << "x1:  " << model[0][0] << endl;
 	cout << "y1:  " << model[0][1] << endl;
@@ -67,6 +67,11 @@ void Transform::Translate(float x, float y, float z)
 	UpdateModel();
 }
 
+glm::vec3 Transform::GetPosition()
+{
+	return localPosition;
+}
+
 void Transform::Scale(float x, float y, float z)
 {
 	glm::vec3 vector3(x, y, z);
@@ -86,6 +91,7 @@ void Transform::RotateX(float angle)
 
 	rotationX = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
+	UpdateRotationMatrix();
 	UpdateModel();
 }
 
@@ -99,6 +105,7 @@ void Transform::RotateY(float angle)
 
 	rotationY = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
+	UpdateRotationMatrix();
 	UpdateModel();
 }
 
@@ -112,7 +119,39 @@ void Transform::RotateZ(float angle)
 
 	rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
+	UpdateRotationMatrix();
 	UpdateModel();
+}
+
+void Transform::UpdateRotationMatrix()
+{
+	localRotation = rotationX * rotationY * rotationZ;
+}
+
+void Transform::UpdateDirectionVectors()
+{
+	glm::vec4 idenRight(1.0f, 0.0f, 0.0f, 0.0f);
+	glm::vec4 idenUp(0.0f, 1.0f, 0.0f, 0.0f);
+	glm::vec4 idenForward(0.0f, 0.0f, 1.0f, 0.0f);
+
+	right = glm::normalize((glm::vec3)(localRotation * idenRight));
+	up = glm::normalize((glm::vec3)(localRotation * idenUp));
+	forward = glm::normalize((glm::vec3)(localRotation * idenForward));
+}
+
+glm::vec3 Transform::GetRight()
+{
+	return right;
+}
+
+glm::vec3 Transform::GetUp()
+{
+	return up;
+}
+
+glm::vec3 Transform::GetForward()
+{
+	return forward;
 }
 
 void Transform::Update()

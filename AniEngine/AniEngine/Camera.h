@@ -1,8 +1,11 @@
 #pragma once
 
 #include "Exports.h"
-#include "Renderer.h"
 #include "Entity.h"
+#include "Transform.h"
+#include "Renderer.h"
+
+class Entity;
 
 class ENGINEDLL_API Camera : public Entity
 {
@@ -19,6 +22,9 @@ private:
 public:
 	Camera(Renderer* rendererPtr);
 	~Camera();
+
+	glm::vec4 GetCameraPosition();
+
 	void Walk(float forwardMovement);
 	void Strafe(float horizontalMovement);
 	void Pitch(float xRotation);

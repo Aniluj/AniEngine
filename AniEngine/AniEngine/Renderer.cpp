@@ -415,3 +415,16 @@ glm::vec4 * Renderer::GetFrustumPlanesPtr()
 {
 	return planes;
 }
+
+void Renderer::AddBSP(BSP* bsp)
+{
+	BSPs.push_back(bsp);
+}
+
+void Renderer::MakeBSPClean(Node* scene)
+{
+	for (int i = 0; i < BSPs.size(); i++)
+	{
+		scene->CheckHalfspace(BSPs[i]);
+	}
+}

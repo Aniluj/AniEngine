@@ -17,6 +17,7 @@ public:
 	ScGraphObject(Renderer * rendererPtr);
 	Node* rootNode;
 	~ScGraphObject();
+	void Update();
 	void Draw();
 };
 

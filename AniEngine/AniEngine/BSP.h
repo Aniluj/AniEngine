@@ -6,13 +6,22 @@
 #include "Transform.h"
 #include "Renderer.h"
 #include "Component.h"
+#include "Entity.h"
+#include "Camera.h"
+
+class Material;
+class Transform;
+class Camera;
+class Renderer;
+class Entity;
 
 class ENGINEDLL_API BSP : public Component
 {
 private:
 	Transform* transform;
-	Material* material;
-	Renderer* renderer;
+	Camera * gameCamera;
+	Material * material;
+	Renderer * renderer;
 
 	glm::vec3 position;
 	glm::vec3 forward;
@@ -20,7 +29,7 @@ private:
 	void UpdatePlane();
 
 public:
-	void Start(Renderer * rendererPtr);
+	void Start(const char* componentName, Renderer * rendererPtr, Camera * gameCamera, Transform * transform);
 	void Update() override;
 	void Draw() override;
 	void SetTransform(Transform* transform);
@@ -28,7 +37,7 @@ public:
 	glm::vec4 plane;
 	Halfspace halfspace;
 
-	BSP(Renderer * rendererPtr);
+	BSP(/*const char* componentName, Renderer * rendererPtr, Camera * gameCamera*/);
 	~BSP();
 };
 

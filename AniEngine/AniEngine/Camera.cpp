@@ -38,6 +38,11 @@ void Camera::UpdateValues()
 	renderer->SetFrustumPlanes(pos, forward, right, up, zNear, zFar, aspect, fovy);
 }
 
+glm::vec4 Camera::GetCameraPosition()
+{
+	return pos;
+}
+
 void Camera::Walk(float forwardMovement)
 {
 	Translate(pos, (glm::vec3)(forward * forwardMovement));
@@ -113,5 +118,5 @@ void Camera::Roll(float zRotation)
 
 void Camera::Draw()
 {
-	
+	/* ... */
 }
