@@ -22,8 +22,8 @@ bool Game::OnStart()
 	sceneBSPTest = new Node("Scene", renderer);
 	SetScene(sceneBSPTest);
 
-	nObjects = new Node("Objects", renderer);
-	sceneBSPTest->AddChild(nObjects);
+	sceneObjects = new Node("Objects", renderer);
+	sceneBSPTest->AddChild(sceneObjects);
 
 	//bmp base = uvtemplate.bmp
 	//bmp test spritesheet = Test-Spritesheet1.bmp
@@ -89,60 +89,60 @@ bool Game::OnStart()
 	"Shaders/TextureTransformVertexShader.txt",
 	"Shaders/TextureFragmentShader.txt");*/
 
-	nWeap1Root = new Node("nWeap1Root", renderer);
-	nWeap1Root->transform->Translate(0.0f, 0.0f, 20.0f);
-	nObjects->AddChild(nWeap1Root);
+	Weapon1Root = new Node("Weapon1Root", renderer);
+	Weapon1Root->transform->Translate(0.0f, 0.0f, 5.0f);
+	sceneObjects->AddChild(Weapon1Root);
 
-	nWeap1 = new Node("nWeap1", renderer);
-	nWeap1Root->AddChild(nWeap1);
-	nWeap1Mesh = new MeshComponentLoader();
-	nWeap1Mesh->Start("M4_1 Mesh", nWeap1, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
-	nWeap1->AddComponent(nWeap1Mesh);
+	Weapon1 = new Node("Weapon1", renderer);
+	Weapon1Root->AddChild(Weapon1);
+	Weapon1Mesh = new MeshComponentLoader();
+	Weapon1Mesh->Start("M4_1 Mesh", Weapon1, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	Weapon1->AddComponent(Weapon1Mesh);
 
-	nWeap2Root = new Node("nWeap2Root", renderer);
-	nWeap2Root->transform->Translate(-100.0f, 0.0f, 20.0f);
-	nObjects->AddChild(nWeap2Root);
+	Weapon2Root = new Node("Weapon2Root", renderer);
+	Weapon2Root->transform->Translate(-90.0f, 0.0f, 5.0f);
+	sceneObjects->AddChild(Weapon2Root);
 
-	nWeap2 = new Node("nWeap2", renderer);
-	nWeap2Root->AddChild(nWeap2);
-	nWeap2Mesh = new MeshComponentLoader();
-	nWeap2Mesh->Start("M4_2 Mesh", nWeap2, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
-	nWeap2->AddComponent(nWeap2Mesh);
+	Weapon2 = new Node("Weapon2", renderer);
+	Weapon2Root->AddChild(Weapon2);
+	Weapon2Mesh = new MeshComponentLoader();
+	Weapon2Mesh->Start("M4_2 Mesh", Weapon2, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	Weapon2->AddComponent(Weapon2Mesh);
 
-	nWeap3Root = new Node("nWeap3Root", renderer);
-	nWeap3Root->transform->Translate(120.0f, 0.0f, 20.0f);
-	nObjects->AddChild(nWeap3Root);
+	Weapon3Root = new Node("Weapon3Root", renderer);
+	Weapon3Root->transform->Translate(90.0f, 0.0f, 5.0f);
+	sceneObjects->AddChild(Weapon3Root);
 
-	nWeap3 = new Node("nWeap3", renderer);
-	nWeap3Root->AddChild(nWeap3);
-	nWeap3Mesh = new MeshComponentLoader();
-	nWeap3Mesh->Start("M4_3 Mesh", nWeap3, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
-	nWeap3->AddComponent(nWeap3Mesh);
+	Weapon3 = new Node("Weapon3", renderer);
+	Weapon3Root->AddChild(Weapon3);
+	Weapon3Mesh = new MeshComponentLoader();
+	Weapon3Mesh->Start("M4_3 Mesh", Weapon3, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	Weapon3->AddComponent(Weapon3Mesh);
 
-	nWeap4Root = new Node("nWeap4Root", renderer);
-	nWeap4Root->transform->Translate(0.0f, 0.0f, 140.0f);
-	nObjects->AddChild(nWeap4Root);
+	Weapon4Root = new Node("Weapon4Root", renderer);
+	Weapon4Root->transform->Translate(-15.0f, 0.0f, 90.0f);
+	sceneObjects->AddChild(Weapon4Root);
 
-	nWeap4 = new Node("nWeap4", renderer);
-	nWeap4Root->AddChild(nWeap4);
-	nWeap4Mesh = new MeshComponentLoader();
-	nWeap4Mesh->Start("M4_4 Mesh", nWeap4, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
-	nWeap4->AddComponent(nWeap4Mesh);
+	Weapon4 = new Node("Weapon4", renderer);
+	Weapon4Root->AddChild(Weapon4);
+	Weapon4Mesh = new MeshComponentLoader();
+	Weapon4Mesh->Start("M4_4 Mesh", Weapon4, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	Weapon4->AddComponent(Weapon4Mesh);
 
-	nWeap5Root = new Node("nWeap5Root", renderer);
-	nWeap5Root->transform->Translate(35.0f, 0.0f, 140.0f);
-	nObjects->AddChild(nWeap5Root);
+	Weapon5Root = new Node("Weapon5Root", renderer);
+	Weapon5Root->transform->Translate(-30.0f, 0.0f, 90.0f);
+	sceneObjects->AddChild(Weapon5Root);
 
-	nWeap5 = new Node("nWeap5", renderer);
-	nWeap5Root->AddChild(nWeap5);
-	nWeap5Mesh = new MeshComponentLoader();
-	nWeap5Mesh->Start("M4_5 Mesh", nWeap5, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
-	nWeap5->AddComponent(nWeap5Mesh);
+	Weapon5 = new Node("Weapon5", renderer);
+	Weapon5Root->AddChild(Weapon5);
+	Weapon5Mesh = new MeshComponentLoader();
+	Weapon5Mesh->Start("M4_5 Mesh", Weapon5, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	Weapon5->AddComponent(Weapon5Mesh);
 
 	nBSP1 = new Node("BSP1", renderer);
 	sceneBSPTest->AddChild(nBSP1);
 
-	nBSP1->transform->Translate(70.0f, 0.0f, 0.0f);
+	nBSP1->transform->Translate(40.0f, 0.0f, 15.0f);
 	nBSP1->transform->RotateY(90.0f);
 	BSPComponent1 = new BSP();
 	BSPComponent1->Start("BSP 1", renderer, camera, nBSP1->transform);
@@ -151,7 +151,7 @@ bool Game::OnStart()
 	nBSP2 = new Node("BSP2", renderer);
 	sceneBSPTest->AddChild(nBSP2);
 
-	nBSP2->transform->Translate(-70.0f, 0.0f, 0.0f);
+	nBSP2->transform->Translate(-40.0f, 0.0f, 15.0f);
 	nBSP2->transform->RotateY(90.0f);
 	BSPComponent2 = new BSP();
 	BSPComponent2->Start("BSP 2", renderer, camera, nBSP2->transform);
@@ -160,7 +160,7 @@ bool Game::OnStart()
 	nBSP3 = new Node("BSP3", renderer);
 	sceneBSPTest->AddChild(nBSP3);
 
-	nBSP3->transform->Translate(0.0f, 0.0f, 100.0f);
+	nBSP3->transform->Translate(0.0f, 0.0f, 65.0f);
 	nBSP3->transform->RotateY(180.0f);
 	BSPComponent3 = new BSP();
 	BSPComponent3->Start("BSP 3", renderer, camera, nBSP3->transform);
@@ -263,20 +263,20 @@ bool Game::OnUpdate()
 	{
 		camera->Pitch(-cameraSpeed * deltaTime);
 	}
-	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
-	{
-		nWeap1Root->transform->Translate(
-			nWeap1Root->transform->localPosition.x - (100 * deltaTime),
-			nWeap1Root->transform->localPosition.y,
-			nWeap1Root->transform->localPosition.z
-		);
-	}
 	if (input->isInput(GLFW_KEY_LEFT_ALT))
 	{
-		nWeap1Root->transform->Translate(
-			nWeap1Root->transform->localPosition.x + (100 * deltaTime),
-			nWeap1Root->transform->localPosition.y,
-			nWeap1Root->transform->localPosition.z
+		Weapon1Root->transform->Translate(
+			Weapon1Root->transform->localPosition.x - (100 * deltaTime),
+			Weapon1Root->transform->localPosition.y,
+			Weapon1Root->transform->localPosition.z
+		);
+	}
+	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
+	{
+		Weapon1Root->transform->Translate(
+			Weapon1Root->transform->localPosition.x + (100 * deltaTime),
+			Weapon1Root->transform->localPosition.y,
+			Weapon1Root->transform->localPosition.z
 		);
 	}
 	//camera->Pitch(-0.7f);
@@ -354,9 +354,25 @@ bool Game::OnStop()
 	delete exampleObject;
 	delete shapeExampleObject;
 
-	delete nWeap1Root;
-	delete nWeap1;
-	delete nWeap1Mesh;
+	delete Weapon1Root;
+	delete Weapon1;
+	delete Weapon1Mesh;
+
+	delete Weapon2Root;
+	delete Weapon2;
+	delete Weapon2Mesh;
+
+	delete Weapon3Root;
+	delete Weapon3;
+	delete Weapon3Mesh;
+
+	delete Weapon4Root;
+	delete Weapon4;
+	delete Weapon4Mesh;
+
+	delete Weapon5Root;
+	delete Weapon5;
+	delete Weapon5Mesh;
 
 	delete sceneBSPTest;
 	delete nBSP1;

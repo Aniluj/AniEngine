@@ -197,7 +197,7 @@ void Node::Draw()
 
 		if (shouldDraw)
 		{
-			if (parent->parent->name.find("nWeap", 0) == 0)
+			if (parent->parent->name.find("Weapon", 0) == 0)
 			{
 				//cout << "llego hasta aca " << parent->parent->name << endl;
 				renderer->entitiesCounter++;
@@ -220,7 +220,6 @@ void Node::CheckHalfspace(BSP* bsp)
 			if (IsBehindPlane(bsp->plane, bsp->halfspace))
 			{
 				shouldDraw = false;
-				cout << "Is Behind BSP: " << bsp->componentName.c_str() << endl;
 				break;
 			}
 		}

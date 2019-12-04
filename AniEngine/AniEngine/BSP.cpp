@@ -50,10 +50,7 @@ void BSP::Draw()
 	glm::vec3 right = transform->GetRight();
 	glm::vec3 up = transform->GetUp();
 
-	cout << "point right: " << right.x << endl;
-	cout << "point up: " << up.y << endl;
-
-	glm::vec3 pointRight = position + right * 25.0f;
+	glm::vec3 pointRight = position + right * 20.0f;
 	glm::vec3 pointUp = position + up * 25.0f;
 																																										
 
@@ -74,10 +71,10 @@ void BSP::Draw()
 
 	float* verticesColorData = new float[4 * 3]
 	{
-		0.0f, 0.0f,																																						0.0f,
-		0.0f, 0.0f,																																						0.0f,
-		0.0f, 0.0f,																																						0.0f,
-		0.0f, 0.0f,																																						0.0f,
+		0.0f, 0.0f,																																						1.0f,
+		0.0f, 0.0f,																																						1.0f,
+		0.0f, 0.0f,																																						1.0f,
+		0.0f, 0.0f,																																						1.0f,
 	};
 
 	if (material != NULL)
