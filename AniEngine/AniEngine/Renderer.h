@@ -2,8 +2,6 @@
 
 #include "Exports.h"
 #include "Window.h"
-#include "BSP.h"
-#include "Node.h"
 #include <iostream>
 #include <vector>
 //#include "glm\glm.hpp"

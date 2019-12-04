@@ -1,10 +1,8 @@
 #pragma once
 
 #include "Exports.h"
-#include "Renderer.h"
 #include "Material.h"
-
-class Renderer;
+#include "Renderer.h"
 
 class ENGINEDLL_API Entity
 {

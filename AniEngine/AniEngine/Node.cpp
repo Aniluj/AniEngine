@@ -1,5 +1,5 @@
 #include "Node.h"
-
+#include "BSP.h"
 
 
 Node::Node(string nodeName, Renderer * rendererPtr)

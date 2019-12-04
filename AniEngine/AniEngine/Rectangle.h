@@ -3,6 +3,7 @@
 #include "Shape.h"
 #include "BoundingBox.h"
 #include "BoundingCircle.h"
+#include "Renderer.h"
 
 class ENGINEDLL_API Rectangle : public Shape
 {

@@ -4,16 +4,11 @@
 #include "glm\glm.hpp"
 #include "Material.h"
 #include "Transform.h"
-#include "Renderer.h"
 #include "Component.h"
 #include "Entity.h"
-#include "Camera.h"
+#include "Renderer.h"
 
-class Material;
-class Transform;
 class Camera;
-class Renderer;
-class Entity;
 
 class ENGINEDLL_API BSP : public Component
 {

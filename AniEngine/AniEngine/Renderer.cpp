@@ -1,6 +1,8 @@
 #include "Renderer.h"
 #include <glew.h>
 #include "GLFW\glfw3.h"
+#include "BSP.h"
+#include "Node.h"
 
 
 

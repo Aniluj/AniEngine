@@ -1,13 +1,18 @@
 #include "BSP.h"
+#include "Renderer.h"
+#include "Camera.h"
+
 
 BSP::BSP(/*const char* componentName, Renderer * rendererPtr, Camera * gameCamera*/) : material(Material::CreateMaterial("Shaders/TextureTransformVertexShader.txt", "Shaders/TextureFragmentShader.txt")),
 																					   position(glm::vec3(100000.0f, 100000.0f, 100000.0f)), forward(glm::vec3(1.0f, 0.0f, 0.0f))
 {
 	//Start(componentName, rendererPtr, gameCamera,);
 }
+
 BSP::~BSP()
 {
 }
+
 void BSP::Start(const char* componentName, Renderer * rendererPtr, Camera * gameCamera, Transform * transform)
 {
 	this->componentName = componentName;

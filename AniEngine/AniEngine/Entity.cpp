@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Renderer.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 

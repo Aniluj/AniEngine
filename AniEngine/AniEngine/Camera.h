@@ -2,10 +2,9 @@
 
 #include "Exports.h"
 #include "Entity.h"
-#include "Transform.h"
 #include "Renderer.h"
+#include "Transform.h"
 
-class Entity;
 
 class ENGINEDLL_API Camera : public Entity
 {

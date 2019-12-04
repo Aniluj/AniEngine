@@ -5,6 +5,7 @@
 #include <iostream>
 #include "BoundingCircle.h"
 #include "BoundingBox.h"
+#include "Renderer.h"
 #include "Animation.h"
 #include "glm\glm.hpp"
 

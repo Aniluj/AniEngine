@@ -5,7 +5,6 @@
 #include "MeshComponent.h"
 #include "Renderer.h"
 #include "Transform.h"
-#include "BSP.h"
 #include <iostream>
 #include <list>
 
