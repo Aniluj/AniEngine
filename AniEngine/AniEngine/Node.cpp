@@ -7,6 +7,7 @@ Node::Node(string nodeName, Renderer * rendererPtr)
 	name = nodeName;
 	childNodes = new list<Node*>();
 	components = new list<Component*>();
+	parent = NULL;
 	FCBoundingBox = new FrustumCullingBoundingBox();
 	renderer = rendererPtr;
 
@@ -96,7 +97,6 @@ void Node::CheckPlanes()
 		{
 			if (IsBehindPlane(frustumPlanesPtr[i]))
 			{
-				cout << "NO SE DIBUJA ESTE NODO: " << name.c_str() << "||  con Plano: " << i << endl;
 				shouldDraw = false;
 			}
 		}
@@ -194,6 +194,15 @@ void Node::Draw()
 	if (FCBoundingBox->isFirstTimeSet == false)
 	{
 		FCBoundingBox->UpdateMaxsAndMins();
+
+		if (shouldDraw)
+		{
+			if (parent->parent->name.find("nWeap", 0) == 0)
+			{
+				//cout << "llego hasta aca " << parent->parent->name << endl;
+				renderer->entitiesCounter++;
+			}
+		}
 	}
 
 	renderer->SetModelMatrix(savedWorldMatrix);
@@ -211,6 +220,7 @@ void Node::CheckHalfspace(BSP* bsp)
 			if (IsBehindPlane(bsp->plane, bsp->halfspace))
 			{
 				shouldDraw = false;
+				cout << "Is Behind BSP: " << bsp->componentName.c_str() << endl;
 				break;
 			}
 		}
@@ -218,9 +228,12 @@ void Node::CheckHalfspace(BSP* bsp)
 
 	if (shouldDraw)
 	{
-		for (Node* child : *childNodes)
+		if (childNodes->size() > 0)
 		{
-			child->CheckHalfspace(bsp);
+			for (Node* child : *childNodes)
+			{
+				child->CheckHalfspace(bsp);
+			}
 		}
 	}
 

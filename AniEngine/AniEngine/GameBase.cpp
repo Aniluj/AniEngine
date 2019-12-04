@@ -54,6 +54,7 @@ bool GameBase::Stop()
 
 	}
 
+	nScene = NULL;
 	delete renderer;
 	delete window;
 	return true;
@@ -71,12 +72,14 @@ void GameBase::Loop()
 
 		res = OnUpdate();
 
+		renderer->ClearScreen();
+
 		if (nScene)
 		{
 			nScene->Update();
 		}
 
-		renderer->ClearScreen();
+		renderer->entitiesCounter = 0;
 
 		OnDraw();
 
@@ -85,6 +88,8 @@ void GameBase::Loop()
 			renderer->MakeBSPClean(nScene);
 			nScene->Draw();
 		}
+
+		cout << "Entities being drawn: " << renderer->entitiesCounter << endl;
 
 		renderer->SwapBuffer();
 

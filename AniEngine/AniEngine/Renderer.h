@@ -65,6 +65,8 @@ public:
 
 	glm::mat4 projectionMatrix;
 
+	int entitiesCounter;
+
 	bool Start(Window* windowPtr);
 	bool Stop();
 	void ClearColor(float r, float g, float b, float a);
@@ -112,5 +114,5 @@ public:
 	glm::vec4 * GetFrustumPlanesPtr();
 	void AddBSP(BSP * bsp);
 	void MakeBSPClean(Node* scene);
-	//void NormalizePlanes(Plane & plane);
+	void NormalizePlane(glm::vec4 & plane);
 };

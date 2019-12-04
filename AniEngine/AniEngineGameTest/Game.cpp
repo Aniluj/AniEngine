@@ -22,6 +22,9 @@ bool Game::OnStart()
 	sceneBSPTest = new Node("Scene", renderer);
 	SetScene(sceneBSPTest);
 
+	nObjects = new Node("Objects", renderer);
+	sceneBSPTest->AddChild(nObjects);
+
 	//bmp base = uvtemplate.bmp
 	//bmp test spritesheet = Test-Spritesheet1.bmp
 
@@ -86,30 +89,83 @@ bool Game::OnStart()
 	"Shaders/TextureTransformVertexShader.txt",
 	"Shaders/TextureFragmentShader.txt");*/
 
+	nWeap1Root = new Node("nWeap1Root", renderer);
+	nWeap1Root->transform->Translate(0.0f, 0.0f, 20.0f);
+	nObjects->AddChild(nWeap1Root);
+
+	nWeap1 = new Node("nWeap1", renderer);
+	nWeap1Root->AddChild(nWeap1);
+	nWeap1Mesh = new MeshComponentLoader();
+	nWeap1Mesh->Start("M4_1 Mesh", nWeap1, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	nWeap1->AddComponent(nWeap1Mesh);
+
+	nWeap2Root = new Node("nWeap2Root", renderer);
+	nWeap2Root->transform->Translate(-100.0f, 0.0f, 20.0f);
+	nObjects->AddChild(nWeap2Root);
+
+	nWeap2 = new Node("nWeap2", renderer);
+	nWeap2Root->AddChild(nWeap2);
+	nWeap2Mesh = new MeshComponentLoader();
+	nWeap2Mesh->Start("M4_2 Mesh", nWeap2, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	nWeap2->AddComponent(nWeap2Mesh);
+
+	nWeap3Root = new Node("nWeap3Root", renderer);
+	nWeap3Root->transform->Translate(120.0f, 0.0f, 20.0f);
+	nObjects->AddChild(nWeap3Root);
+
+	nWeap3 = new Node("nWeap3", renderer);
+	nWeap3Root->AddChild(nWeap3);
+	nWeap3Mesh = new MeshComponentLoader();
+	nWeap3Mesh->Start("M4_3 Mesh", nWeap3, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	nWeap3->AddComponent(nWeap3Mesh);
+
+	nWeap4Root = new Node("nWeap4Root", renderer);
+	nWeap4Root->transform->Translate(0.0f, 0.0f, 140.0f);
+	nObjects->AddChild(nWeap4Root);
+
+	nWeap4 = new Node("nWeap4", renderer);
+	nWeap4Root->AddChild(nWeap4);
+	nWeap4Mesh = new MeshComponentLoader();
+	nWeap4Mesh->Start("M4_4 Mesh", nWeap4, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	nWeap4->AddComponent(nWeap4Mesh);
+
+	nWeap5Root = new Node("nWeap5Root", renderer);
+	nWeap5Root->transform->Translate(35.0f, 0.0f, 140.0f);
+	nObjects->AddChild(nWeap5Root);
+
+	nWeap5 = new Node("nWeap5", renderer);
+	nWeap5Root->AddChild(nWeap5);
+	nWeap5Mesh = new MeshComponentLoader();
+	nWeap5Mesh->Start("M4_5 Mesh", nWeap5, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
+	nWeap5->AddComponent(nWeap5Mesh);
+
 	nBSP1 = new Node("BSP1", renderer);
-	nBSP1->transform->Translate(6.0f, 0.0f, 0.0f);
+	sceneBSPTest->AddChild(nBSP1);
+
+	nBSP1->transform->Translate(70.0f, 0.0f, 0.0f);
 	nBSP1->transform->RotateY(90.0f);
 	BSPComponent1 = new BSP();
-	BSPComponent1->Start("BSP", renderer, camera, nBSP1->transform);
+	BSPComponent1->Start("BSP 1", renderer, camera, nBSP1->transform);
 	nBSP1->AddComponent(BSPComponent1);
 
 	nBSP2 = new Node("BSP2", renderer);
-	nBSP2->transform->Translate(-6.0f, 0.0f, 0.0f);
+	sceneBSPTest->AddChild(nBSP2);
+
+	nBSP2->transform->Translate(-70.0f, 0.0f, 0.0f);
 	nBSP2->transform->RotateY(90.0f);
 	BSPComponent2 = new BSP();
-	BSPComponent2->Start("BSP", renderer, camera, nBSP2->transform);
+	BSPComponent2->Start("BSP 2", renderer, camera, nBSP2->transform);
 	nBSP2->AddComponent(BSPComponent2);
 
 	nBSP3 = new Node("BSP3", renderer);
-	nBSP3->transform->Translate(0.0f, 0.0f, 6.0f);
+	sceneBSPTest->AddChild(nBSP3);
+
+	nBSP3->transform->Translate(0.0f, 0.0f, 100.0f);
 	nBSP3->transform->RotateY(180.0f);
 	BSPComponent3 = new BSP();
-	BSPComponent3->Start("BSP", renderer, camera, nBSP3->transform);
+	BSPComponent3->Start("BSP 3", renderer, camera, nBSP3->transform);
 	nBSP3->AddComponent(BSPComponent3);
 
-	sceneBSPTest->AddChild(nBSP1);
-	sceneBSPTest->AddChild(nBSP2);
-	sceneBSPTest->AddChild(nBSP3);
 
 	tilemap = new Tilemap(
 		renderer,
@@ -209,10 +265,18 @@ bool Game::OnUpdate()
 	}
 	if (input->isInput(GLFW_KEY_LEFT_CONTROL))
 	{
-		exampleObject->rootNode->transform->Translate(
-			exampleObject->rootNode->transform->localPosition.x,
-			exampleObject->rootNode->transform->localPosition.y - (100 * deltaTime),
-			exampleObject->rootNode->transform->localPosition.z
+		nWeap1Root->transform->Translate(
+			nWeap1Root->transform->localPosition.x - (100 * deltaTime),
+			nWeap1Root->transform->localPosition.y,
+			nWeap1Root->transform->localPosition.z
+		);
+	}
+	if (input->isInput(GLFW_KEY_LEFT_ALT))
+	{
+		nWeap1Root->transform->Translate(
+			nWeap1Root->transform->localPosition.x + (100 * deltaTime),
+			nWeap1Root->transform->localPosition.y,
+			nWeap1Root->transform->localPosition.z
 		);
 	}
 	//camera->Pitch(-0.7f);
@@ -290,7 +354,10 @@ bool Game::OnStop()
 	delete exampleObject;
 	delete shapeExampleObject;
 
-	delete sceneBSPTest;
+	delete nWeap1Root;
+	delete nWeap1;
+	delete nWeap1Mesh;
+
 	delete sceneBSPTest;
 	delete nBSP1;
 	delete BSPComponent1;

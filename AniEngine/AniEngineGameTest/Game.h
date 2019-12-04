@@ -46,7 +46,28 @@ public:
 	ScGraphObject* exampleObject;
 	ScGraphShapeObject* shapeExampleObject;
 
+	Node* nWeap1Root;
+	Node * nWeap1;
+	MeshComponentLoader * nWeap1Mesh;
+
+	Node* nWeap2Root;
+	Node * nWeap2;
+	MeshComponentLoader * nWeap2Mesh;
+
+	Node* nWeap3Root;
+	Node * nWeap3;
+	MeshComponentLoader * nWeap3Mesh;
+
+	Node* nWeap4Root;
+	Node * nWeap4;
+	MeshComponentLoader * nWeap4Mesh;
+
+	Node* nWeap5Root;
+	Node * nWeap5;
+	MeshComponentLoader * nWeap5Mesh;
+
 	Node* sceneBSPTest;
+	Node * nObjects;
 	Node* nBSP1;
 	BSP * BSPComponent1;
 	Node* nBSP2;

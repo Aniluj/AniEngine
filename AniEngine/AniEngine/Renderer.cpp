@@ -384,6 +384,13 @@ void Renderer::SetFrustumPlanes(glm::vec3 globalPos, glm::vec3 forward, glm::vec
 //	//cout << "CHECKEO EN RENDERER " << combinedViewAndProjectionMatrix[3][0] - combinedViewAndProjectionMatrix[0][0] << endl;
 //}
 
+void Renderer::NormalizePlane(glm::vec4& plane)
+{
+	float mag;
+	mag = sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z);
+	plane /= mag;
+}
+
 Halfspace Renderer::ClassifyPoint(const glm::vec4 & plane, const glm::vec4 & vector)
 {
 	float distToPlane = plane.x * vector.x + plane.y * vector.y + plane.z * vector.z + plane.w;

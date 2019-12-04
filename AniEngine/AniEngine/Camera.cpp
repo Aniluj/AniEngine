@@ -92,9 +92,6 @@ void Camera::Yaw(float yRotation)
 	//forward.x += rotationY[0][0];
 	//forward.z += rotationY[0][2];
 
-	cout << forward.x << endl;
-	cout << forward.z << endl;
-
 	renderer->SetViewMatrix(pos,
 							(glm::vec3)pos + (glm::vec3)forward,
 							(glm::vec3) up);

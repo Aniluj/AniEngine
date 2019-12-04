@@ -50,19 +50,22 @@ void BSP::Draw()
 	glm::vec3 right = transform->GetRight();
 	glm::vec3 up = transform->GetUp();
 
+	cout << "point right: " << right.x << endl;
+	cout << "point up: " << up.y << endl;
 
-	glm::vec3 pointRight = position + right * 5.0f;
-	glm::vec3 pointUp = position + up * 5.0f;
+	glm::vec3 pointRight = position + right * 25.0f;
+	glm::vec3 pointUp = position + up * 25.0f;
+																																										
 
 	float* vertex = new float[4 * 3]
 	{
-		 pointRight.x,  pointUp.y,																																		0,
-		-pointRight.x,  pointUp.y,																																		0,
-		 pointRight.x, -pointUp.y,																																		0,
-		-pointRight.x, -pointUp.y,																																		0,
+		 pointRight.x,  pointUp.y,																																						0,
+		-pointRight.x,  pointUp.y,																																						0,
+		 pointRight.x, -pointUp.y,																																						0,
+		-pointRight.x, -pointUp.y,																																						0,
 	};
 
-	vector<unsigned int> indices
+	vector<unsigned int> indices																																							
 	{
 		0, 1,																																							
 		2, 1,																																							
@@ -109,5 +112,5 @@ void BSP::SetTransform(Transform* transform)
 void BSP::UpdatePlane()
 {
 	plane = renderer->CreatePlane(forward, position);
-	//renderer->NormalizePlane(plane);
+	renderer->NormalizePlane(plane);
 }

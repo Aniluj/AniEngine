@@ -11,8 +11,8 @@ ScGraphObject::ScGraphObject(Renderer * rendererPtr)
 
 	M4 = new Node("M4Node", renderer);
 	M4Mesh = new MeshComponentLoader();
-	M4->transform->RotateZ(90);
-	M4->transform->RotateX(-90);
+	//M4->transform->RotateZ(90);
+	//M4->transform->RotateX(-90);
 	M4->transform->Translate(0, 0, 20);
 	M4Mesh->Start("M4Mesh", M4, "M4A1/M4A1.FBX", "M4A1/M4A1Tex.bmp", renderer);
 	M4->AddComponent(M4Mesh);

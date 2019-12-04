@@ -92,6 +92,7 @@ void Transform::RotateX(float angle)
 	rotationX = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
 	UpdateRotationMatrix();
+	UpdateDirectionVectors();
 	UpdateModel();
 }
 
@@ -106,6 +107,7 @@ void Transform::RotateY(float angle)
 	rotationY = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
 	UpdateRotationMatrix();
+	UpdateDirectionVectors();
 	UpdateModel();
 }
 
@@ -120,6 +122,7 @@ void Transform::RotateZ(float angle)
 	rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(angle), vectorAxis);
 
 	UpdateRotationMatrix();
+	UpdateDirectionVectors();
 	UpdateModel();
 }
 
