@@ -71,18 +71,18 @@ bool Game::OnStart()
 		"Shaders/TransformVertexShader.txt",
 		"Shaders/ColorFragmentShader.txt");
 
-	/*tilemap->material = Material::CreateMaterial(
-	"Shaders/TextureTransformVertexShader.txt",
-	"Shaders/TextureFragmentShader.txt");*/
-
 	tilemap = new Tilemap(
 		renderer,
-		1,
-		2,
-		960,
-		640,
-		"BattleCityCloneTiles.bmp",
-		"BattleCityCloneTiledMap.csv");
+		6,
+		6,
+		3840,
+		720,
+		"Tileset.bmp",
+		"Level 1.oel");
+
+	tilemap->material = Material::CreateMaterial(
+		"Shaders/TextureTransformVertexShader.txt",
+		"Shaders/TextureFragmentShader.txt");
 
 	collManager->RegisterBoundingBox(character->bbox);
 	collManager->RegisterBoundingBox(rectangle->bbox);
@@ -101,6 +101,18 @@ bool Game::OnStart()
 
 	i = 0;
 
+	tilemap->SetTileProperty(0, Background);
+	for (int i = 1; i < 6; i++)
+		tilemap->SetTileProperty(i, Wall);
+	for (int i = 6; i < 19; i++)
+		tilemap->SetTileProperty(i, Background);
+	for (int i = 19; i < 23; i++)
+		tilemap->SetTileProperty(i, Wall);
+	for (int i = 23; i < 26; i++)
+		tilemap->SetTileProperty(i, Background);
+	for (int i = 26; i < 31; i++)
+		tilemap->SetTileProperty(i, Wall);
+
 	return true;
 }
 
@@ -112,6 +124,7 @@ bool Game::OnStop()
 	delete triangle;
 	delete rectangle;
 	delete collManager;
+	delete tilemap;
 
 	return true;
 }
@@ -146,16 +159,19 @@ bool Game::OnUpdate()
 
 	//texture->RotateZ(56 + i);
 
+	tilemap->ScrollView(50.0f * deltaTime, 0.0f);
+
 	collManager->CheckForBoundingBoxCollisions();
 	//collManager->CheckForBoundingCircleCollisions();
-
+	
 	return true;
 }
 
 void Game::OnDraw()
 {
-	character->Draw();
-	enemy->Draw();
-	triangle->Draw();
-	rectangle->Draw();
+	//character->Draw();
+	//enemy->Draw();
+	//triangle->Draw();
+	//rectangle->Draw();
+	tilemap->Draw();
 }

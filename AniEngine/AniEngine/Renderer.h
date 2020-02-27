@@ -13,6 +13,14 @@
 
 using namespace std;
 
+enum PrimitiveType
+{
+	TRIANGLE = 4,
+	TRIANGLE_STRIP = 5,
+	TRIANGLE_FAN = 6,
+	QUAD = 7
+};
+
 class ENGINEDLL_API Renderer
 {
 private:
@@ -33,6 +41,7 @@ public:
 	void SwapBuffer();
 	//void DrawBuffer(unsigned int vertexBuffer, unsigned int vertexCount);
 	void DrawBuffer(int vertexCount);
+	void DrawBuffer(PrimitiveType primitive, int vertexCount);
 	void DestroyBuffer(unsigned int buffer);
 	unsigned int GenBuffer(unsigned int size, float * g_vertex_buffer_data);
 	unsigned int GenColorBuffer(unsigned int size, float * g_color_buffer_data);
@@ -40,12 +49,18 @@ public:
 	void EnableAttributes(unsigned int attributeId);
 	void BindBuffer(unsigned int vertexBuffer, unsigned int attributeId);
 	void DisableAttributes(unsigned int attributeId);
+	void EnableBlend() const;
+	void DisableBlend() const;
 	void LoadIdentityMatrix();
 	void SetModelMatrix(glm::mat4 model);
 	void BindColorBuffer(unsigned int colorBuffer, unsigned int attributebID);
 	void BindUVBuffer(unsigned int uvBuffer, unsigned int attributebID);
 	void BindTexture(unsigned int textureID);
+	void UpdateView(float x, float y);
+
 	void SetMVP();
+
+	inline Window* GetRenderWindow();
 
 	glm::mat4& GetMVP();
 };

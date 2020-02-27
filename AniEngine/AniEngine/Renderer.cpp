@@ -31,11 +31,11 @@ bool Renderer::Start(Window* windowPtr)
 		glGenVertexArrays(1, &vertexArrayID);
 		glBindVertexArray(vertexArrayID);
 
-		projectionMatrix = glm::ortho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 100.0f);
+		projectionMatrix = glm::ortho(0.0f, (float)window->GetWidth(), 0.0f, (float)window->GetHeight(), 0.0f, 1.0f);
 		//projectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
 		viewMatrix = glm::lookAt(
-			glm::vec3(0, 0, 3), 
+			glm::vec3(0.0f, 0.0f, 1000.0f),
 			glm::vec3(0, 0, 0), 
 			glm::vec3(0, 1, 0)  
 		);
@@ -87,6 +87,11 @@ unsigned int Renderer::GenBuffer(unsigned int size, float * g_vertex_buffer_data
 void Renderer::DrawBuffer(int vertexCount)
 {
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
+}
+
+void Renderer::DrawBuffer(PrimitiveType primitive, int vertexCount)
+{
+	glDrawArrays(primitive, 0, vertexCount);
 }
 
 void Renderer::DestroyBuffer(unsigned int buffer)
@@ -175,6 +180,17 @@ void Renderer::DisableAttributes(unsigned int attributeID)
 	glDisableVertexAttribArray(attributeID);
 }
 
+void Renderer::EnableBlend() const
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void Renderer::DisableBlend() const
+{
+	glDisable(GL_BLEND);
+}
+
 void Renderer::LoadIdentityMatrix()
 {
 	modelMatrix = glm::mat4(1.0f);
@@ -189,6 +205,15 @@ void Renderer::SetModelMatrix(glm::mat4 model)
 	SetMVP();
 }
 
+void Renderer::UpdateView(float x, float y)
+{
+	glm::vec3 newCameraPos(x, y, 1.0f);
+
+	viewMatrix = glm::lookAt(newCameraPos, glm::vec3(newCameraPos.x, newCameraPos.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+	SetMVP();
+}
+
 void Renderer::SetMVP()
 {
 	MVP = projectionMatrix * viewMatrix * modelMatrix;
@@ -197,4 +222,9 @@ void Renderer::SetMVP()
 glm::mat4& Renderer::GetMVP()
 {
 	return MVP;
+}
+
+Window* Renderer::GetRenderWindow()
+{
+	return window;
 }

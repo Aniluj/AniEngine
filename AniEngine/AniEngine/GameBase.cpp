@@ -19,7 +19,7 @@ bool GameBase::Start()
 	window = new Window();
 	renderer = new Renderer();
 
-	if (!window->Start(960,640,"gameWindow"))
+	if (!window->Start(1280, 720,"gameWindow"))
 	{
 		return false;
 	}

@@ -111,11 +111,10 @@ void Texture::Draw()
 	if (material != nullptr)
 	{
 		material->Bind();
+		renderer->BindTexture(texture);
 		material->SetMatrixProperty(renderer->GetMVP());
 		material->SetTextureProperty();
 	}
-
-	renderer->BindTexture(texture);
 
 	renderer->EnableAttributes(0);
 	renderer->EnableAttributes(1);
